@@ -1,0 +1,26 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    gap: 20px;
+    max-width: 800px; /* Define a largura máxima do grid */
+    margin: 0 auto; /* Centraliza o grid na página */
+  }
+
+.card {
+    width: 120px;
+    height: 120px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 120px; /* Centraliza o texto verticalmente */
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    transition: transform 0.2s;
+  }
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+  }
