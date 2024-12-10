@@ -1,5 +1,7 @@
 mkdir djangotutorial
+python -m venv meu_ambiente
 django-admin startproject mysite djangotutorial
+meu_ambiente\Scripts\Activate.ps1
 python manage.py runserver
 python manage.py startapp polls
 python manage.py makemigrations   

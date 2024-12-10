@@ -1,12 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
 
 
-
-
-{% block 'title' %}
-Type Pay
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'mesas/css/mesas.css' %}">
 {% endblock %}
 
+{% block 'title' %}
+Produtos
+{% endblock %}
+
+
+
+
 {% block 'body' %}
-Body Type Pay
+
+
+<body>
+    <div class="grid-container">
+  
+      {% for product in products %}
+  
+      <div class="card">{{product.name}}</div>
+  
+      {% endfor %} 
+  
+  
+    </div>
+  </body>
+
+
 {% endblock %}

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block 'title' %}
-RRB&C - Mesas
+RRB&C - DashBoard
 {% endblock %}
 
 {% block 'body' %}
@@ -16,11 +16,13 @@ RRB&C - Mesas
 <body>
   <div class="grid-container">
 
-    {% for mesa in mesas %}
+    <h1>DashBoard Aqui</h1>
+
+    {% comment %} {% for mesa in mesas %}
 
     <div class="card">{{mesa.name}}</div>
 
-    {% endfor %} 
+    {% endfor %}  {% endcomment %}
 
 
   </div>
