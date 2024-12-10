@@ -1,6 +1,6 @@
-$ mkdir djangotutorial
-$ django-admin startproject mysite djangotutorial
-$ python manage.py runserver
+mkdir djangotutorial
+django-admin startproject mysite djangotutorial
+python manage.py runserver
 python manage.py startapp polls
 python manage.py makemigrations   
 python manage.py migrate
