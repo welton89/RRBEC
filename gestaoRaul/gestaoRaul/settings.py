@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'clients',
     'comandas',
     'categories',
+    'home',
 ]
 
 MIDDLEWARE = [

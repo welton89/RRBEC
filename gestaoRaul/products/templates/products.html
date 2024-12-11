@@ -3,7 +3,10 @@
 
 
 {% block 'head' %}
-<link rel="stylesheet" href="{% static 'mesas/css/mesas.css' %}">
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+<script src="{% static 'products/js/products.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}
 
 {% block 'title' %}
@@ -18,16 +21,47 @@ Produtos
 
 <body>
     <div class="grid-container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Abrir Modal
+          </button>
   
       {% for product in products %}
   
-      <div class="card">{{product.name}}</div>
+      <div class="card">
+        {{product.name}}
+    </div>
   
       {% endfor %} 
   
   
     </div>
   </body>
+
+{% comment %} <dialog open>
+    <h2>Titulo modal</h2>
+    <p>texto qualquer</p>
+</dialog> {% endcomment %}
+  
+
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Conteúdo do seu modal.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Salvar mudanças</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 {% endblock %}
