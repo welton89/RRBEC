@@ -1,12 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 
 
 {% block 'title' %}
-Type Pay
+Comandas{% endblock %}
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'comandas/css/comandas.css' %}">
 {% endblock %}
-
 {% block 'body' %}
-Body Type Pay
+
+body>
+  <div class="grid-container">
+
+    {% for comanda in comandas %}
+
+    <div href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" class="card"> <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">{{comanda.name}} </a> 
+    
+
+  </div>
+
+    {% endfor %} 
+
+
+  </div>
+</body>
+
+
+
+
 {% endblock %}

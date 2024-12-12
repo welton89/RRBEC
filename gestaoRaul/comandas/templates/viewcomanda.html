@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+
+{% block 'title' %}
+Comandas{% endblock %}
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'comandas/css/viewcomanda.css' %}">
+{% endblock %}
+{% block 'body' %}
+
+body>
+  <div class="grid-container">
+    <h4>{{comanda.id}}</h4>
+    <h4>{{comanda.name}}</h4>
+    <h4>{{comanda.mesa}}</h4>
+    <h4>{{comanda.dt_open}}</h4>
+
+
+
+  </div>
+</body>
+
+
+
+
+{% endblock %}

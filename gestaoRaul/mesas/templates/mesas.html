@@ -18,7 +18,21 @@ RRB&C - Mesas
 
     {% for mesa in mesas %}
 
-    <div class="card">{{mesa.name}}</div>
+    <div class="card"
+    {% if mesa.active == True %}
+    style="background-color: indianred;"
+    {% endif %}
+    >{{mesa.name}} 
+    
+
+    <form action="{% url 'onOffmesa' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="id-mesa" value="{{ mesa.id }}">
+      <button type="submit">On/Off</button>
+    </form>
+    
+
+  </div>
 
     {% endfor %} 
 
