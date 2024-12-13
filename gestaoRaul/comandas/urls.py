@@ -1,5 +1,7 @@
 
 from django.urls import path
+
+from comandas import htmx_views
 from . import views
 
 urlpatterns = [
@@ -10,3 +12,13 @@ urlpatterns = [
 
 
 ]
+
+
+htmx_urlpatterns = [
+    path('listProduct/', htmx_views.listProduct, name='listProduct'),
+    path('addProduct<int:product_id>/<int:comanda_id>/', htmx_views.addProduct, name='addProduct'),
+    # path('removeProduct/', views.removeProduct, name='removeProduct'),
+
+]
+
+urlpatterns += htmx_urlpatterns

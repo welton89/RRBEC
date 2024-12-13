@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 
 from comandas.models import Comanda, ProductComanda
+from products.models import Product
 from mesas.models import Mesa
 
-# Create your views here.
 
 def comandas(request):
     comandas = Comanda.objects.all()
@@ -12,25 +12,18 @@ def comandas(request):
 
 
 
-
 def viewComanda(request):
     id = request.GET.get('parametro')
     comanda_id = int(id)
     comanda = Comanda.objects.get(id=comanda_id)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
+    products = Product.objects.all()
     total = 0
     for produto in consumo:
         total += produto.product.price
   
-    return render(request, 'viewcomanda.html', {'comanda': comanda, 'consumo': consumo, 'total': total})
+    return render(request, 'viewcomanda.html', {'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products})
 
-
-def addProduct(request):
-    pass
-    # id = request.GET.get('parametro')
-    # comanda_id = int(id)
-    # comanda = Comanda.objects.get(id=comanda_id)
-    # return render(request, 'addproduct.html', {'comanda': comanda})
 
 
 def createComanda(request):

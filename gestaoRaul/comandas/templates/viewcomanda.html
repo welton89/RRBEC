@@ -58,8 +58,15 @@ Detalhes {{comanda.name}}
     <div class="modal-content">
         <form id="productForm" >
             <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button></h2>
-            <input type="text" id="search-product" name="search-product" required placeholder="Buscar Produto"><br>
+            <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' %}" hx-trigger="keyup" hx-target="#product-list"><br>
+              <div id="product-list" class="grid-list-products">
+                {% for product in products %}
 
+                 <div class="card" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#product-list">
+                  {{product.name}}
+                 </div>
+                {% endfor %}
+              </div>
 
              <!-- <input type="number" step="1" id="product-qtd" name="qtd" required placeholder="Quantidade"><br> -->
             <!-- <button type="submit">Salvar</button> -->
