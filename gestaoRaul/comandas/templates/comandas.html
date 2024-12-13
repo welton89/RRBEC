@@ -11,12 +11,15 @@ Comandas{% endblock %}
 {% endblock %}
 {% block 'body' %}
 
-body>
-  <div class="grid-container">
+<body>
+    <div class="grid-container">
+      <button class="button" id="openModal">Abrir Comanda</button>
 
     {% for comanda in comandas %}
 
-    <div href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" class="card"> <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">{{comanda.name}} </a> 
+    <div href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" class="card"> 
+        <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">{{comanda.name}} </a> <br>
+        <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">{{comanda.mesa}}</a>
     
 
   </div>
@@ -25,7 +28,32 @@ body>
 
 
   </div>
+
+  <div class="modal" id="Modal-create-comanda">
+    <div class="modal-content">
+        <form id="form-comanda" method="post" action="{% url 'createComanda' %}">
+            {% csrf_token %}
+            <h2>Abrir Comanda</h2>
+            <input type="text" id="name-comanda" name="name-comanda" required placeholder="Nome"><br>
+             <select name="select-mesa" >
+
+                {% for mesa in mesas %}
+                <option value="{{mesa.id}}">{{mesa.name}}</option>
+                {% endfor %}
+
+
+
+                <!-- <option value="opcao1">Opção 1</option>
+                <option value="opcao2">Opção 2</option>
+                <option value="opcao3" >Opção 3</option> -->
+            </select>
+            <button type="submit">Abrir</button>
+            <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
+        </form>
+    </div>
+</div>
 </body>
+<script src="{% static 'comandas/js/comandas.js' %}"></script>
 
 
 

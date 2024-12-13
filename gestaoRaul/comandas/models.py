@@ -14,6 +14,8 @@ class Comanda(models.Model):
     dt_close = models.DateTimeField(null=True, blank=True)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=255)
+    def __str__(self) -> str:
+        return self.name
 
 class ProductComanda(models.Model):
     id = models.AutoField(primary_key=True)
@@ -21,3 +23,5 @@ class ProductComanda(models.Model):
     data_time = models.DateTimeField(auto_now_add=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     applicant = models.CharField(max_length=255, null=True, blank=True)
+    def __str__(self) -> str:
+        return self.comanda.name + " - " + self.product.name

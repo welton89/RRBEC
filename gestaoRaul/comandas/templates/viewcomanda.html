@@ -5,22 +5,73 @@
 
 
 {% block 'title' %}
-Comandas{% endblock %}
+Detalhes {{comanda.name}}
+{% endblock %}
+
+
+
+
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'comandas/css/viewcomanda.css' %}">
 {% endblock %}
+
+
 {% block 'body' %}
 
-body>
+<body>
   <div class="grid-container">
-    <h4>{{comanda.id}}</h4>
-    <h4>{{comanda.name}}</h4>
-    <h4>{{comanda.mesa}}</h4>
-    <h4>{{comanda.dt_open}}</h4>
+    <button class="button" id="openModal">Adicionar Produto</button>
+    <!-- <p>{{comanda.id}}</p> -->
+    <p>{{comanda.name}}</p>
+    <p>{{comanda.mesa}}</p>
+    <p>{{comanda.dt_open}}</p>
 
+
+    <table>
+      <tr>
+        <th style="text-align: left;">Produto</th>
+        <th style="text-align: left;">Preço</th>
+      </tr>
+
+    {%  for item in consumo%}
+
+    <tr>
+      <td>{{item.product.name}}</td>
+      <td>R$ {{item.product.price}}</td>
+    </tr>
+    
+
+
+    {% endfor %}
+    <tfoot>
+      <tr>
+        <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
+      </tr>
+    </tfoot>
+  </table>
 
 
   </div>
+
+
+  <div class="modal" id="Modal-add-product">
+    <div class="modal-content">
+        <form id="productForm" >
+            <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button></h2>
+            <input type="text" id="search-product" name="search-product" required placeholder="Buscar Produto"><br>
+
+
+             <!-- <input type="number" step="1" id="product-qtd" name="qtd" required placeholder="Quantidade"><br> -->
+            <!-- <button type="submit">Salvar</button> -->
+        </form>
+    </div>
+</div>
+
+
+
+<script src="{% static 'comandas/js/viewcomanda.js' %}"></script>
+
+
 </body>
 
 
