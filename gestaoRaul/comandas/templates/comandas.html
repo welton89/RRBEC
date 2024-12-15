@@ -2,13 +2,14 @@
 {% load static %}
 
 
-
-
 {% block 'title' %}
-Comandas{% endblock %}
+Comandas
+{% endblock %}
+
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'comandas/css/comandas.css' %}">
 {% endblock %}
+
 {% block 'body' %}
 
 <body>
@@ -17,12 +18,11 @@ Comandas{% endblock %}
 
     {% for comanda in comandas %}
 
-    <div href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" class="card"> 
-        <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">{{comanda.name}} </a> <br>
-        <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">{{comanda.mesa}}</a>
+    <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}"><div class="card" > 
+        {{comanda.name}}  <br>
+        {{comanda.mesa}}
     
-
-  </div>
+  </div></a>
 
     {% endfor %} 
 
@@ -41,11 +41,6 @@ Comandas{% endblock %}
                 <option value="{{mesa.id}}">{{mesa.name}}</option>
                 {% endfor %}
 
-
-
-                <!-- <option value="opcao1">Opção 1</option>
-                <option value="opcao2">Opção 2</option>
-                <option value="opcao3" >Opção 3</option> -->
             </select>
             <button type="submit">Abrir</button>
             <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>

@@ -14,7 +14,6 @@ Produtos
 
 
 
-
 {% block 'body' %}
 
 
@@ -37,14 +36,22 @@ Produtos
 
 
   
-<div class="modal" id="myModal">
+<div class="modal" id="Modal-create-product">
     <div class="modal-content">
-        <form id="productForm" method="post" action="{% url 'create_product' %}">
+        <form action="{% url 'create_product' %}" id="productForm" method="post" >
+          {% csrf_token %}
             <h2>Cadastro de Produto</h2>
             <input type="text" id="productName" name="name" required placeholder="Nome"><br>
              <input type="number" step="0.01" id="productPrice" name="price" required placeholder="Preço"><br>
-             <input type="number" step="1" id="productqtd" name="qtd" required placeholder="Quantidade"><br>
-            <textarea id="productDescription" name="description" rows="4" required placeholder="Descrição"></textarea><br>
+             <input type="number" step="1" id="productqtd" name="qtd"  placeholder="Quantidade"><br>
+             <select name="select-categorie" >
+
+              {% for categorie in categories %}
+              <option value="{{categorie.id}}">{{categorie.name}}</option>
+              {% endfor %}
+
+          </select>
+            <textarea id="productDescription" name="description" rows="4" placeholder="Descrição"></textarea><br>
             <button type="submit">Salvar</button>
             <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
         </form>

@@ -17,15 +17,16 @@
 .card {
     width: 120px;
     height: 120px;
-    background-color: #f2f2f2;
+    background-color: #c9ffbc;
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    line-height: 120px; /* Centraliza o texto verticalmente */
+    line-height: 40px; /* Centraliza o texto verticalmente */
     font-size: 20px;
     font-weight: bold;
     color: #333;
     transition: transform 0.2s;
+    cursor: pointer;
   }
 
 .card:hover {

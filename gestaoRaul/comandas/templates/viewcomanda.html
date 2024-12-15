@@ -19,7 +19,7 @@ Detalhes {{comanda.name}}
 {% block 'body' %}
 
 <body>
-  <div class="grid-container">
+  <div class="grid-container" >
     <button class="button" id="openModal">Adicionar Produto</button>
     <!-- <p>{{comanda.id}}</p> -->
     <p>{{comanda.name}}</p>
@@ -27,7 +27,7 @@ Detalhes {{comanda.name}}
     <p>{{comanda.dt_open}}</p>
 
 
-    <table>
+    <table id="list-products-comanda">
       <tr>
         <th style="text-align: left;">Produto</th>
         <th style="text-align: left;">Preço</th>
@@ -58,12 +58,13 @@ Detalhes {{comanda.name}}
     <div class="modal-content">
         <form id="productForm" >
             <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button></h2>
-            <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' %}" hx-trigger="keyup" hx-target="#product-list"><br>
+            <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                 <div class="card" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#product-list">
-                  {{product.name}}
+                 <div class="card" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                  {{product.name}} <br>
+                  R$ {{product.price}}
                  </div>
                 {% endfor %}
               </div>

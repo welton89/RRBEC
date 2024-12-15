@@ -1,12 +1,16 @@
 
 
 {% for product in products %}
+{{co}}
 
-    <div class="card">
-        {{product.name}}
+    <div class="card" hx-get="{% url 'addProduct' product.id comanda_id %} " hx-trigger="click" hx-target="#list-products-comanda">
+        {{product.name}} <br>
+        R$ {{product.price}}
        </div>
 
 {% endfor %}
+
+
 
 
 

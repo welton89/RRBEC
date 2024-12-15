@@ -11,11 +11,10 @@ def products(request):
 
 
 def createProduct(request):
-    print(request.POST)
     name = request.POST.get('name')
     description = request.POST.get('description')
     price = request.POST.get('price')
-    category = request.POST.get('category')
+    category = Categories.objects.get(id = int(request.POST.get('select-categorie')))
     product = Product(name=name, description=description, price=price, category=category)
     product.save()
     return redirect('/products')

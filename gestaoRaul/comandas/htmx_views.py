@@ -4,12 +4,16 @@ from comandas.models import Comanda, ProductComanda
 from products.models import Product
 
 
-def listProduct(request):
+def listProduct(request, comanda_id):
     product = request.GET.get("search-product")
     products = Product.objects.filter(name__icontains=product)
-    return render(request, "htmx_components/htmx_list_products.html", {"products": products})
+    return render(request, "htmx_components/htmx_list_products.html", {"products": products,'comanda_id':comanda_id})
 
 def addProduct(request, product_id, comanda_id):
     product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
     product_comanda.save()
-    return render(request, "htmx_components/htmx_add_product.html",)
+    consumo = ProductComanda.objects.filter(comanda=comanda_id)
+    total = 0
+    for produto in consumo:
+        total += produto.product.price
+    return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total})
