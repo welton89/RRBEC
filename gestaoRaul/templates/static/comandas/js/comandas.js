@@ -1,5 +1,7 @@
 function openModal() {
     document.getElementById('Modal-create-comanda').style.display = 'block';
+    // HTMLDialogElement.show()
+    // HTMLDialogElement.showModal()
 }
 
 function closeModal() {

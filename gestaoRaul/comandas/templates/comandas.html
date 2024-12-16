@@ -13,24 +13,24 @@ Comandas
 {% block 'body' %}
 
 <body>
-    <div class="grid-container">
-      <button class="button" id="openModal">Abrir Comanda</button>
+  <button  id="openModal">Abrir Comanda</button>
+    <div class="container ">
 
     {% for comanda in comandas %}
 
-    <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}"><div class="card" > 
-        {{comanda.name}}  <br>
+    <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}"><article > 
+      <header> {{comanda.name}}  </header><br>
         {{comanda.mesa}}
     
-  </div></a>
+  </article></a>
 
     {% endfor %} 
 
 
   </div>
 
-  <div class="modal" id="Modal-create-comanda">
-    <div class="modal-content">
+  <dialog  id="Modal-create-comanda">
+    <article >
         <form id="form-comanda" method="post" action="{% url 'createComanda' %}">
             {% csrf_token %}
             <h2>Abrir Comanda</h2>
@@ -45,8 +45,8 @@ Comandas
             <button type="submit">Abrir</button>
             <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
         </form>
-    </div>
-</div>
+    </article>
+</dialog >
 </body>
 <script src="{% static 'comandas/js/comandas.js' %}"></script>
 

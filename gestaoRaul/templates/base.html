@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'pico.css' %}">
     <script src="{% static 'htmx_base.js' %}"></script>
     {% block 'head' %}
     
@@ -17,9 +17,9 @@
 </head>
 <div>
     
-    aqui o menu
+    <!-- aqui o menu -->
 
-    <div class="sidebar">
+    <nav >
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="{% url 'mesas' %}">Mesas</a></li>
@@ -28,10 +28,10 @@
             <li><a href="#">Categorias</a></li>
             <li><a href="#">Sobre</a></li>
         </ul>
-    </div>
-    <div class="content">
+    </nav>
+    <!-- <div class="content">
         <h1>Bem-vindo ao meu site!</h1>
-    </div>
+    </div> -->
 
 
 </div>
