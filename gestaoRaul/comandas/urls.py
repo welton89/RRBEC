@@ -18,6 +18,7 @@ htmx_urlpatterns = [
     # path('listProduct/', htmx_views.listProduct, name='listProduct'),
     path('listProduct/<int:comanda_id>/', htmx_views.listProduct, name='listProduct'),
     path('addProduct<int:product_id>/<int:comanda_id>/', htmx_views.addProduct, name='addProduct'),
+    path('removeProductComanda<int:productComanda_id>/', htmx_views.removeProductComanda, name='removeProductComanda'),
     # path('removeProduct/', views.removeProduct, name='removeProduct'),
 
 ]

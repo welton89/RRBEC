@@ -17,3 +17,13 @@ def addProduct(request, product_id, comanda_id):
     for produto in consumo:
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total})
+
+
+def removeProductComanda(request, productComanda_id):
+    product_comanda = ProductComanda.objects.get(id=productComanda_id)
+    consumo = ProductComanda.objects.filter(comanda=product_comanda.comanda)
+    product_comanda.delete()
+    total = 0
+    for produto in consumo:
+        total += produto.product.price
+    return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total})

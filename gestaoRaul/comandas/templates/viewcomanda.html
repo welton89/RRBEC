@@ -20,11 +20,20 @@ Detalhes {{comanda.name}}
 
 <body>
   <div class="grid-container" >
-    <button class="button" id="openModal">Adicionar Produto</button>
+    <div>
+      <button class="primary" id="openModal">Adicionar Produto</button>
+      <button  id="pagarComanda">Pagar Comanda</button>
+      <button class="button" id="imprimirFichas">Imprimir Fichas</button>
+
+
+    </div>
     <!-- <p>{{comanda.id}}</p> -->
-    <p>{{comanda.name}}</p>
-    <p>{{comanda.mesa}}</p>
-    <p>{{comanda.dt_open}}</p>
+     <div>
+       <span>Nome: {{comanda.name}} | </span>
+       <span>Mesa: {{comanda.mesa}}</span>
+
+     </div>
+    <p>Aberta em: {{comanda.dt_open|date:"D"}} {{comanda.dt_open|date:"d/m/Y - H:i"}}</p>
 
 
     <table id="list-products-comanda">
@@ -38,6 +47,8 @@ Detalhes {{comanda.name}}
     <tr>
       <td>{{item.product.name}}</td>
       <td>R$ {{item.product.price}}</td>
+      <!-- <td><button id="open_remove_product_comanda" onclick="open_remove_product_comanda()">🗑️ Apagar</button></td> -->
+      <td><button hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Apagar</button></td>
     </tr>
     
 
@@ -74,6 +85,27 @@ Detalhes {{comanda.name}}
         </form>
     </div>
 </div>
+
+
+
+<dialog id="remove-product-comanda" style="display: none;" >
+  <article>
+    <h2>Produto Excluido!</h2>
+    <h1>✅</h1>
+    <p>
+     
+    </p>
+    <ul>
+    
+    </ul>
+    <footer>
+      <button class="secondary" onclick="removeCloseModal()">
+        OK
+      </button>
+      <!-- <button >Excluir</button> -->
+    </footer>
+  </article>
+</dialog>
 
 
 
