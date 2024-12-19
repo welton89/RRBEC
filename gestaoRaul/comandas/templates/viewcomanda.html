@@ -47,7 +47,7 @@ Detalhes {{comanda.name}}
     <tr>
       <td>{{item.product.name}}</td>
       <td>R$ {{item.product.price}}</td>
-      <td><button hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Apagar</button></td>
+      <td><button hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Excluir</button></td>
     </tr>
     
 
@@ -64,26 +64,28 @@ Detalhes {{comanda.name}}
   </div>
 
 
-  <div class="modal" id="Modal-add-product">
-    <div class="modal-content">
+
+      <dialog id="Modal-add-product" style="display: none;" >
+        <article>
+
         <form id="productForm" >
             <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button></h2>
             <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                 <div class="card" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                <article  style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
                   {{product.name}} <br>
                   R$ {{product.price}}
-                 </div>
+                </article >
                 {% endfor %}
               </div>
 
-             <!-- <input type="number" step="1" id="product-qtd" name="qtd" required placeholder="Quantidade"><br> -->
-            <!-- <button type="submit">Salvar</button> -->
+
         </form>
-    </div>
-</div>
+
+      </article>
+    </dialog>
 
 
 

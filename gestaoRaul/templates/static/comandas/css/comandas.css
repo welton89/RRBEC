@@ -1,8 +1,8 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 2fr);
+    grid-template-columns: repeat(3, 2fr);
     gap: 20px;
-    max-width: 800px; /* Define a largura máxima do grid */
+    max-width: 90%; /* Define a largura máxima do grid */
     margin: 0 auto; /* Centraliza o grid na página */
   }
 

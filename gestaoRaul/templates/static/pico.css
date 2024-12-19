@@ -1964,7 +1964,9 @@ details[open] > summary::after {
  * Card (<article>)
  */
 article {
-  margin-bottom: var(--pico-block-spacing-vertical);
+  /* margin-bottom: var(--pico-block-spacing-vertical); */
+  margin: 0px;
+  max-width: 95%;
   padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
   border-radius: var(--pico-border-radius);
   background: var(--pico-card-background-color);
