@@ -18,12 +18,28 @@ function removeCloseModal() {
 
 function imprimirFichas() {
     const element = document.getElementById("list-products-comanda");
+    const style = `<style>
+                    td, th {
+                                      
+                    border-collapse: collapse; 
+                    padding-top: 35px;
+                    margin: 20px;
+                    text-align: center;
+                    font-size: 24px;}
+                    </style>`;
+    const agora = new Date();
+    var dateString = agora.getDay() + '/' + agora.getMonth() + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes()+' - Raul Rock Bar & Café';
+
     if (element) {
       var content = element.innerHTML;
-      console.log(content);
+    //   console.log(content);
       content = content.replace(/<button[^>]*>(?:(?!<\/button>)[\s\S])*<\/button>/gi,'');
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write('<table>'+content+'</table>');
+      content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
+      content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
+      console.log(content);
+    
+      var printWindow = window.open('', '_blank');
+      printWindow.document.write('<table>'+content+'</table>'+style);
       printWindow.document.close();
       printWindow.print();
       printWindow.close();
