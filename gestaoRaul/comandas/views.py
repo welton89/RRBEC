@@ -6,7 +6,7 @@ from mesas.models import Mesa
 
 
 def comandas(request):
-    comandas = Comanda.objects.all()
+    comandas = Comanda.objects.filter(status__in=["OPEN", "PAYING"])
     mesas = Mesa.objects.all()
     return render(request, 'comandas.html', {'comandas': comandas, 'mesas': mesas})
 
