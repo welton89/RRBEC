@@ -27,3 +27,11 @@ def removeProductComanda(request, productComanda_id):
     for produto in consumo:
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total})
+
+def closeComanda(request, comanda_id):
+    # id = request.POST.get('id-comanda')
+    # comanda_id = int(id)
+    comanda = Comanda.objects.get(id=comanda_id)
+    comanda.status = "PAYING"
+    comanda.save()
+    return redirect('comandas')

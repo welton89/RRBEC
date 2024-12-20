@@ -20,7 +20,13 @@ Comandas
     
     <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none;">
       <article  > 
-      <header> {{comanda.name}}  | {{comanda.mesa}}</header><br>
+      <header 
+      {% if comanda.status == 'OPEN' %}
+      style="background-color: #036800;"
+      {% elif comanda.status == 'PAYING' %}
+      style="background-color: rgb(165, 86, 33);"
+      {% endif %}
+      > {{comanda.name}}  | {{comanda.mesa}}</header><br>
       <p>Aberta ás: {{comanda.dt_open|date:"H:i"}}</p>
         
     

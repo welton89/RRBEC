@@ -21,8 +21,24 @@ Detalhes {{comanda.name}}
 <body>
   <div class="grid-container" >
     <div>
-      <button class="primary" id="openModal">Adicionar Produto</button>
-      <button  id="pagarComanda">Pagar Comanda</button>
+      <button class="primary" id="openModal"
+      {%  if comanda.status != 'OPEN'%}
+       disabled
+       {% endif %}
+       >Adicionar Produto</button>
+
+      <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click"
+      {% if comanda.status != 'OPEN' %}
+      style="display: none;"
+      {% endif %}
+      >Fechar Comanda</button>
+
+      <button  id="pagarComanda" 
+      {% if comanda.status != 'PAYING' %}
+      style="display: none;"
+      {% endif %}
+      >Receber</button>
+
       <button class="button" id="imprimirFichas" onclick="imprimirFichas()">Imprimir Fichas</button>
 
 

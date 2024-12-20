@@ -34,3 +34,4 @@ def createComanda(request):
     comanda.save()
 
     return redirect('comandas')
+
