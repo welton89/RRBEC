@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'comandas',
     'categories',
     'home',
+    'payments',
 ]
 
 MIDDLEWARE = [
