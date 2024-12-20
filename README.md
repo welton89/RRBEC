@@ -13,15 +13,17 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Gerenciar o estoque de cada produto.
 
 ### Módulo de Comandas
-* [ ] Abrir nova comanda(inserindo nome, associando ou não a mesa).
+* [x] Abrir nova comanda(inserindo nome, associando ou não a mesa).
 * [ ] Editar informações da comanda.
-* [ ] Adicionar produtos na comanda.
+* [x] Adicionar produtos na comanda.
+* [x] Remover produtos da comanda.
 * [ ] Imprimir cupom de pagamento.
-* [ ] Imprimir fichas dos produtos.
-* [ ] Pagamento e fechamento da comanda.
+* [x] Imprimir fichas dos produtos.
+* [x] Fechamento da comanda.
+* [ ] Receber pagamento
 
 ### Módulo de Mesa
-* [x] Gerenciar mesas (ocupação, reserva).
+* [ ] Gerenciar mesas (ocupação, reserva).
 * [x] Associar pedidos e comandas a mesas.
 * [ ] Dividir contas.
 
