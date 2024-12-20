@@ -17,10 +17,12 @@ Comandas
     <div class="grid-container ">
 
     {% for comanda in comandas %}
-
-    <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}"><article > 
-      <header> {{comanda.name}}  </header><br>
-        {{comanda.mesa}}
+    
+    <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none;">
+      <article  > 
+      <header> {{comanda.name}}  | {{comanda.mesa}}</header><br>
+      <p>Aberta ás: {{comanda.dt_open|date:"H:i"}}</p>
+        
     
   </article></a>
 
