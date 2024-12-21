@@ -30,8 +30,8 @@ function imprimirFichas() {
                     td, th {
                                       
                     border-collapse: collapse; 
-                    padding-top: 35px;
-                    margin: 20px;
+                    padding-top: 30px;
+                    margin: 0px;
                     text-align: center;
                     font-size: 24px;}
                     </style>`;
@@ -43,7 +43,7 @@ function imprimirFichas() {
     //   console.log(content);
       content = content.replace(/<button[^>]*>(?:(?!<\/button>)[\s\S])*<\/button>/gi,'');
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
-      content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
+      content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+ '<BR>VÁLIDO SOMENTE POR ESSA NOITE'+'</td></tr>');
       console.log(content);
     
       var printWindow = window.open('', '_blank');
