@@ -4,7 +4,7 @@
 
 
 {% block 'head' %}
-<link rel="stylesheet" href="{% static 'mesas/css/mesas.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 {% endblock %}
 
 {% block 'title' %}
@@ -14,15 +14,35 @@ RRB&C - DashBoard
 {% block 'body' %}
 
 <body>
+  <h1>DashBoard Aqui</h1>
   <div class="grid-container">
 
-    <h1>DashBoard Aqui</h1>
+    <div class="card">
+      <h4> Valor Total de Pagamentos </h4>
+      <h4>R$ {{total_pagamentos |floatformat:2 }} </h4>
+    </div>
+    <div class="card">
+      <h4> Quantidade de Pagamentos </h4>
+      <h4> {{ qdt_pagamentos }} </h4>
+    </div>
 
-    {% comment %} {% for mesa in mesas %}
+    <div class="card">
+      <h4> Mais Vendidos </h4>
+      <table >
+        <tr>
+          <th style="text-align: left;">Produto</th>
+          <th style="text-align: left;">Quantidade</th>
+        </tr>
+      {% for produto in produtos_mais_vendidos %}
+      <tr>
+      <td> {{ produto.nome }} </td>
+      <td> {{ produto.quantidade }} </td>
+    </tr>
+    
+      {% endfor %}
+    </table>
+    </div>
 
-    <div class="card">{{mesa.name}}</div>
-
-    {% endfor %}  {% endcomment %}
 
 
   </div>
