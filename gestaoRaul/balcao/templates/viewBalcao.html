@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+
+{% block 'title' %}
+Detalhes {{comanda.name}}
+{% endblock %}
+
+
+
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'comandas/css/viewbalcao.css' %}">
+{% endblock %}
+
+
+{% block 'body' %}
+
+
+<body>
+  <div class="grid-container" >
+    <div>
+    <h1>Venda Balcão</h1>
+    <div>
+      <button class="primary" id="openModal" >Adicionar Produto</button>
+
+      <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
+      {% if comanda.status != 'OPEN' %}
+      style="display: none;"
+      {% endif %}
+      >Fechar Comanda</button>
+
+      <button  id="pagarComanda" onclick="modal_payment_comanda()" 
+   
+      >Receber</button>
+
+      <button class="button" id="imprimirFichas"  onclick="imprimirFichas()"
+
+      >Imprimir Fichas</button>
+
+      <!-- <button class="button" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
+      {%  if comanda.status == 'OPEN'%}
+      style="display: none;"
+      {% elif comanda.status == 'CLOSED' %}
+      style="display: none;"
+      {% endif %}
+      >Reabrir</button> -->
+
+
+    </div>
+
+    <!-- <p>Aberta em: {{comanda.dt_open|date:"D"}} {{comanda.dt_open|date:"d/m/Y - H:i"}}</p> -->
+
+
+    <table id="list-products-comanda">
+      <tr>
+        <th style="text-align: left;">Produto</th>
+        <th style="text-align: left;">Preço</th>
+      </tr>
+
+    {%  for item in consumo%}
+
+    <tr>
+      <td>{{item.product.name}}</td>
+      <td>R$ {{item.product.price}}</td>
+      <td><button
+        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" 
+        onclick="reloadPage()">🗑️ Excluir</button></td>
+    </tr>
+    
+
+
+      {% endfor %}
+      <tfoot>
+        <tr>
+          <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
+        </tr>
+      </tfoot>
+      </table>
+    </div>
+
+
+
+
+
+    <div id="add-produto">
+
+
+      
+        <article>
+
+        <form id="productForm" >
+            <h2>Adicionar Produto </h2>
+            <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
+              <div id="product-list" class="grid-list-products">
+                {% for product in products %}
+
+                <article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                  {{product.name}} <br>
+                  R$ {{product.price}}
+                </article >
+                {% endfor %}
+              </div>
+
+
+          </form>
+
+        </article>
+ 
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+      <!-- <dialog id="Modal-add-product" style="display: none;" >
+        <article>
+
+        <form id="productForm" >
+            <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;" >Fechar</button></h2>
+            <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
+              <div id="product-list" class="grid-list-products">
+                {% for product in products %}
+
+                <article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                  {{product.name}} <br>
+                  R$ {{product.price}}
+                </article >
+                {% endfor %}
+              </div>
+
+
+        </form>
+
+      </article>
+    </dialog> -->
+
+
+
+<dialog id="remove-product-comanda" style="display: none;" >
+  <article>
+    <h2>Produto Excluido!</h2>
+    <h1>✅</h1>
+    <p>
+     
+    </p>
+    <ul>
+    
+    </ul>
+    <footer>
+      <button class="secondary" onclick="removeCloseModal()">
+        OK
+      </button>
+      <!-- <button >Excluir</button> -->
+    </footer>
+  </article>
+</dialog>
+
+<dialog id="payment-comanda" style="display: none;" >
+  <article>
+    <h2>Receber</h2>
+    <h1>R$ {{ total }}</h1>
+    <p>
+    </p>
+    <ul>
+    </ul>
+    <footer>
+      <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">
+        Comfimar
+      </button>
+
+      <button onclick="close_modal_payment_comanda()" >Cancelar</button>
+    </footer>
+  </article>
+</dialog>
+
+
+
+<script src="{% static 'comandas/js/viewbalcao.js' %}"></script>
+
+
+</body>
+
+
+
+
+{% endblock %}

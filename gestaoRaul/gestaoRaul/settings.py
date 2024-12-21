@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'categories',
     'home',
     'payments',
+    'balcao',
 ]
 
 MIDDLEWARE = [

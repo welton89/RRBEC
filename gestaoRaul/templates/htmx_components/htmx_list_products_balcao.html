@@ -1,0 +1,17 @@
+
+
+{% for product in products %}
+{{co}}
+
+<article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda_id %} " hx-trigger="click" hx-target="#list-products-comanda">
+        {{product.name}} <br>
+        R$ {{product.price}}
+       </article>
+
+{% endfor %}
+
+
+
+
+
+

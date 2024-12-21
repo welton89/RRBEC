@@ -26,6 +26,7 @@ urlpatterns = [
     path('clients/', include('clients.urls')),
     path('comandas/', include('comandas.urls')),
     path('categories/', include('categories.urls')),
+    path('balcao/', include('balcao.urls')),
 
 
 ]
