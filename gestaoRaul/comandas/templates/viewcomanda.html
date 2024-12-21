@@ -27,23 +27,34 @@ Detalhes {{comanda.name}}
        {% endif %}
        >Adicionar Produto</button>
 
-      <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click"
+      <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
       {% if comanda.status != 'OPEN' %}
       style="display: none;"
       {% endif %}
       >Fechar Comanda</button>
 
-      <button  id="pagarComanda" 
+      <button  id="pagarComanda" onclick="modal_payment_comanda()"
       {% if comanda.status != 'PAYING' %}
       style="display: none;"
       {% endif %}
       >Receber</button>
 
-      <button class="button" id="imprimirFichas" onclick="imprimirFichas()">Imprimir Fichas</button>
+      <button class="button" id="imprimirFichas" 
+      {%  if comanda.status != 'OPEN'%}
+      style="display: none;"
+      {% endif %}
+      onclick="imprimirFichas()">Imprimir Fichas</button>
+
+      <button class="button" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
+      {%  if comanda.status == 'OPEN'%}
+      style="display: none;"
+      {% elif comanda.status == 'CLOSED' %}
+      style="display: none;"
+      {% endif %}
+      >Reabrir</button>
 
 
     </div>
-    <!-- <p>{{comanda.id}}</p> -->
      <div>
        <span>Nome: {{comanda.name}} | </span>
        <span>Mesa: {{comanda.mesa}}</span>
@@ -63,7 +74,11 @@ Detalhes {{comanda.name}}
     <tr>
       <td>{{item.product.name}}</td>
       <td>R$ {{item.product.price}}</td>
-      <td><button hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Excluir</button></td>
+      <td><button
+        {%  if comanda.status != 'OPEN'%}
+        disabled
+        {% endif %}
+        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Excluir</button></td>
     </tr>
     
 
@@ -120,6 +135,24 @@ Detalhes {{comanda.name}}
         OK
       </button>
       <!-- <button >Excluir</button> -->
+    </footer>
+  </article>
+</dialog>
+
+<dialog id="payment-comanda" style="display: none;" >
+  <article>
+    <h2>Receber</h2>
+    <h1>R$ {{ total }}</h1>
+    <p>
+    </p>
+    <ul>
+    </ul>
+    <footer>
+      <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">
+        Comfimar
+      </button>
+
+      <button onclick="close_modal_payment_comanda()" >Cancelar</button>
     </footer>
   </article>
 </dialog>
