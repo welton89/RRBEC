@@ -21,10 +21,10 @@ Detalhes {{comanda.name}}
 
 <body>
   <div class="grid-container" >
-    <div>
+    <div style="text-align: center;">
     <h1>Venda Balcão</h1>
     <div>
-      <button class="primary" id="openModal" >Adicionar Produto</button>
+      <!-- <button class="primary" id="openModal" >Adicionar Produto</button> -->
 
       <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
       {% if comanda.status != 'OPEN' %}
@@ -33,11 +33,15 @@ Detalhes {{comanda.name}}
       >Fechar Comanda</button>
 
       <button  id="pagarComanda" onclick="modal_payment_comanda()" 
-   
+      {% if total == 0 %}
+      disabled
+      {% endif %}
       >Receber</button>
 
       <button class="button" id="imprimirFichas"  onclick="imprimirFichas()"
-
+      {% if total == 0 %}
+      disabled
+      {% endif %}
       >Imprimir Fichas</button>
 
       <!-- <button class="button" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
@@ -66,7 +70,7 @@ Detalhes {{comanda.name}}
       <td>{{item.product.name}}</td>
       <td>R$ {{item.product.price}}</td>
       <td><button
-        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" 
+        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-swap="none" 
         onclick="reloadPage()">🗑️ Excluir</button></td>
     </tr>
     
@@ -89,15 +93,15 @@ Detalhes {{comanda.name}}
 
 
       
-        <article>
+        <!-- <article> -->
 
         <form id="productForm" >
-            <h2>Adicionar Produto </h2>
+            <h2 style="text-align: center;">Adicionar Produto </h2>
             <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                <article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                <article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-swap="none">
                   {{product.name}} <br>
                   R$ {{product.price}}
                 </article >
@@ -107,7 +111,7 @@ Detalhes {{comanda.name}}
 
           </form>
 
-        </article>
+        <!-- </article> -->
  
 
 

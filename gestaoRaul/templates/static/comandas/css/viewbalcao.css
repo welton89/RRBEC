@@ -1,7 +1,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 2fr);
-    gap: 10px;
+    gap: 20px;
     max-width: 1300px; /* Define a largura máxima do grid */
     margin: 0 auto; /* Centraliza o grid na página */
   }
