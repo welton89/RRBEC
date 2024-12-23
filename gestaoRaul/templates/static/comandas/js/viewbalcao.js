@@ -92,17 +92,49 @@ function imprimirConta() {
 
 function reloadPage(){
   setTimeout(function() {
-    location.reload();}, 100);
+    location.reload();}, 10);
 }
 
 function backPage() {
   setTimeout(function() {
     history.back();}, 100);
   setTimeout(function() {
-    location.reload();}, 100);
+    location.reload();}, 10);
 }
   
+document.onkeydown = teclado
 
+function teclado(event){
+  if (event.keyCode == 50){
+    document.getElementById('qtd-product').innerHTML = '2'
+  }
+  else if (event.keyCode == 73){
+    imprimirFichas()
+  }
+  else if (event.keyCode == 51){
+    document.getElementById('qtd-product').innerHTML = '3'
+  }
+  else if (event.keyCode == 52){
+    document.getElementById('qtd-product').innerHTML = '4'
+  }
+  else if (event.keyCode == 53){
+    document.getElementById('qtd-product').innerHTML = '5'
+  }
+  else if (event.keyCode == 54){
+    document.getElementById('qtd-product').innerHTML = '6'
+  }
+  else if (event.keyCode == 55){
+    document.getElementById('qtd-product').innerHTML = '7'
+  }
+  else if (event.keyCode == 56){
+    document.getElementById('qtd-product').innerHTML = '8'
+  }
+  else if (event.keyCode == 57){
+    document.getElementById('qtd-product').innerHTML = '9'
+  }
+
+
+}
 
 
 document.getElementById('openModal').addEventListener('click', openModal);

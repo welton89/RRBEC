@@ -103,7 +103,19 @@ function backPage() {
 }
   
 
+document.onkeydown = teclado
 
+function teclado(event){
+  if (event.keyCode == 65){
+    openModal()
+  }
+  else if (event.keyCode == 73){
+    imprimirFichas()
+  }
+  // else if (event.keyCode == 70){
+  //   imprimirConta()
+  // }
+}
 
 document.getElementById('openModal').addEventListener('click', openModal);
 

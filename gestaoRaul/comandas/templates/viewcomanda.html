@@ -33,11 +33,14 @@ Detalhes {{comanda.name}}
       {% endif %}
       >Fechar Comanda</button>
 
-      <button  id="pagarComanda" onclick="modal_payment_comanda()"
-      {% if comanda.status != 'PAYING' %}
-      style="display: none;"
+      {% if comanda.status == 'PAYING' %}
+      <button  id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
+      {% else %}
+
+      
+
       {% endif %}
-      >Receber</button>
+  
 
       <button class="button" id="imprimirFichas" 
       {%  if comanda.status != 'OPEN'%}
@@ -74,16 +77,18 @@ Detalhes {{comanda.name}}
     <tr>
       <td>{{item.product.name}}</td>
       <td>R$ {{item.product.price}}</td>
-      <td><button
-        {%  if comanda.status != 'OPEN'%}
-        disabled
+      {%  if comanda.status != 'OPEN'%}
+      {% else %}
+      <td>
+        <button
+        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Excluir</button>
+      </td>
         {% endif %}
-        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Excluir</button></td>
-    </tr>
-    
-
-
-    {% endfor %}
+        
+        
+        
+      </tr>
+        {% endfor %}
     <tfoot>
       <tr>
         <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>

@@ -2,8 +2,15 @@
 
 {% for product in products %}
 
-<article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda_id %} " hx-trigger="click" hx-swap="none">
-        {{product.name}} <br>
+<article 
+        id="product-{{ forloop.counter0 }}" 
+        onclick="reloadPage()" 
+        style="background-color: #293552;" 
+        hx-get="{% url 'addProduct' product.id comanda_id %} " 
+        hx-trigger="click" 
+        hx-swap="none">
+
+        {{ forloop.counter0 }} {{product.name}} <br>
         R$ {{product.price}}
        </article>
 

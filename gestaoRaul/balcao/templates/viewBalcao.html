@@ -5,7 +5,7 @@
 
 
 {% block 'title' %}
-Detalhes {{comanda.name}}
+{{comanda.name}}
 {% endblock %}
 
 
@@ -70,7 +70,7 @@ Detalhes {{comanda.name}}
       <td>{{item.product.name}}</td>
       <td>R$ {{item.product.price}}</td>
       <td><button
-        hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-swap="none" 
+        hx-get="{% url 'removeProductBalcao' item.id  %} " hx-trigger="click" hx-swap="none" 
         onclick="reloadPage()">🗑️ Excluir</button></td>
     </tr>
     
@@ -96,13 +96,16 @@ Detalhes {{comanda.name}}
         <!-- <article> -->
 
         <form id="productForm" >
-            <h2 style="text-align: center;">Adicionar Produto </h2>
-            <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
-              <div id="product-list" class="grid-list-products">
-                {% for product in products %}
+            <h2 style="text-align: center;">Buscar Produto </h2>
+            <div class="grid-container">
+              <input type="text" id="search-product" name="search-product" autofocus placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list">
+            <input type="number" id="qtd-product" name="qtd-product" value="1" required min="1"><br>
+          </div>
+            <div id="product-list" class="grid-list-products">
+                {% for product in products %} 
 
                 <article onclick="reloadPage()" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-swap="none">
-                  {{product.name}} <br>
+                  {{ forloop.counter0 }} {{product.name}} <br>
                   R$ {{product.price}}
                 </article >
                 {% endfor %}
