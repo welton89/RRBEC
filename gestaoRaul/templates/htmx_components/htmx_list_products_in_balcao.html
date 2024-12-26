@@ -1,0 +1,23 @@
+<tr>
+    <th style="text-align: left;">Produto</th>
+    <th style="text-align: left;">Preço</th>
+  </tr>
+
+{%  for item in consumo%}
+
+<tr>
+  <td>{{item.product.name}}</td>
+  <td>R$ {{item.product.price}}</td>
+  <td><button hx-get="{% url 'removeProductBalcao' item.id  %} " hx-trigger="click" hx-target="#list-products-balcao" >🗑️ Excluir</button></td>
+</tr>
+
+{% endfor %}
+
+<tfoot>
+    <tr>
+      <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
+    </tr>
+  </tfoot>
+</table>
+
+
