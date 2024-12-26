@@ -18,7 +18,7 @@ function close_modal_payment_comanda() {
 // function closeModal() {
 //     document.getElementById('Modal-add-product').style.display = 'none';
 // }
-
+document.cookie = 'qtd=1';
 
 
 function imprimirFichas() {
@@ -108,12 +108,6 @@ function teclado(event){
     addProductBalcao()
     reloadPage()
   }
-  // else if (event.keyCode == 73){
-  //   imprimirFichas()
-  // }
-  // else if (event.keyCode == 51){
-  //   document.getElementById('qtd-product').innerHTML = '3'
-
 
 }
 
@@ -135,8 +129,7 @@ function addProductBalcao() {
 
   })
 
-
-
+  reloadPage()
 }
 
 // document.getElementById('openModal').addEventListener('click', openModal);
@@ -150,14 +143,12 @@ document.getElementById('productForm').addEventListener('submit', function(event
 
 
 
-
-function salvarValor() {
-  const elemento = document.getElementById('qtd-product');
+const qtd = document.getElementById('qtd-product');
+qtd.addEventListener('input', () => {
   const chave = 'qtd';
-  const valor = elemento.value;
-    localStorage.setItem(chave, valor);
-    setCookie(chave, valor);
+  const valor = qtd.value;
+  document.cookie = chave + '=' + valor;
   console.log(chave, valor);
+});
 
-  }
  

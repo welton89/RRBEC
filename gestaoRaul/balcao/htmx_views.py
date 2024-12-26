@@ -24,7 +24,7 @@ def addProductBalcao(request, product_id, comanda_id, qtd):
 
 
 def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
-    print('entrouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu', product_id, comanda_id)
+    qtd = int(request.COOKIES.get('qtd'))
     for i in range(qtd):
         product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
         product_comanda.save()
@@ -36,7 +36,6 @@ def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
 
 
 def removeProductBalcao(request, productComanda_id):
-    print(request.COOKIES['qtd'])
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
     consumo = ProductComanda.objects.filter(comanda=product_comanda.comanda)
     product_comanda.delete()
@@ -58,6 +57,5 @@ def paymentBalcao(request, comanda_id):
         produto.save()
     pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description='VENDA BALCÃO')
     pagamento.save()
-    # comanda.save()
     return redirect('viewBalcao')
 
