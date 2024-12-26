@@ -35,22 +35,14 @@ def paymentBalcao(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     vendasBalcao = Comanda.objects.get(name='VENDAS BALCAO')
-    print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
-    print(f'ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg{vendasBalcao.id}')
     comanda = Comanda.objects.get(name='VENDA BALCÃO')
     total = 0
     for produto in consumo:
         total += produto.product.price
-        produto.comanda = 14
+        produto.comanda = vendasBalcao
         produto.save()
-        # newObject = ProductComanda.objects.get(comanda=produto.id)
-        # newObject.comanda= 14
-       
-        # newObject.save()
-
-
     pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description='VENDA BALCÃO')
     pagamento.save()
     # comanda.save()
-    return redirect('comandas')
+    return redirect('viewBalcao')
 
