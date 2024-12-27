@@ -120,23 +120,32 @@ function addProductBalcao() {
   var qtd = document.getElementById('qtd-product').value;
   console.log(productId, comandaId)
   const url = `/balcao/addProductBalcaoTeclado${productId}/${comandaId}/${qtd}/`;
-  const listProductsBalcao = document.getElementById('list-products-balcao');
   fetch(url, {
     method: 'GET', 
     headers: {
       'Content-Type': 'application/json'
-    },
-
-  })
-  .then(function(response) {
+    },}).then(function(response) {
     return response.text();
-  }).then(function(text) {
+    }).then(function(text) {
     var listProductsBalcaoElement = document.getElementById("list-products-balcao");
     listProductsBalcaoElement.innerHTML = text;
   })
+}
 
 
-  // reloadPage()
+function removeProductBalcao(id) {
+
+  const url = `/balcao/removeProductBalcao${id}/`;
+  fetch(url, {
+    method: 'GET', 
+    headers: {
+      'Content-Type': 'application/json'
+    },}).then(function(response) {
+    return response.text();
+    }).then(function(text) {
+    var listProductsBalcaoElement = document.getElementById("list-products-balcao");
+    listProductsBalcaoElement.innerHTML = text;
+  })
 }
 
 

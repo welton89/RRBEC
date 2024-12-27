@@ -8,7 +8,9 @@
 <tr>
   <td>{{item.product.name}}</td>
   <td>R$ {{item.product.price}}</td>
-  <td><button hx-get="{% url 'removeProductBalcao' item.id  %} " hx-trigger="click" hx-target="#list-products-balcao" >🗑️ Excluir</button></td>
+  <td><button onclick="removeProductBalcao({{item.id}})"
+   
+    >🗑️ Excluir</button></td>
 </tr>
 
 {% endfor %}
