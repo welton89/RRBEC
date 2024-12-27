@@ -58,6 +58,9 @@
         <tr>
           <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
         </tr>
+        <tr hidden  >
+          <td hidden id="total">{{total}}</td>
+        </tr>
       </tfoot>
       </table>
     </div>
@@ -144,7 +147,7 @@
 <dialog id="payment-comanda" style="display: none;" >
   <article>
     <h2>Receber</h2>
-    <h1>R$ {{ total }}</h1>
+    <h1 id="first-total" >R$ {{ total }}</h1>
     <p>
     </p>
     <ul>

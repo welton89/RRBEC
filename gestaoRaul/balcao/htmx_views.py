@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count, F
+
 
 
 from comandas.models import Comanda, ProductComanda
@@ -9,10 +11,24 @@ from typePay.models import TypePay
 
 @csrf_exempt
 def listProductBalcao(request, comanda_id, search_product):
-    print('chegouuuuuuuuuuuuuuuuuuuuuuuuuuu')
-    product = search_product
-    products = Product.objects.filter(name__icontains=product)
-    return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
+    print(search_product)
+    if len(search_product) == 0:
+        produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
+        quantidade=Count('product'),
+        nome=F('product__name') ).order_by('-quantidade'))
+        products = Product.objects.all()
+        products_ordenados = []
+
+        for produto in produtos_mais_vendidos:
+            for p in products:
+                if p.name == produto['nome']:
+                    products_ordenados.append(p)
+
+        return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
+    else:
+        product = search_product
+        products = Product.objects.filter(name__icontains=product)
+        return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
 
 
 # def listProductBalcao(request, comanda_id):
@@ -32,7 +48,6 @@ def addProductBalcao(request, product_id, comanda_id, qtd):
 
 @csrf_exempt
 def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
-    qtd = int(request.COOKIES.get('qtd'))
     for i in range(qtd):
         product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
         product_comanda.save()
