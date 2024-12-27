@@ -14,7 +14,7 @@ urlpatterns = [
 
 htmx_urlpatterns = [
     # path('listProduct/', htmx_views.listProduct, name='listProduct'),
-    path('listProductBalcao/<int:comanda_id>/', htmx_views.listProductBalcao, name='listProductBalcao'),
+    path('listProductBalcao/<int:comanda_id>/<str:search_product>/', htmx_views.listProductBalcao, name='listProductBalcao'),
     path('addProductBalcao<int:product_id>/<int:comanda_id>/<int:qtd>/', htmx_views.addProductBalcao, name='addProductBalcao'),
     path('addProductBalcaoTeclado<int:product_id>/<int:comanda_id>/<int:qtd>/', htmx_views.addProductBalcaoTeclado, name='addProductBalcaoTeclado'),
     path('removeProductBalcao<int:productComanda_id>/', htmx_views.removeProductBalcao, name='removeProductBalcao'),

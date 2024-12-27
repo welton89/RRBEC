@@ -1,16 +1,24 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+
 
 from comandas.models import Comanda, ProductComanda
 from products.models import Product
 from payments.models import Payments
 from typePay.models import TypePay
 
-
-def listProductBalcao(request, comanda_id):
-    product = request.GET.get("search-product")
+@csrf_exempt
+def listProductBalcao(request, comanda_id, search_product):
+    print('chegouuuuuuuuuuuuuuuuuuuuuuuuuuu')
+    product = search_product
     products = Product.objects.filter(name__icontains=product)
-    print(products)
-    return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,})
+    return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
+
+
+# def listProductBalcao(request, comanda_id):
+#     product = request.GET.get("search-product")
+#     products = Product.objects.filter(name__icontains=product)
+#     return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
 
 def addProductBalcao(request, product_id, comanda_id, qtd):
     for i in range(qtd):

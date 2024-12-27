@@ -8,10 +8,10 @@
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 style="background-color: #293552;" 
-                hx-get="{% url 'addProductBalcaoTeclado' product.id comanda.id 1 %} " hx-trigger="click" hx-target="#list-products-balcao" 
+                
                 >
                 <p hidden id="{{forloop.counter0}}" >{{product.id}}</p>
-                <p hidden id="comanda{{forloop.counter0}}" >{{comanda.id}}</p>
+                <p hidden id="comanda{{forloop.counter0}}" >{{comanda_id}}</p>
                 {{product.name}} <br> <p id="{{product.id}}"></p>
                 R$ {{product.price}}
                 </article >
@@ -22,9 +22,9 @@
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 style="background-color: #293552;" 
-                hx-get="{% url 'addProductBalcaoTeclado' product.id comanda.id 1 %} " hx-trigger="click" hx-target="#list-products-balcao" 
-                ><data value="{{product.id}}"></data>
-                {{ forloop.counter0 }} {{product.name}} <br>
+                
+                >
+                {{product.name}} <br>
                 R$ {{product.price}}
                 </article >
 

@@ -103,10 +103,10 @@ document.onkeydown = teclado
 
 function teclado(event){
   if (event.keyCode == 13){
-    // const productId = document.getElementById('0').value;
-    // const comandaId = document.getElementById('comanda0').value;
     addProductBalcao()
     reloadPage()
+  }else{
+    console.log(event.keyCode)
   }
 
 }
@@ -132,9 +132,6 @@ function addProductBalcao() {
   reloadPage()
 }
 
-// document.getElementById('openModal').addEventListener('click', openModal);
-
-
 
 document.getElementById('productForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
@@ -151,4 +148,42 @@ qtd.addEventListener('input', () => {
   console.log(chave, valor);
 });
 
- 
+
+
+
+function searchProduct() {
+  var search_product = document.getElementById('search-product').value
+  var productListElement = document.getElementById("product-list");
+  if(search_product.length >= 1){
+  fetch(`/balcao/listProductBalcao/13/${search_product}`, {
+    method: 'GET',
+  }
+  ).then(function(response) {
+    return response.text();
+  }).then(function(text) {
+    productListElement.innerHTML = text;
+    
+  })}
+  
+}
+
+function addProductClick(productId, comandaId) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "{% url 'addProductBalcaoTeclado' product.id comanda.id 1 %}", true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      var listProductsBalcaoElement = document.getElementById("list-products-balcao");
+      listProductsBalcaoElement.innerHTML = response.html;
+    }
+  };
+  xhr.send();
+}
+
+
+
+// hx-get="{% url 'listProductBalcao' comanda.id %}" 
+//               hx-trigger="keyup" 
+//               hx-target="#product-list"
+
+// hx-get="{% url 'addProductBalcaoTeclado' product.id comanda.id 1 %}" hx-trigger="click" hx-target="#list-products-balcao" 
