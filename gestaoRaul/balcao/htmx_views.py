@@ -30,7 +30,7 @@ def addProductBalcao(request, product_id, comanda_id, qtd):
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_balcao.html",{'consumo': consumo, 'total': total})
 
-
+@csrf_exempt
 def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
     qtd = int(request.COOKIES.get('qtd'))
     for i in range(qtd):

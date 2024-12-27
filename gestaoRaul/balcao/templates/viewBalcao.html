@@ -80,7 +80,14 @@
               placeholder="Buscar Produto" 
               
               >
-            <input type="number" id="qtd-product" name="qtd-product" value="1" required min="1"><br>
+            <input 
+            type="number" 
+            id="qtd-product" 
+            name="qtd-product" 
+            value="1" 
+            required min="1"
+            
+            ><br>
           </div>
             <div id="product-list" class="grid-list-products">
                 {% for product in products %} 
@@ -90,7 +97,7 @@
                 <article 
                 name="productBox"
                 id="productId-{{ product.id }}" 
-              
+                onclick="addProductClick({{product.id}} , {{comanda.id}})"
                 style="background-color: #293552;" 
                 
                 >
@@ -105,6 +112,7 @@
                 <article 
                 name="productBox"
                 id="productId-{{ product.id }}" 
+                onclick="addProductClick({{product.id}} , {{comanda.id}})"
                 style="background-color: #293552;" 
                 
                 >

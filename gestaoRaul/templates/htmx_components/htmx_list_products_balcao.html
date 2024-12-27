@@ -8,7 +8,7 @@
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 style="background-color: #293552;" 
-                
+                onclick="addProductClick({{product.id}} , {{comanda_id}})"
                 >
                 <p hidden id="{{forloop.counter0}}" >{{product.id}}</p>
                 <p hidden id="comanda{{forloop.counter0}}" >{{comanda_id}}</p>
@@ -22,7 +22,7 @@
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 style="background-color: #293552;" 
-                
+                onclick="addProductClick({{product.id}} , {{comanda_id}})"
                 >
                 {{product.name}} <br>
                 R$ {{product.price}}
