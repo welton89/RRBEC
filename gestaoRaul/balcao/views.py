@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 
 from comandas.models import Comanda, ProductComanda
 from products.models import Product
-from mesas.models import Mesa
 from django.db.models import Count, F
 
 

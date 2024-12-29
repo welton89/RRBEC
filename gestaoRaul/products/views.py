@@ -19,3 +19,12 @@ def createProduct(request):
     product.save()
     return redirect('/products')
     # return render(request, 'products.html')
+
+
+def onOffProduct(request):
+    id = request.POST.get('id-product')
+    product_id = int(id)
+    product = Product.objects.get(id=product_id)
+    product.active = not product.active
+    product.save()
+    return redirect('products')

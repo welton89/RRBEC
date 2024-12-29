@@ -2,7 +2,7 @@
 button {
     background-color: #007BFF;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -55,11 +55,19 @@ input, textarea {
 
 
 
-.grid-container {
+.grid-buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 500px; /* Define a largura máxima do grid */
+    /* margin: 0 auto;  */
+  }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
     gap: 20px;
-    max-width: 800px; /* Define a largura máxima do grid */
+    max-width: 1000px; /* Define a largura máxima do grid */
     margin: 0 auto; /* Centraliza o grid na página */
   }
 

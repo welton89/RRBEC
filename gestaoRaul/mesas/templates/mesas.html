@@ -24,14 +24,6 @@ RRB&C - Mesas
     {% endif %}
     >{{mesa.name}} 
     
-
-    <form action="{% url 'onOffmesa' %}" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="id-mesa" value="{{ mesa.id }}">
-      <button type="submit">On/Off</button>
-    </form>
-    
-
   </div>
 
     {% endfor %} 

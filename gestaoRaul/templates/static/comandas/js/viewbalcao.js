@@ -8,7 +8,6 @@ function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
 }
 
-// document.cookie = 'qtd=1';
 
 
 function imprimirFichas() {
@@ -28,6 +27,7 @@ function imprimirFichas() {
     if (element) {
       var content = element.innerHTML;
       content = content.replace(/<button[^>]*>(?:(?!<\/button>)[\s\S])*<\/button>/gi,'');
+      content = content.replace(/<tfoot[^>]*>(?:(?!<\/tfoot>)[\s\S])*<\/tfoot>/gi,'');
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
       content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+ '<BR>VÁLIDO SOMENTE POR ESSA NOITE'+'</td></tr>');
     

@@ -31,10 +31,6 @@ def listProductBalcao(request, comanda_id, search_product):
         return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
 
 
-# def listProductBalcao(request, comanda_id):
-#     product = request.GET.get("search-product")
-#     products = Product.objects.filter(name__icontains=product)
-#     return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
 
 def addProductBalcao(request, product_id, comanda_id, qtd):
     for i in range(qtd):
