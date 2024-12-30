@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'mesas/css/mesas.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+RRB&C - Mapa de Mesas
+{% endblock %}
+
+{% block 'body' %}
+
+
+
+<!-- <div class="card"
+{% if mesa.active == True %}
+style="background-color: indianred;"
+{% endif %}
+>{{mesa.name}} 
+</div> -->
+
+<div id="mapa">
+  {% for mesa in mesas %}
+
+ 
+  {% if mesa.active == True %}
+  <div class="m-card" style= " {{ mesa.location }} background-color: indianred;"  >{{mesa.name}}</div>
+   {% else %}
+   <div class="m-card" style= " {{ mesa.location }} "  >{{mesa.name}}</div>
+   {% endif %}
+  
+  {% endfor %}
+</div>
+
+
+
+
+<!-- <body>
+  <div class="grid-container">
+    
+    {% for mesa in mesas %}
+    
+    <div class="card" style="right: 20px; bottom: 30px;">Elemento 2</div>
+
+    <div class="card"
+    {% if mesa.active == True %}
+    style="background-color: indianred;"
+    {% endif %}
+    >{{mesa.name}} 
+    
+  </div>
+
+    {% endfor %} 
+
+
+  </div>
+</body> -->
+
+
+{% endblock %}

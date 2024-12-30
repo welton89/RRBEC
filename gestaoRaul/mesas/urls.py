@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.mesas, name='mesas'),
-    path('onOffmesa/', views.onOffmesa, name='onOffmesa'),
+    path('mapMesas/', views.mapMesas, name='mapMesas'),
 
 
 

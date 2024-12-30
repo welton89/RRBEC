@@ -19,8 +19,38 @@
     color: #333;
     transition: transform 0.2s;
   }
+.m-card {
+    width: 80px;
+    height: 80px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 80px; /* Centraliza o texto verticalmente */
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    transition: transform 0.2s;
+  }
 
 .card:hover {
     transform: scale(1.05);
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
   }
+.m-card:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+
+  #mapa {
+    width: 1200px;
+    height: 800px;
+    background-image: url('https://payload.cargocollective.com/1/22/714749/12741186/FAENG-ANTES_1216.png');
+    position: relative;
+}
+
+.elemento {
+    position: absolute;
+}
