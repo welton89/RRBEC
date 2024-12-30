@@ -10,9 +10,10 @@ def home(request):
     total_pagamentos = Payments.objects.aggregate(total=Sum('value'))['total']
     qdt_pagamentos = Payments.objects.aggregate(total=Count('value'))['total']
     pagamentos = Payments.objects.all()
+    ticekMedio = total_pagamentos / qdt_pagamentos
 
     produtos_mais_vendidos = ProductComanda.objects.values('product').annotate(
     quantidade=Count('product'),
     nome=F('product__name') ).order_by('-quantidade')[:5]
 
-    return render(request, 'home.html', {'total_pagamentos': total_pagamentos, 'pagamentos': pagamentos, 'qdt_pagamentos': qdt_pagamentos, 'produtos_mais_vendidos': produtos_mais_vendidos})
+    return render(request, 'home.html', {'total_pagamentos': total_pagamentos, 'pagamentos': pagamentos, 'qdt_pagamentos': qdt_pagamentos, 'produtos_mais_vendidos': produtos_mais_vendidos, 'ticekMedio': ticekMedio})
