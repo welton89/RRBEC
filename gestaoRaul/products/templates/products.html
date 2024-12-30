@@ -20,7 +20,7 @@ Produtos
 <body>
     <div class="grid-container">
         <div ><input  type="text"></div>
-        <button  id="openModal">Adicionar Novo Produto</button>
+        <button onclick="openModal()" id="openModal">Adicionar Novo Produto</button>
 
         <table id="list-products">
           <tr>
@@ -34,13 +34,13 @@ Produtos
       {% for product in products %}
 
       <tr>
-        <td>{{product.name}}</td>
-        <td>R$ {{product.price}}</td>
-        <td>{{product.quantity}}</td>
-        <td>{{product.category.name}}</td>
+        <td id="name-{{product.id}}" >{{product.name}}</td>
+        <td id="price-{{product.id}}" >R$ {{product.price}}</td>
+        <td id="quantity-{{product.id}}" >{{product.quantity}}</td>
+        <td id="category-{{product.id}}" >{{product.category.name}}</td>
         <td>
           <div class="grid-buttons">
-          <button>📝 Editar</button>
+          <button onclick="editProduct({{product.id}})" >📝 Editar</button>
 
           <form action="{% url 'onOffproduct' %}" method="post">
             {% csrf_token %}
@@ -72,15 +72,16 @@ Produtos
 
 
       <dialog  id='Modal-create-product'  >
-        <article>
+        <article >
 
         <form action="{% url 'create_product' %}" id="productForm" method="post" >
           {% csrf_token %}
             <h2>Cadastro de Produto</h2>
+            <input  type="text" id="productId" name="productId" required hidden ><br>
             <input  type="text" id="productName" name="name" required placeholder="Nome"><br>
              <input type="number" step="0.01" id="productPrice" name="price" required placeholder="Preço"><br>
              <input type="number" step="1" id="productqtd" name="qtd"  placeholder="Quantidade"><br>
-             <select name="select-categorie" >
+             <select id="select-categorie" name="select-categorie" >
 
               {% for categorie in categories %}
               <option value="{{categorie.id}}">{{categorie.name}}</option>
@@ -88,9 +89,11 @@ Produtos
 
           </select>
             <textarea id="productDescription" name="description" rows="4" placeholder="Descrição"></textarea><br>
-            <button type="submit">Salvar</button>
-            <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
-        </form>
+            <footer class="grid-buttons">
+              <button type="submit">Salvar</button>
+              <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
+            </footer>
+          </form>
 
       </article>
     </dialog>

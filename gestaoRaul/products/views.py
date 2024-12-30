@@ -28,3 +28,15 @@ def onOffProduct(request):
     product.active = not product.active
     product.save()
     return redirect('products')
+
+def editProduct(request, productId):
+    # id = request.POST.get('productId')
+    product_id = productId
+    product = Product.objects.get(id=product_id)
+    product.name = request.POST.get('name')
+    product.description = request.POST.get('description')
+    product.price = request.POST.get('price')
+    product.quantity = request.POST.get('qtd')
+    product.category = Categories.objects.get(id = int(request.POST.get('select-categorie')))
+    product.save()
+    return redirect('products')
