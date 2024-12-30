@@ -1260,7 +1260,7 @@ optgroup,
 select,
 textarea {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: var(--pico-line-height);
   font-family: inherit;
   letter-spacing: inherit;
@@ -1268,6 +1268,8 @@ textarea {
 
 input {
   overflow: visible;
+  /* max-height: 45px; */
+
 }
 
 select {
@@ -1960,11 +1962,9 @@ details[open] > summary::after {
   background-position: left center;
 }
 
-/**
- * Card (<article>)
- */
+
 article {
-  /* margin-bottom: var(--pico-block-spacing-vertical); */
+  margin-bottom: var(--pico-block-spacing-vertical);
   margin: 0px;
   max-width: 95%;
   padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
@@ -1974,7 +1974,7 @@ article {
   transition: transform 0.2s;
 }
 article:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 article > header,
@@ -2337,9 +2337,9 @@ dialog {
   align-items: center;
   justify-content: center;
   width: inherit;
-  min-width: 100%;
+  min-width: 70%;
   height: inherit;
-  min-height: 100%;
+  min-height: 70%;
   padding: 0;
   border: 0;
   -webkit-backdrop-filter: var(--pico-modal-overlay-backdrop-filter);

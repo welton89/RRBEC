@@ -21,9 +21,10 @@ function editProduct(id) {
     preco = preco.replace('R$ ', '');
     preco = preco.replace(',', '.');
     productPrice.value = preco;
-    // productDescription.value = document.getElementById('description-'+id).innerHTML;
+    productDescription.value = document.getElementById('description-'+id).value;
     productqtd.value = document.getElementById('quantity-'+id).innerHTML;
-    categorie.value = 2;
+    console.log(document.getElementById('h-category-'+id).value)
+    categorie.value = document.getElementById('h-category-'+id).value;
 
     // const url = `/products/editProduct/${id}/`;
     // // window.location.href = url;

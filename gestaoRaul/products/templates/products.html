@@ -41,10 +41,12 @@ Produtos
         <td>
           <div class="grid-buttons">
           <button onclick="editProduct({{product.id}})" >📝 Editar</button>
+          <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
+          <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
 
           <form action="{% url 'onOffproduct' %}" method="post">
             {% csrf_token %}
-            <input type="hidden" name="id-product" value="{{ product.id }}">
+            <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
           {% if product.active == True %}
           <button style="background-color: red;">🚫 Desativar</button>
@@ -69,15 +71,13 @@ Produtos
 
 
   
-
-
       <dialog  id='Modal-create-product'  >
         <article >
 
         <form action="{% url 'create_product' %}" id="productForm" method="post" >
           {% csrf_token %}
             <h2>Cadastro de Produto</h2>
-            <input  type="text" id="productId" name="productId" required hidden ><br>
+            <input  type="text" id="productId" name="productId"  hidden ><br>
             <input  type="text" id="productName" name="name" required placeholder="Nome"><br>
              <input type="number" step="0.01" id="productPrice" name="price" required placeholder="Preço"><br>
              <input type="number" step="1" id="productqtd" name="qtd"  placeholder="Quantidade"><br>

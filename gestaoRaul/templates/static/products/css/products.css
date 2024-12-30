@@ -51,7 +51,12 @@ input, textarea {
     border: 1px solid #ccc;
 }
 
-
+* dialog {
+    transform: scale(1);
+    /* display: flexbox;
+    max-width: 200;
+    max-height: 400; */
+}
 
 
 
