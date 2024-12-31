@@ -20,18 +20,19 @@
     transition: transform 0.2s;
   }
 .m-card {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     background-color: #f2f2f2;
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    line-height: 80px; /* Centraliza o texto verticalmente */
+    line-height: 50px; /* Centraliza o texto verticalmente */
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    position: absolute;
+    /* position: absolute; */
     transition: transform 0.2s;
+    cursor: move;
   }
 
 .card:hover {

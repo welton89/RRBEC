@@ -10,8 +10,14 @@ def mesas(request):
 
 
 def mapMesas(request):
+    eixosXY = []
+    for i in range(0,25):
+        for j in range(0,15):
+            item = {'x':j*50, 'y':i*50}
+            eixosXY.append(item)
+
     mesas = Mesa.objects.all()
-    return render(request, 'mesas_map.html', {'mesas': mesas})
+    return render(request, 'mesas_map.html', {'mesas': mesas, 'eixosXY': eixosXY})
 
 # def onOffmesa(request):
 #     id = request.POST.get('id-mesa')

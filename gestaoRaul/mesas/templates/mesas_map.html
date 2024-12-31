@@ -2,7 +2,6 @@
 {% load static %}
 
 
-
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'mesas/css/mesas.css' %}">
 {% endblock %}
@@ -15,49 +14,82 @@ RRB&C - Mapa de Mesas
 
 
 
-<!-- <div class="card"
-{% if mesa.active == True %}
-style="background-color: indianred;"
-{% endif %}
->{{mesa.name}} 
-</div> -->
+<style>
+  .container {
+    display: flex;
+    justify-content: space-around;
+}
 
+.column {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.task {
+  width: 50px;
+  height: 50px;
+    background: #f0f0f0;
+    padding: 10px;
+    cursor: move;
+}
+</style>
+
+
+
+<script>
+  function eventEnter(event) {
+    console.log(event)
+  }
+
+  const columns = document.querySelectorAll('.column');
+
+columns.forEach(column => {
+    column.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    column.addEventListener('drop', (e) => {
+        const task = document.querySelector('.dragging');
+        column.appendChild(task);
+    });
+});
+
+document.addEventListener('dragstart', (e) => {
+  e.target.classList.remove('dragging');
+});
+
+document.addEventListener('dragend', (e) => {
+  e.target.classList.add('dragging');
+});
+
+</script>
 <div id="mapa">
+
+  {% for eixo in eixosXY %}
+        <div 
+        id="{{eixo.y}}-{{eixo.y}}" 
+        class="column"
+        ondragenter="eventEnter(event)" 
+        style="background-color: rgba(0, 0, 255, 0.103); 
+        width: 50px; 
+        height: 50px; 
+        left: {{eixo.y}}px; 
+        top: {{eixo.x}}px;position: absolute"></div>
+  {% endfor %}
+
+
   {% for mesa in mesas %}
 
- 
   {% if mesa.active == True %}
-  <div class="m-card" style= " {{ mesa.location }} background-color: indianred;"  >{{mesa.name}}</div>
+  <div class="m-card" ondragend="eventEnter(event)" draggable="true" style="  background-color: indianred;"  >{{mesa.name}}</div>
    {% else %}
-   <div class="m-card" style= " {{ mesa.location }} "  >{{mesa.name}}</div>
+   <div class="m-card" ondragend="eventEnter(event)" draggable="true"  >{{mesa.name}}</div>
    {% endif %}
   
   {% endfor %}
 </div>
 
 
-
-
-<!-- <body>
-  <div class="grid-container">
-    
-    {% for mesa in mesas %}
-    
-    <div class="card" style="right: 20px; bottom: 30px;">Elemento 2</div>
-
-    <div class="card"
-    {% if mesa.active == True %}
-    style="background-color: indianred;"
-    {% endif %}
-    >{{mesa.name}} 
-    
-  </div>
-
-    {% endfor %} 
-
-
-  </div>
-</body> -->
 
 
 {% endblock %}
