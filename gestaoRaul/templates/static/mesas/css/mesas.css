@@ -27,7 +27,7 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     line-height: 50px; /* Centraliza o texto verticalmente */
-    font-size: 20px;
+    font-size: 10px;
     font-weight: bold;
     color: #333;
     /* position: absolute; */
@@ -54,4 +54,9 @@
 
 .elemento {
     position: absolute;
+}
+
+.espaco {
+  border: 0.3px solid #cccccc56;
+  padding: 0px;
 }
