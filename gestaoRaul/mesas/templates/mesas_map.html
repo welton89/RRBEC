@@ -14,7 +14,17 @@ RRB&C - Mapa de Mesas
 
 {% block 'body' %}
 
-<div id="mapa" style="position: relative">
+<style>
+    #mapa {
+    width: 1400px;
+    height: 800px;
+    background-image: url("{% static 'midia/mapMesa.webp' %}" );
+    background-size: cover;
+    position: relative;
+}
+</style>
+
+<div id="mapa" >
 
   {% for eixo in eixosXY %}
         <div 

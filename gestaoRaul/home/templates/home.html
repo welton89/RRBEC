@@ -30,15 +30,15 @@ RRB&C - DashBoard
 
     <div class="card">
       <h4> Mais Vendidos </h4>
-      <table >
-        <tr>
-          <th style="text-align: left;">Produto</th>
-          <th style="text-align: left;">Quantidade</th>
+      <table style="background-color: rgba(0, 255, 255, 0);">
+        <tr style="background-color: rgba(0, 255, 255, 0);">
+          <th style="text-align: left;background-color: rgba(0, 255, 255, 0.089);">Produto</th>
+          <th style="text-align: left;background-color: rgba(0, 255, 255, 0.075);">Quantidade</th>
         </tr>
       {% for produto in produtos_mais_vendidos %}
       <tr>
-      <td> {{ produto.nome }} </td>
-      <td> {{ produto.quantidade }} </td>
+      <td style="background-color: rgba(0, 255, 255, 0);"> {{ produto.nome }} </td>
+      <td style="background-color: rgba(0, 255, 255, 0);"> {{ produto.quantidade }} </td>
     </tr>
     
       {% endfor %}

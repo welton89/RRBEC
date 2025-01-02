@@ -51,8 +51,8 @@ var resposta =   fetch(url, {method: 'GET', headers: {'Content-Type': 'applicati
     },}).then(response => response.json())
   .then(data => {
     console.log(data); 
-    if(data.status == 'ok'){
-      alert('Mesa movida com sucesso!')
+    if(data.status != 'ok'){
+      alert('Erro ao salvar local:', error)
     }
   })
   .catch(error => {

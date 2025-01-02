@@ -13,8 +13,8 @@ def mesas(request):
 
 def mapMesas(request):
     eixosXY = []
-    for i in range(0,25):
-        for j in range(0,15):
+    for i in range(0,27):
+        for j in range(0,16):
             item = {'x':j*50, 'y':i*50}
             eixosXY.append(item)
 

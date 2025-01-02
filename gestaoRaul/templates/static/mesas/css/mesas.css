@@ -45,12 +45,7 @@
   }
 
 
-  #mapa {
-    width: 1200px;
-    height: 800px;
-    background-image: url('https://payload.cargocollective.com/1/22/714749/12741186/FAENG-ANTES_1216.png');
-    position: relative;
-}
+
 
 .elemento {
     position: absolute;
