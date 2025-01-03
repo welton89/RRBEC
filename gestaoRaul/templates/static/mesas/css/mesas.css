@@ -55,3 +55,14 @@
   border: 0.3px solid #cccccc56;
   padding: 0px;
 }
+
+
+#drop {
+  display: flex;
+  background-color: rgb(75, 75, 75);
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px;
+  min-height: 300px;
+  max-width: 1370px;
+}

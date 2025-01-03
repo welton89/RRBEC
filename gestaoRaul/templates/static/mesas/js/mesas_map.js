@@ -44,8 +44,13 @@ function saveLocal() {
 const mesaElement = event.target;
 const targetElement = event.target.parentNode;
 const mesaId = mesaElement.id
-
 const targetId = targetElement.id;
+const parentNodeClass = targetElement.classList.value
+console.log(parentNodeClass)
+
+
+if (parentNodeClass == 'espaco' || targetId == 'drop'){
+
 const url = `/mesas/locationMesa/${mesaId}/${targetId}/`;
 var resposta =   fetch(url, {method: 'POST',
    headers: {'Content-Type': 'application/json',
@@ -61,6 +66,9 @@ var resposta =   fetch(url, {method: 'POST',
     console.log(document.cookie)
     console.error('Erro ao salvar local:', error);
   });
+}else{
+  alert('Aqui não pode!!!')
+}
 
 }
 
