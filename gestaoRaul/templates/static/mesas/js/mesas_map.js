@@ -68,6 +68,7 @@ var resposta =   fetch(url, {method: 'POST',
   });
 }else{
   alert('Aqui não pode!!!')
+  location.reload();
 }
 
 }
