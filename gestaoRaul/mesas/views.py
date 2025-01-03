@@ -1,10 +1,8 @@
-from django.shortcuts import render,redirect, HttpResponse
+from django.shortcuts import render
 from django.http import JsonResponse
-
 
 from mesas.models import Mesa
 
-# Create your views here.
 
 def mesas(request):
     mesas = Mesa.objects.all()
@@ -22,14 +20,8 @@ def mapMesas(request):
     return render(request, 'mesas_map.html', {'mesas': mesas, 'eixosXY': eixosXY})
 
 def locationMesa(request, mesaId, location):
+    print('inicioul')
     mesa = Mesa.objects.get(id=mesaId)
     mesa.location = location
     mesa.save()
     return JsonResponse({'status': 'ok'})
-# def onOffmesa(request):
-#     id = request.POST.get('id-mesa')
-#     mesa_id = int(id)
-#     mesa = Mesa.objects.get(id=mesa_id)
-#     mesa.active = not mesa.active
-#     mesa.save()
-#     return redirect('mesas')

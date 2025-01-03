@@ -47,15 +47,18 @@ const mesaId = mesaElement.id
 
 const targetId = targetElement.id;
 const url = `/mesas/locationMesa/${mesaId}/${targetId}/`;
-var resposta =   fetch(url, {method: 'GET', headers: {'Content-Type': 'application/json'
+var resposta =   fetch(url, {method: 'POST',
+   headers: {'Content-Type': 'application/json',
+    'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value
     },}).then(response => response.json())
   .then(data => {
-    console.log(data); 
     if(data.status != 'ok'){
       alert('Erro ao salvar local:', error)
     }
   })
   .catch(error => {
+    alert('Erro ao salvar local:', error)
+    console.log(document.cookie)
     console.error('Erro ao salvar local:', error);
   });
 

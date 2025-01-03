@@ -8,6 +8,4 @@ urlpatterns = [
     path('locationMesa/<int:mesaId>/<str:location>/', views.locationMesa, name='locationMesa'),
 
 
-
-
 ]
