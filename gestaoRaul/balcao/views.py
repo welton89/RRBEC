@@ -18,8 +18,9 @@ def viewBalcao(request):
 
     for produto in produtos_mais_vendidos:
         for p in products:
-            if p.name == produto['nome']:
+            if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
+        
 
     total = 0
     for produto in consumo:

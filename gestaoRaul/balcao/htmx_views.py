@@ -19,13 +19,14 @@ def listProductBalcao(request, comanda_id, search_product):
 
         for produto in produtos_mais_vendidos:
             for p in products:
-                if p.name == produto['nome']:
-                    products_ordenados.append(p)
+                if p.active == True and p.name == produto['nome']:
+                        products_ordenados.append(p)
+          
 
         return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products_ordenados,'comanda_id':comanda_id})
     else:
         product = search_product
-        products = Product.objects.filter(name__icontains=product)
+        products = Product.objects.filter(name__icontains=product, active=True)
         return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
 
 
