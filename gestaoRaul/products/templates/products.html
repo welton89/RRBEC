@@ -25,10 +25,10 @@ Produtos
         <table id="list-products">
           <tr>
             <th style="text-align: left;">Produto</th>
-            <th style="text-align: left;">Preço</th>
+            <th style="text-align: left;width: 20%;">Preço</th>
             <th style="text-align: left;">Quantidade</th>
             <th style="text-align: left;">Categoria</th>
-            <th style="text-align: left;">Ações</th>
+            <th style="text-align: left;width: 20%;">Ações</th>
           </tr>
   
       {% for product in products %}
@@ -40,7 +40,7 @@ Produtos
         <td id="category-{{product.id}}" >{{product.category.name}}</td>
         <td>
           <div class="grid-buttons">
-          <button onclick="editProduct({{product.id}})" >📝 Editar</button>
+          <h2 onclick="editProduct({{product.id}})" style="cursor: pointer;" >📝</h2>
           <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
           <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
 
@@ -49,9 +49,9 @@ Produtos
             <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
           {% if product.active == True %}
-          <button style="background-color: red;">🚫 Desativar</button>
+          <button style="background-color: rgba(255, 0, 0, 0);">✅</button>
           {% else %}
-          <button style="background-color: green;" >✅ Ativar</button>
+          <button style="background-color: rgba(0, 128, 0, 0);" >🚫</button>
 
           {% endif %}
 

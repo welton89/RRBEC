@@ -22,7 +22,7 @@ function imprimirFichas() {
                     font-size: 24px;}
                     </style>`;
     const agora = new Date();
-    var dateString = agora.getDay() + '/' + agora.getMonth() + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes()+' - Raul Rock Bar & Café';
+    var dateString = agora.getDate() + '/' +( agora.getMonth() + 1 )+ '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes()+' - Raul Rock Bar & Café';
 
     if (element) {
       var content = element.innerHTML;
@@ -74,7 +74,8 @@ function updateTotal(){
 function addProductBalcao() {
   var productId = document.getElementById('0').innerText;
   var comandaId = document.getElementById('comanda0').innerText;
-  var qtd = document.getElementById('qtd-product').value;
+  fieldQtd = document.getElementById('qtd-product');
+  var qtd = fieldQtd.value;
   const url = `/balcao/addProductBalcaoTeclado${productId}/${comandaId}/${qtd}/`;
   fetch(url, {
     method: 'GET', 
@@ -90,6 +91,7 @@ function addProductBalcao() {
   const imprimir = document.getElementById('imprimirFichas')
   receber.removeAttribute('disabled');
   imprimir.removeAttribute('disabled');
+  fieldQtd.value = 1;
   setTimeout(function() {
     updateTotal();}, 100);
 }
@@ -130,7 +132,7 @@ function searchProduct() {
   function time(){
   var search_product = document.getElementById('search-product').value.trim()
   var productListElement = document.getElementById("product-list");
-  if(search_product.length >= 1 ){
+  if(search_product.length == 0 ){search_product ='*';}
   fetch(`/balcao/listProductBalcao/13/${search_product}`, {
     method: 'GET',}
   ).then(function(response) {
@@ -138,11 +140,12 @@ function searchProduct() {
   }).then(function(text) {
     productListElement.innerHTML = text;
     
-  })}}
+  })}
 }
 
 function addProductClick(productId, comandaId) {
-  var qtd = document.getElementById('qtd-product').value
+  fieldQtd = document.getElementById('qtd-product');
+  var qtd = fieldQtd.value;
   fetch(`/balcao/addProductBalcaoTeclado${productId}/${comandaId}/${qtd}`, {
     method: 'GET',
     headers: {
@@ -160,6 +163,7 @@ function addProductClick(productId, comandaId) {
   const imprimir = document.getElementById('imprimirFichas')
   receber.removeAttribute('disabled');
   imprimir.removeAttribute('disabled');
+  fieldQtd.value = 1;
 
   setTimeout(function() {
     updateTotal();}, 100);

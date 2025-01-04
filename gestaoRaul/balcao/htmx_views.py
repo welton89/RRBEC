@@ -9,10 +9,8 @@ from products.models import Product
 from payments.models import Payments
 from typePay.models import TypePay
 
-@csrf_exempt
 def listProductBalcao(request, comanda_id, search_product):
-    print(search_product)
-    if len(search_product) == 0:
+    if search_product == '*':
         produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
         quantidade=Count('product'),
         nome=F('product__name') ).order_by('-quantidade'))
@@ -24,7 +22,7 @@ def listProductBalcao(request, comanda_id, search_product):
                 if p.name == produto['nome']:
                     products_ordenados.append(p)
 
-        return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
+        return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products_ordenados,'comanda_id':comanda_id})
     else:
         product = search_product
         products = Product.objects.filter(name__icontains=product)

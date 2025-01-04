@@ -73,7 +73,7 @@
             <h2 style="text-align: center;">Buscar Produto </h2>
             <div class="grid-container">
               <input 
-              onkeypress="searchProduct()"
+              oninput="searchProduct()"
               type="text" 
               id="search-product" 
               name="search-product" 
@@ -143,7 +143,7 @@
     <ul>
     </ul>
     <footer>
-      <button class="secondary" hx-get="{% url 'paymentBalcao' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">
+      <button class="secondary" hx-get="{% url 'paymentBalcao' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()">
         Comfimar
       </button>
 
