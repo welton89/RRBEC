@@ -91,6 +91,7 @@ function addProductBalcao() {
   const imprimir = document.getElementById('imprimirFichas')
   receber.removeAttribute('disabled');
   imprimir.removeAttribute('disabled');
+  document.getElementById('search-product').focus()
   fieldQtd.value = 1;
   setTimeout(function() {
     updateTotal();}, 100);
@@ -98,7 +99,6 @@ function addProductBalcao() {
 
 
 function removeProductBalcao(id) {
-
   const url = `/balcao/removeProductBalcao${id}/`;
   fetch(url, {
     method: 'GET', 
@@ -110,10 +110,9 @@ function removeProductBalcao(id) {
     var listProductsBalcaoElement = document.getElementById("list-products-balcao");
     listProductsBalcaoElement.innerHTML = text;
   })
-
+  document.getElementById('search-product').focus()
   setTimeout(function() {
     updateTotal();}, 100);
-  
 }
 
 
@@ -161,8 +160,11 @@ function addProductClick(productId, comandaId) {
   
   const receber = document.getElementById('pagarComanda')
   const imprimir = document.getElementById('imprimirFichas')
+  var search = document.getElementById('search-product')
   receber.removeAttribute('disabled');
   imprimir.removeAttribute('disabled');
+  search.focus()
+  // search.setAttribute('autofocus');
   fieldQtd.value = 1;
 
   setTimeout(function() {
