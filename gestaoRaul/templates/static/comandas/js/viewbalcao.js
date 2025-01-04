@@ -14,7 +14,7 @@ function imprimirFichas() {
     const element = document.getElementById("list-products-balcao");
     const style = `<style>
                     td, th {
-                                      
+                    max-width: 200px;   
                     border-collapse: collapse; 
                     padding-top: 30px;
                     margin: 0px;
