@@ -17,21 +17,23 @@ Comandas
     <div class="grid-container ">
 
     {% for comanda in comandas %}
-    
-    <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none;">
-      <article  > 
-      <header 
-      {% if comanda.status == 'OPEN' %}
-      style="background-color: #036800;"
-      {% elif comanda.status == 'PAYING' %}
-      style="background-color: rgb(165, 86, 33);"
-      {% endif %}
-      > {{comanda.name}}  | {{comanda.mesa}}</header><br>
-      <p>Aberta ás: {{comanda.dt_open|date:"H:i"}}</p>
-        
-    
-  </article></a>
-
+    <div class="card-comanda">
+      <a  href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none;">
+        <header 
+          {% if comanda.status == 'OPEN' %}
+          style="min-height: 60px;border-radius: 10px 10px 0px 0px; background-color: #036800;"
+          {% elif comanda.status == 'PAYING' %}
+          style="min-height: 60px;border-radius: 10px 10px 0px 0px; background-color: rgb(165, 86, 33);"
+          {% endif %}
+            > 
+            {{comanda.name}} | {{comanda.mesa}}
+        </header>
+          <br>
+            <p>
+              Aberta ás: {{comanda.dt_open|date:"H:i"}}
+            </p>
+      </a>
+    </div>
     {% endfor %} 
 
 

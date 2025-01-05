@@ -16,23 +16,50 @@
     <title>  {% block 'title' %}{% endblock  %} </title>
 </head>
 <div>
-    
-    <!-- aqui o menu -->
-    
-    <nav >
+    <header class="p-header">
+        <nav class="nav-bar">
+            <div class="logo">
+                <h1>RRBEC</h1>
+            </div>
+            <div class="nav-list">
+                <ul>
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
+                    <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
+                    <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link"> Balcão</a></li>
+                    <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link"> Mapa</a></li>
+                    <li class="nav-item"><a href="{% url 'products' %}" class="nav-link"> Produtos</a></li>
+                </ul>
+            </div>
+            <div class="login-button">
+                <button><a href="#">Entrar</a></button>
+            </div>
+
+            <div class="mobile-menu-icon">
+                <button onclick="menuShow()"><img class="icon" src="https://raw.githubusercontent.com/Larissakich/menu_responsivo/6e3b09504434628c1b01f65b7d8ccf6ace3225cb/menu%20responsivo/assets/img/menu_white_36dp.svg" alt=""></button>
+            </div>
+        </nav>
+        <div class="mobile-menu">
+            <ul>
+                <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
+                <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
+                <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link">Balcão</a></li>
+                <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a></li>
+                <li class="nav-item"><a href="{% url 'products' %}" class="nav-link">Produtos</a></li>
+            </ul>
+
+            <div class="login-button">
+                <button><a href="#">Entrar</a></button>
+            </div>
+        </div>
+    </header>
+        
+    <!-- <nav >
         <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'mesas' %}">Mesas</a></li>
-            <li><a href="{% url 'comandas' %}">Comandas</a></li>
-            <li><a href="{% url 'products' %}">Produtos</a></li>
-            <li><a href="{% url 'viewBalcao' %}">Balcão</a></li>
-            <li><a href="{% url 'mapMesas' %}">Mapa de Mesas</a></li>
-            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Categorias</a></li> 
         </ul>
-    </nav>
-    <!-- <div class="content">
-        <h1>Bem-vindo ao meu site!</h1>
-    </div> -->
+    </nav> -->
+
     
     
 </div>
@@ -40,5 +67,6 @@
     {% block 'body' %}
     {% endblock  %}
     <script src="{% static 'htmx_base.js' %}"></script>
+    <script src="{% static 'base.js' %}"></script>
 </body>
 </html>
