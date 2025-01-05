@@ -1,3 +1,5 @@
+
+
 function openModal() {
     document.getElementById('Modal-add-product').style.display = 'block';
 }
@@ -5,6 +7,7 @@ function openModal() {
 
 function open_remove_product_comanda() {
     document.getElementById('remove-product-comanda').style.display = 'block';
+    // alert('Produto removido com sucesso!');
 }
 
 function modal_payment_comanda() {
@@ -116,6 +119,20 @@ function teclado(event){
   //   imprimirConta()
   // }
 }
+
+
+function addProductComanda(productId) {
+  alert('Produto adicionado com sucesso!');
+    // const productName = document.getElementById('productName').value;
+    // const productPrice = document.getElementById('productPrice').value;
+    // const productDescription = document.getElementById('productDescription').value;
+    // const productqtd = document.getElementById('productqtd').value;
+    // const categorie = document.getElementById('select-categorie').value;
+    // const url = `/comandas/addProductComanda/${productName}/${productPrice}/${productDescription}/${productqtd}/${categorie}/`;
+    // window.location.href = url;
+}
+
+
 
 document.getElementById('openModal').addEventListener('click', openModal);
 

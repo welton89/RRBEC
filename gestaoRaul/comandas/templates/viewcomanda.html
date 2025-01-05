@@ -110,7 +110,7 @@ Detalhes {{comanda.name}}
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                <article  style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                <article  onclick="addProductComanda({{product.id}})" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
                   {{product.name}} <br>
                   R$ {{product.price}}
                 </article >
