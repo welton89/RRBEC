@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <tr>
     <th style="text-align: left;">Produto</th>
     <th style="text-align: left;">Preço</th>
@@ -8,7 +11,16 @@
 <tr>
   <td>{{item.product.name}}</td>
   <td>R$ {{item.product.price}}</td>
-  <td><button hx-get="{% url 'removeProductComanda' item.id  %} " hx-trigger="click" hx-target="#list-products-comanda" onclick="open_remove_product_comanda()">🗑️ Apagar</button></td>
+  <td>
+    <img
+    src="{% static 'midia/icons/delete.svg' %}"
+    style="width: 35px; height: 35px; cursor: pointer;"
+    hx-get="{% url 'removeProductComanda' item.id  %} " 
+    hx-trigger="click" 
+    hx-target="#list-products-comanda" 
+    hx-confirm="Tem certeza que deseja excluir o produto {{item.product.name}}?" >
+  </img>
+  </td>
 </tr>
 
 {% endfor %}

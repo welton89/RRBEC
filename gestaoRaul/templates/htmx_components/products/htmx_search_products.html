@@ -1,3 +1,4 @@
+{% load static %}
 
 
 <tr>
@@ -17,8 +18,11 @@
 <td id="category-{{product.id}}" >{{product.category.name}}</td>
 <td>
   <div class="grid-buttons">
-  <h2 onclick="editProduct({{product.id}})" style="cursor: pointer;" >📝</h2>
-  <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
+    <img 
+    src="{% static 'midia/icons/edit.svg' %}" 
+    style=" width: 35px; height: 35px; cursor: pointer;" 
+    onclick="editProduct({{product.id}})" >
+  </img>  <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
   <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
 
   <form action="{% url 'onOffproduct' %}" method="post">
@@ -26,10 +30,21 @@
     <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
   {% if product.active == True %}
-  <button style="background-color: rgba(255, 0, 0, 0);">✅</button>
+  <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;">
+    <img 
+  src="{% static 'midia/icons/toggle-on.svg' %}" 
+  style=" width: 35px; height: 35px; cursor: pointer;" 
+   >
+</img>
+  </button>
   {% else %}
-  <button style="background-color: rgba(0, 128, 0, 0);" >🚫</button>
-
+  <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;" >
+    <img 
+  src="{% static 'midia/icons/toggle-off.svg' %}" 
+  style=" width: 35px; height: 35px; cursor: pointer;" 
+   >
+</img>
+  </button>
   {% endif %}
 
 </form>

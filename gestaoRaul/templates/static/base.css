@@ -1,25 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap');
 body {
-    margin: 0px 0px 0px 0px;
-    padding: 15px;
-    font-family: Arial, sans-serif;
+    margin: 70px 0px 0px 0px;
+    /* padding: 15px;
+    font-family: Arial, sans-serif; */
 }
 
-/* * {
+* {
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
-} */
+}
 
 .p-header {
     background-color: #24252a;
     box-shadow: 0px 3px 10px #464646;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .nav-bar {
     display: flex;
     justify-content: space-between;
     padding: 0.1rem 2rem;
+    
 }
 
 .logo {
@@ -58,6 +62,7 @@ body {
     padding: 10px 15px;
     border-radius: 5px;
     background-color: #0187a7;
+    margin-top: 10px;
 }
 
 .login-button button a {
