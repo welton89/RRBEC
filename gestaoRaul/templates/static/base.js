@@ -8,3 +8,7 @@ function menuShow() {
         document.querySelector('.icon').src = "https://raw.githubusercontent.com/Larissakich/menu_responsivo/6e3b09504434628c1b01f65b7d8ccf6ace3225cb/menu%20responsivo/assets/img/close_white_36dp.svg";
     }
 }
+
+function entrar(){
+    alert('Onde tu pensa que vai entrar?🤨');
+}
