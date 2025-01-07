@@ -8,7 +8,11 @@ from typePay.models import TypePay
 
 def listProduct(request, comanda_id):
     product = request.GET.get("search-product")
-    products = Product.objects.filter(name__icontains=product)
+    allProducts = Product.objects.filter(name__icontains=product)
+    products = []
+    for p in allProducts:
+        if p.active == True:
+            products.append(p)
     return render(request, "htmx_components/htmx_list_products.html", {"products": products,'comanda_id':comanda_id})
 
 def addProduct(request, product_id, comanda_id):

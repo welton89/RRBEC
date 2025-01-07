@@ -2,6 +2,7 @@
 
 function openModal() {
     document.getElementById('Modal-add-product').style.display = 'block';
+    // document.getElementById('Modal-add-product').setAttribute();
 }
 
 
@@ -44,7 +45,7 @@ function imprimirFichas() {
     if (element) {
       var content = element.innerHTML;
     //   console.log(content);
-      content = content.replace(/<button[^>]*>(?:(?!<\/button>)[\s\S])*<\/button>/gi,'');
+      content = content.replace(/<img[^>]*>(?:(?!<\/img>)[\s\S])*<\/img>/gi,'');
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
       content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
       console.log(content);
@@ -78,7 +79,7 @@ function imprimirConta() {
     if (element) {
       var content = element.innerHTML;
     //   console.log(content);
-      content = content.replace(/<button[^>]*>(?:(?!<\/button>)[\s\S])*<\/button>/gi,'');
+      content = content.replace(/<img[^>]*>(?:(?!<\/img>)[\s\S])*<\/img>/gi,'');
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
       // content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
       console.log(content);
@@ -106,19 +107,17 @@ function backPage() {
 }
   
 
-document.onkeydown = teclado
+// document.onkeydown = teclado
 
-function teclado(event){
-  if (event.keyCode == 65){
-    openModal()
-  }
-  else if (event.keyCode == 73){
-    imprimirFichas()
-  }
-  // else if (event.keyCode == 70){
-  //   imprimirConta()
-  // }
-}
+// function teclado(event){
+//   if (event.keyCode == 65){
+//     openModal()
+//   }
+//   else if (event.keyCode == 73){
+//     imprimirFichas()
+//   }
+
+// }
 
 
 function addProductComanda(productId) {
@@ -134,11 +133,11 @@ function addProductComanda(productId) {
 
 
 
-document.getElementById('openModal').addEventListener('click', openModal);
+// document.getElementById('openModal').addEventListener('click', openModal);
 
-document.getElementById('productForm').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-});
+// document.getElementById('productForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); 
+// });
 
 
  
