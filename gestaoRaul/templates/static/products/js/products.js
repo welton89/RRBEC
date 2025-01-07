@@ -1,5 +1,22 @@
 function openModal() {
     document.getElementById('Modal-create-product').style.display = 'block';
+    var productId = document.getElementById('productId');
+    var productName = document.getElementById('productName');
+    var productPrice = document.getElementById('productPrice');
+    var productDescription = document.getElementById('productDescription');
+    var productqtd = document.getElementById('productqtd');
+    var categorie = document.getElementById('select-categorie');
+    var buttonEdit = document.getElementById('edit');
+    var buttonSave = document.getElementById('save');
+    buttonEdit.style.display = 'none';
+    buttonSave.style.display = 'block';
+
+    productId.value = '';
+    productName.value = '';
+    productPrice.value = '';
+    productDescription.value ='';
+    productqtd.value = '';
+    categorie.value = 1;
 }
 
 function closeModal() {
@@ -8,14 +25,19 @@ function closeModal() {
 
 function editProduct(id) {
 
+    openModal();
+    var buttonSave = document.getElementById('save');
+    var buttonEdit = document.getElementById('edit');
+    buttonSave.style.display = 'none';
+    buttonEdit.style.display = 'block';
     var productId = document.getElementById('productId');
     var productName = document.getElementById('productName');
     var productPrice = document.getElementById('productPrice');
     var productDescription = document.getElementById('productDescription');
     var productqtd = document.getElementById('productqtd');
     var categorie = document.getElementById('select-categorie');
-    openModal();
-    // productId.innerHTML = id;
+
+    productId.value = id;
     productName.value = document.getElementById('name-'+id).innerHTML;
     var preco = document.getElementById('price-'+id).innerHTML;
     preco = preco.replace('R$ ', '');
@@ -23,7 +45,7 @@ function editProduct(id) {
     productPrice.value = preco;
     productDescription.value = document.getElementById('description-'+id).value;
     productqtd.value = document.getElementById('quantity-'+id).innerHTML;
-    console.log(document.getElementById('h-category-'+id).value)
+    // console.log(document.getElementById('h-category-'+id).value)
     categorie.value = document.getElementById('h-category-'+id).value;
 
     // const url = `/products/editProduct/${id}/`;

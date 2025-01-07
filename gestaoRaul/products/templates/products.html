@@ -17,12 +17,17 @@ Produtos
 {% block 'body' %}
 
 
-<body>
+<body><br>
     <div class="grid-container">
-        <div >
-          <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list"><br>
+        <div class="grid-top">
+          <button style="
+          width: 30%; 
+          margin: 5px 10px 20px 10px;
+
+          "
+           onclick="openModal()" id="openModal">Adicionar Novo Produto</button>
+          <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list">
         </div>
-        <button onclick="openModal()" id="openModal">Adicionar Novo Produto</button>
 
         <table id="product-list">
           <tr>
@@ -77,6 +82,7 @@ Produtos
         <article >
 
         <form action="{% url 'create_product' %}" id="productForm" method="post" >
+
           {% csrf_token %}
             <h2>Cadastro de Produto</h2>
             <input  type="text" id="productId" name="productId"  hidden ><br>
@@ -92,7 +98,8 @@ Produtos
           </select>
             <textarea id="productDescription" name="description" rows="4" placeholder="Descrição"></textarea><br>
             <footer class="grid-buttons">
-              <button type="submit">Salvar</button>
+              <button id="save" type="submit">Salvar</button>
+              <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editProduct' 1 %}" hx-trigger="click"  hx-target="#product-list" >Alterar</button>
               <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
             </footer>
           </form>

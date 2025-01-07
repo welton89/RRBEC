@@ -35,8 +35,9 @@ def onOffProduct(request):
     return redirect('products')
 
 def editProduct(request, productId):
-    # id = request.POST.get('productId')
-    product_id = productId
+    print('wwwwwwwwwwwwwwwwwwwwwwww      ', request.POST.get('productId'),'   ooooooooooo')
+    product_id = int(request.POST.get('productId'))
+    # product_id = productId
     product = Product.objects.get(id=product_id)
     product.name = request.POST.get('name')
     product.description = request.POST.get('description')
@@ -44,4 +45,11 @@ def editProduct(request, productId):
     product.quantity = request.POST.get('qtd')
     product.category = Categories.objects.get(id = int(request.POST.get('select-categorie')))
     product.save()
-    return redirect('products')
+    print(request.GET.get("search-product"))
+    product = request.GET.get("search-product")
+    if product == None:
+        product = ''
+    products = Product.objects.filter(name__icontains=product)
+    return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
+    # return render(request, 'products.html')
+    # return redirect('/products')
