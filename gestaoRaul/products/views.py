@@ -9,6 +9,11 @@ def products(request):
     categories = Categories.objects.all()
     return render(request, 'products.html', {'products': protucts, 'categories': categories})
 
+def searchProduct(request):
+    product = request.GET.get("search-product")
+    products = Product.objects.filter(name__icontains=product)
+    return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
+
 
 def createProduct(request):
     name = request.POST.get('name')

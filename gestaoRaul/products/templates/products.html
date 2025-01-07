@@ -19,10 +19,12 @@ Produtos
 
 <body>
     <div class="grid-container">
-        <div ><input  type="text"></div>
+        <div >
+          <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list"><br>
+        </div>
         <button onclick="openModal()" id="openModal">Adicionar Novo Produto</button>
 
-        <table id="list-products">
+        <table id="product-list">
           <tr>
             <th style="text-align: left;">Produto</th>
             <th style="text-align: left;width: 20%;">Preço</th>
