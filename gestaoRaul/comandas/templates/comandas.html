@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filter_tag %}
 
 
 {% block 'title' %}
@@ -14,6 +15,7 @@ Comandas
 
 <body>
   <button  id="openModal">Abrir Comanda</button>
+  
     <div class="grid-container ">
 
     {% for comanda in comandas %}
@@ -21,17 +23,22 @@ Comandas
       <a  href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none;">
         <header 
           {% if comanda.status == 'OPEN' %}
-          style="min-height: 60px;border-radius: 10px 10px 0px 0px; background-color: #036800;"
+          style="padding: 5px; min-height: 60px;border-radius: 5px 5px 0px 0px; background-color: #036800;"
           {% elif comanda.status == 'PAYING' %}
-          style="min-height: 60px;border-radius: 10px 10px 0px 0px; background-color: rgb(165, 86, 33);"
+          style="padding: 5px; min-height: 60px;border-radius: 5px 5px 0px 0px; background-color: rgb(165, 86, 33);"
           {% endif %}
             > 
-            {{comanda.name}} | {{comanda.mesa}}
+            <p>{{comanda.name}}</p>
+            <p>{{comanda.mesa}}</p>
         </header>
-          <br>
+          <div style="padding: 5px;">
             <p>
-              Aberta ás: {{comanda.dt_open|date:"H:i"}}
+              Hora: {{comanda.dt_open|date:"H:i"}}
             </p>
+            <p>
+              {{ comanda.id | total }}
+            </p>
+          </div>
       </a>
     </div>
     {% endfor %} 
