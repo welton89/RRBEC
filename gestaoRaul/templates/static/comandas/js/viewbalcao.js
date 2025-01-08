@@ -2,12 +2,24 @@
 
 function modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'block';
+    recebido = document.getElementById('recebido')
+    recebido.focus()
+}
+
+function troco(){
+  recebido = document.getElementById('recebido').value
+  total = document.getElementById('first-total').innerHTML
+  resultado = document.getElementById('troco')
+  total = total.replace('R$ ','')
+  total = total.replace(',','.')
+  result = recebido - total
+  resultado.innerHTML = 'Troco: R$ '+result
 }
 
 function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
+    document.getElementById('search-product').focus()
 }
-
 
 
 function imprimirFichas() {
@@ -57,11 +69,19 @@ function backPage() {
 document.onkeydown = teclado
 
 function teclado(event){
-  if (event.keyCode == 13){
-    addProductBalcao()
-  }else{
-    console.log('')
-  }
+  if (document.getElementById('payment-comanda').style.display == 'none'){
+      if (event.keyCode == 13){
+        addProductBalcao()
+      }else{
+        console.log(event.keyCode)
+      }
+    }else{
+      if (event.keyCode == 13){
+        troco()
+      }else{
+        console.log('')
+      }
+    }
 
 }
 
@@ -119,7 +139,6 @@ function removeProductBalcao(id) {
 document.getElementById('productForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
 });
-
 
 
 

@@ -43,13 +43,13 @@
             <ul>
                 <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
                 <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
-                <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link">Balcão</a></li>
+                <!-- <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link">Balcão</a></li> -->
                 <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a></li>
                 <li class="nav-item"><a href="{% url 'products' %}" class="nav-link">Produtos</a></li>
             </ul>
 
             <div class="login-button">
-                <button><a href="#">Entrar</a></button>
+                <button onclick="entrar()"><a href="#">Entrar</a></button>
             </div>
         </div>
     </header>

@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block 'title' %}
+
 {{comanda.name}}
+
 {% endblock %}
-
-
 
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'comandas/css/viewbalcao.css' %}">
@@ -16,117 +15,85 @@
 {% block 'body' %}
 
 <body>
-  <div class="grid-container" >
+  <div class="grid-container">
     <div style="text-align: center;">
-    <h1>Venda Balcão</h1>
-    <div>
+      <h1>Venda Balcão</h1>
+      <div>
 
-      <button  id="pagarComanda" onclick="modal_payment_comanda()" 
-      {% if total == 0 %}
-      disabled
-      {% endif %}
-      >Receber</button>
+        <button id="pagarComanda" onclick="modal_payment_comanda()"
+         {% if total == 0 %} 
+         disabled 
+         {% endif %}>Receber</button>
 
-      <button class="button" id="imprimirFichas"  onclick="imprimirFichas()"
-      {% if total == 0 %}
-      disabled
-      {% endif %}
-      >Imprimir Fichas</button>
+        <button class="button" id="imprimirFichas" onclick="imprimirFichas()"
+         {% if total == 0 %} 
+         disabled 
+         {% endif %}
+         >Imprimir Fichas</button>
 
-    </div>
+      </div>
 
-    <table id="list-products-balcao">
-      <tr>
-        <th style="text-align: left;">Produto</th>
-        <th style="text-align: left;">Preço</th>
-      </tr>
-
-    {%  for item in consumo%}
-
-    <tr>
-      <td>{{item.product.name}}</td>
-      <td>R$ {{item.product.price}}</td>
-      <td><button onclick="removeProductBalcao({{item.id}})"
-        
-        >🗑️ Excluir</button></td>
-    </tr>
-    
-
-
-      {% endfor %}
-      <tfoot>
+      <table id="list-products-balcao">
         <tr>
-          <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
+          <th style="text-align: left;">Produto</th>
+          <th style="text-align: left;">Preço</th>
         </tr>
-        <tr hidden  >
-          <td hidden id="total">{{total}}</td>
+        {% for item in consumo%}
+
+        <tr>
+          <td>{{item.product.name}}</td>
+          <td>R$ {{item.product.price}}</td>
+          <td><button onclick="removeProductBalcao({{item.id}})">🗑️ Excluir</button></td>
         </tr>
-      </tfoot>
+
+        {% endfor %}
+        <tfoot>
+          <tr>
+            <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
+          </tr>
+          <tr hidden>
+            <td hidden id="total">{{total}}</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
 
 
-
     <div id="add-produto">
-      
-        <form id="productForm" >
-            <h2 style="text-align: center;">Buscar Produto </h2>
-            <div class="grid-container">
-              <input 
-              id="search-product" 
-              name="search-product" 
-              type="text" 
-              oninput="searchProduct()"
-              autofocus 
-              placeholder="Buscar Produto" 
-              
-              >
-            <input 
-            type="number" 
-            id="qtd-product" 
-            name="qtd-product" 
-            value="1" 
-            required min="1"
-            
-            ><br>
-          </div>
-            <div id="product-list" class="grid-list-products">
-                {% for product in products %} 
+      <form id="productForm">
+        <h2 style="text-align: center;">Buscar Produto </h2>
+        <div class="grid-container">
+          <input id="search-product" name="search-product" type="text" oninput="searchProduct()" autofocus
+            placeholder="Buscar Produto">
+          <input type="number" id="qtd-product" name="qtd-product" value="1" required min="1"><br>
+        </div>
+        <div id="product-list" class="grid-list-products">
+          {% for product in products %}
+          {% if forloop.counter0 == 0 %}
 
-                {% if forloop.counter0 == 0 %}
+          <article name="productBox" id="productId-{{ product.id }}"
+            onclick="addProductClick({{product.id}} , {{comanda.id}})" style="background-color: #293552;">
+            <p hidden id="{{forloop.counter0}}">{{product.id}}</p>
+            <p hidden id="comanda{{forloop.counter0}}">{{comanda.id}}</p>
+            {{product.name}} <br>
+            <p id="{{product.id}}"></p>
+            R$ {{product.price}}
+          </article>
 
-                <article 
-                name="productBox"
-                id="productId-{{ product.id }}" 
-                onclick="addProductClick({{product.id}} , {{comanda.id}})"
-                style="background-color: #293552;" 
-                
-                >
-                <p hidden id="{{forloop.counter0}}" >{{product.id}}</p>
-                <p hidden id="comanda{{forloop.counter0}}" >{{comanda.id}}</p>
-                  {{product.name}} <br> <p id="{{product.id}}"></p>
-                  R$ {{product.price}}
-                </article >
+          {% else %}
 
-                {% else %}
+          <article name="productBox" id="productId-{{ product.id }}"
+            onclick="addProductClick({{product.id}} , {{comanda.id}})" style="background-color: #293552;">
+            {{product.name}} <br>
+            R$ {{product.price}}
+          </article>
 
-                <article 
-                name="productBox"
-                id="productId-{{ product.id }}" 
-                onclick="addProductClick({{product.id}} , {{comanda.id}})"
-                style="background-color: #293552;" 
-                
-                >
-                  {{product.name}} <br>
-                  R$ {{product.price}}
-                </article >
+          {% endif %}
 
-                {% endif %}
+          {% endfor %}
+        </div>
 
-                {% endfor %}
-              </div>
-
-          </form>
+      </form>
 
     </div>
 
@@ -134,26 +101,28 @@
   </div>
 
 
-<dialog id="payment-comanda" style="display: none;" >
-  <article>
-    <h2>Receber</h2>
-    <h1 id="first-total" >R$ {{ total }}</h1>
-    <p>
-    </p>
-    <ul>
-    </ul>
-    <footer>
-      <button class="secondary" hx-get="{% url 'paymentBalcao' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()">
-        Comfimar
-      </button>
+  <dialog id="payment-comanda" style="display: none;">
+    <article>
+      <h2>Pagamento</h2>
+      <h1 id="first-total">R$ {{ total }}</h1>
+      <div>
+        <p>Recebido:</p> <input id="recebido" type="number">
+        <h4 id="troco">Troco: </h4>
+      </div>
 
-      <button onclick="close_modal_payment_comanda()" >Cancelar</button>
-    </footer>
-  </article>
-</dialog>
+      <footer>
+        <button class="secondary" hx-get="{% url 'paymentBalcao' comanda.id %} " hx-trigger="click" hx-swap="none"
+          onclick="reloadPage()">
+          Receber
+        </button>
+
+        <button onclick="close_modal_payment_comanda()">Cancelar</button>
+      </footer>
+    </article>
+  </dialog>
 
 
-<script src="{% static 'comandas/js/viewbalcao.js' %}"></script>
+  <script src="{% static 'comandas/js/viewbalcao.js' %}"></script>
 </body>
 
 

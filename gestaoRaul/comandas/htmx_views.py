@@ -61,4 +61,4 @@ def paymentComanda(request, comanda_id):
     pagamento.save()
     comanda.status = 'CLOSED'
     comanda.save()
-    return redirect('comandas')
+    return redirect('/comandas')
