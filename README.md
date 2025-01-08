@@ -7,9 +7,9 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ### Módulo de Produtos
 * [x] Cadastrar novos produtos.
-* [ ] Editar informações de produtos existentes.
-* [ ] Ativar/Desativar produtos.
-* [ ] Pesquisar produtos por nome.
+* [x] Editar informações de produtos existentes.
+* [x] Ativar/Desativar produtos.
+* [x] Pesquisar produtos por nome.
 * [ ] Gerenciar o estoque de cada produto.
 
 ### Módulo de Comandas
@@ -17,10 +17,10 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Editar informações da comanda.
 * [x] Adicionar produtos na comanda.
 * [x] Remover produtos da comanda.
-* [ ] Imprimir cupom de pagamento.
+* [x] Imprimir cupom de pagamento.
 * [x] Imprimir fichas dos produtos.
 * [x] Fechamento da comanda.
-* [ ] Receber pagamento
+* [x] Receber pagamento
 
 ### Módulo de Mesa
 * [ ] Gerenciar mesas (ocupação, reserva).
