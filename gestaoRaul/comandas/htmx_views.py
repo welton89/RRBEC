@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 
 from comandas.models import Comanda, ProductComanda
 from products.models import Product
@@ -38,7 +38,6 @@ def closeComanda(request, comanda_id):
     comanda = Comanda.objects.get(id=comanda_id)
     comanda.status = "PAYING"
     comanda.save()
-    # return redirect('back')
 
 
 def reopenComanda(request, comanda_id):
@@ -48,7 +47,6 @@ def reopenComanda(request, comanda_id):
     else:
         comanda.status = "OPEN"
         comanda.save()
-    # return redirect('back')
 
 def paymentComanda(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)

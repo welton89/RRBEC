@@ -2,13 +2,11 @@
 {% load static %}
 
 
-
-
 {% block 'title' %}
+
 Detalhes {{comanda.name}}
+
 {% endblock %}
-
-
 
 
 {% block 'head' %}
@@ -25,13 +23,13 @@ Detalhes {{comanda.name}}
       {%  if comanda.status != 'OPEN'%}
        disabled
        {% endif %}
-       >Adicionar Produto</button>
+       >Add Produto</button>
 
       <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
       {% if comanda.status != 'OPEN' %}
       style="display: none;"
       {% endif %}
-      >Fechar Comanda</button>
+      >Fechar Conta</button>
 
       {% if comanda.status == 'PAYING' %}
       <button  id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
@@ -46,7 +44,7 @@ Detalhes {{comanda.name}}
       {%  if comanda.status != 'OPEN'%}
       style="display: none;"
       {% endif %}
-      onclick="imprimirFichas()">Imprimir Fichas</button>
+      onclick="imprimirFichas()">Fichas</button>
 
       <button class="button" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
       {%  if comanda.status == 'OPEN'%}
@@ -106,10 +104,8 @@ Detalhes {{comanda.name}}
   </div>
 
 
-
-      <dialog id="Modal-add-product" style="display: none;" >
-        <article>
-
+    <dialog id="Modal-add-product" style="display: none;" >
+      <article>
         <form id="productForm" >
             <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button></h2>
             <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
@@ -122,37 +118,15 @@ Detalhes {{comanda.name}}
                 </article >
                 {% endfor %}
               </div>
-
-
         </form>
-
       </article>
     </dialog>
 
 
 
-<dialog id="remove-product-comanda" style="display: none;" >
-  <article>
-    <h2>Produto Excluido!</h2>
-    <h1>✅</h1>
-    <p>
-     
-    </p>
-    <ul>
-    
-    </ul>
-    <footer>
-      <button class="secondary" onclick="removeCloseModal()">
-        OK
-      </button>
-      <!-- <button >Excluir</button> -->
-    </footer>
-  </article>
-</dialog>
-
 <dialog id="payment-comanda" style="display: none;" >
   <article>
-    <h2>Receber</h2>
+    <h2>Pagamento</h2>
     <h1>R$ {{ total }}</h1>
     <p>
     </p>
@@ -160,7 +134,7 @@ Detalhes {{comanda.name}}
     </ul>
     <footer>
       <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">
-        Comfimar
+        Receber
       </button>
 
       <button onclick="close_modal_payment_comanda()" >Cancelar</button>
@@ -168,14 +142,9 @@ Detalhes {{comanda.name}}
   </article>
 </dialog>
 
-
-
 <script src="{% static 'comandas/js/viewcomanda.js' %}"></script>
 
-
 </body>
-
-
 
 
 {% endblock %}

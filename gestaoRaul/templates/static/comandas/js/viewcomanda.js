@@ -6,10 +6,6 @@ function openModal() {
 }
 
 
-// function open_remove_product_comanda() {
-//     document.getElementById('remove-product-comanda').style.display = 'block';
-//     // alert('Produto removido com sucesso!');
-// }
 
 function modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'block';
@@ -24,9 +20,6 @@ function closeModal() {
 }
 
 
-// function removeCloseModal() {
-//     document.getElementById('remove-product-comanda').style.display = 'none';
-// }
 
 function imprimirFichas() {
     const element = document.getElementById("list-products-comanda");

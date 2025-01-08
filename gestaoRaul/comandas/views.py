@@ -12,7 +12,6 @@ def comandas(request):
     return render(request, 'comandas.html', {'comandas': comandas, 'mesas': mesas})
 
 
-
 def viewComanda(request):
     id = request.GET.get('parametro')
     comanda_id = int(id)
@@ -30,7 +29,6 @@ def viewComanda(request):
             if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
     total = 0
-
     for produto in consumo:
         total += produto.product.price
   
@@ -44,8 +42,5 @@ def createComanda(request):
     mesa = Mesa.objects.get(id=mesa_id)
     comanda = Comanda(name=name, mesa=mesa)
     comanda.save()
-
     return redirect('comandas')
-
-
 
