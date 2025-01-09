@@ -99,3 +99,12 @@ input, textarea {
     transform: scale(1.05);
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
   }
+
+
+  
+
+  @media (max-width: 768px) {
+    .hide-on-mobile {
+      display: none;
+    }
+  }
