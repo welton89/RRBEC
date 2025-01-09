@@ -14,7 +14,7 @@
     width: 420px;
     height: 420px;
     background-color: #2b376e;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     line-height: 30px; /* Centraliza o texto verticalmente */
@@ -46,10 +46,8 @@
       width: 95%;
       /* height: 80%; */
       background-color: #2b376e;
-      border-radius: 15px;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       text-align: center;
-      line-height: 30px; /* Centraliza o texto verticalmente */
+      line-height: 30px; 
       font-size: 20px;
       font-weight: bold;
       padding: 10px;
