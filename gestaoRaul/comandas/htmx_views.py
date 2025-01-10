@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from comandas.models import Comanda, ProductComanda
+from orders.models import Order
 from products.models import Product
 from payments.models import Payments
 from typePay.models import TypePay
@@ -18,6 +19,12 @@ def listProduct(request, comanda_id):
 def addProduct(request, product_id, comanda_id):
     product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
     product_comanda.save()
+    product = Product.objects.get(id=product_id)
+    comanda = Comanda.objects.get(id=comanda_id)
+    print(product.cuisine)
+    if product.cuisine == True:
+        order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
+        order.save()
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     total = 0
     for produto in consumo:
