@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% block 'head' %}
+    <link rel="stylesheet" href="{% static 'orders/css/orders.css' %}">
+    {% endblock %}
+
+    {% block 'title' %}
+    Pedidos Cozinha
+    {% endblock %}
+</head>
+
+
+<body>
+    {% block 'body' %}
+
+    <h1>Pedidos cozinha</h1>
+
+
+
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Fila')">Fila</button>
+        <button class="tablinks" onclick="openTab(event, 'Preparo')">Preparo</button>
+        <button class="tablinks" onclick="openTab(event, 'Finalizado')">Finalizado</button>
+        <button class="tablinks" onclick="openTab(event, 'Entregue')">Entregue</button>
+    </div>
+
+    <div id="Fila" class="tabcontent">
+        {% for order in orders %}
+        {% if order.preparing == None %}
+        <div class="m-card"
+        {% if order.productComanda == Null %}
+        style="background-color: rgb(253, 69, 69);"
+        {% elif order.obs != '' %}
+        style="background-color: rgb(243, 165, 75);"
+        {% endif %}
+        >
+            <h4>{{order.id_product.name}}</h4>
+            <h4>{{order.obs}} </h4>
+            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+            <button>Preparar</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="Preparo" class="tabcontent">
+        {% for order in orders %}
+        {% if order.finished == None and order.preparing != None %}
+
+        <div class="m-card"
+        {% if order.productComanda == Null %}
+        style="background-color: rgb(253, 69, 69);"
+        {% elif order.obs != '' %}
+        style="background-color: rgb(243, 165, 75);"
+        {% endif %}
+        >
+            <h4>{{order.id_product.name}}</h4>
+            <h4>{{order.obs}} </h4>
+            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+            <button>Preparar</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="Finalizado" class="tabcontent">
+        {% for order in orders %}
+        {% if order.delivered == None and order.finished != None %}
+
+        <div class="m-card"
+        {% if order.productComanda == Null %}
+        style="background-color: rgb(253, 69, 69);"
+        {% elif order.obs != '' %}
+        style="background-color: rgb(243, 165, 75);"
+        {% endif %}
+        >
+            <h4>{{order.id_product.name}}</h4>
+            <h4>{{order.obs}} </h4>
+            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+            <button>Preparar</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="Entregue" class="tabcontent">
+        {% for order in orders %}
+        {% if order.delivered != None %}
+
+        <div class="m-card"
+        {% if order.productComanda == Null %}
+        style="background-color: rgb(253, 69, 69);"
+        {% elif order.obs != '' %}
+        style="background-color: rgb(243, 165, 75);"
+        {% endif %}
+        >
+            <h4>{{order.id_product.name}}</h4>
+            <h4>{{order.obs}} </h4>
+            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+            <button>Preparar</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+
+
+
+
+
+    <script src="{% static 'orders/js/orders.js' %}"></script> {% endblock %}
+</body>
+
+
+</html>

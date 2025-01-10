@@ -27,6 +27,7 @@ urlpatterns = [
     path('comandas/', include('comandas.urls')),
     path('categories/', include('categories.urls')),
     path('balcao/', include('balcao.urls')),
+    path('pedidos/', include('orders.urls')),
 
 
 ]

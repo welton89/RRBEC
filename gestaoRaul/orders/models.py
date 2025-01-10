@@ -1,10 +1,11 @@
 from django.db import models
 
 from products.models import Product
-from comandas.models import Comanda
+from comandas.models import Comanda, ProductComanda
 
 
 class Order(models.Model):
+    productComanda = models.ForeignKey(ProductComanda, on_delete=models.SET_NULL, null=True)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
     id_comanda = models.ForeignKey(Comanda, on_delete=models.CASCADE)
     obs = models.TextField(blank=True, null=True)
