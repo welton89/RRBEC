@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from comandas.models import Comanda, ProductComanda
+
+admin.site.register(Comanda)
+admin.site.register(ProductComanda)
+

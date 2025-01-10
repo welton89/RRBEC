@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from typePay.models import TypePay
+
+admin.site.register(TypePay)

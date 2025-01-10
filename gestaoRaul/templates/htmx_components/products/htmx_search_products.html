@@ -4,8 +4,8 @@
 <tr>
     <th style="text-align: left;">Produto</th>
     <th style="text-align: left;width: 20%;">Preço</th>
-    <th style="text-align: left;">Quantidade</th>
-    <th style="text-align: left;">Categoria</th>
+    <th class="hide-on-mobile" style="text-align: left;">Quantidade</th>
+    <th class="hide-on-mobile" style="text-align: left;">Categoria</th>
     <th style="text-align: left;width: 20%;">Ações</th>
   </tr>
 
@@ -14,8 +14,8 @@
 <tr>
 <td id="name-{{product.id}}" >{{product.name}}</td>
 <td id="price-{{product.id}}" >R$ {{product.price}}</td>
-<td id="quantity-{{product.id}}" >{{product.quantity}}</td>
-<td id="category-{{product.id}}" >{{product.category.name}}</td>
+<td  class="hide-on-mobile" id="quantity-{{product.id}}" >{{product.quantity}}</td>
+<td  class="hide-on-mobile" id="category-{{product.id}}" >{{product.category.name}}</td>
 <td>
   <div class="grid-buttons">
     <img 

@@ -11,6 +11,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField(null=False, default=0)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    cuisine = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
     def __str__(self) -> str:

@@ -15,4 +15,4 @@ class Payments(models.Model):
 
 
     def __str__(self):
-        return self.value
+        return self.comanda.name
