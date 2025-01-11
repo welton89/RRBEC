@@ -74,7 +74,7 @@ var resposta =   fetch(url, {method: 'POST',
 }
 
 setTimeout(function() {
-  manipularCards();}, 1);
+  manipularCards();}, 200);
 
   setTimeout()
   
