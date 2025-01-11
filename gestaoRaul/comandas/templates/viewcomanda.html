@@ -17,6 +17,7 @@ Detalhes {{comanda.name}}
 {% block 'body' %}
 
 <body>
+  <input hidden id="id-temp" type="number">
   <div class="grid-container" >
     <div>
       <button class="primary" id="openModal" onclick="openModal()"
@@ -73,11 +74,24 @@ Detalhes {{comanda.name}}
     {%  for item in consumo%}
 
     <tr>
-      <td>{{item.product.name}}</td>
+      <td>
+        {{item.product.name}}
+
+        {% if item.product.cuisine == True %}
+        <img
+        onclick="openModalObs({{item.id}})"
+        src="{% static 'midia/icons/edit.svg' %}"
+        style="width: 35px; height: 35px; cursor: pointer;">
+      </img>
+        {% endif %}
+
+      </td>
       <td>R$ {{item.product.price}}</td>
       {%  if comanda.status != 'OPEN'%}
       {% else %}
       <td>
+
+
         <img
         src="{% static 'midia/icons/delete.svg' %}"
         style="width: 35px; height: 35px; cursor: pointer;"
@@ -112,7 +126,7 @@ Detalhes {{comanda.name}}
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                <article  onclick="addProductComanda({{product.id}})" style="background-color: #293552;" hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda">
+                <article onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" style="background-color: #293552;" >
                   {{product.name}} <br>
                   R$ {{product.price}}
                 </article >
@@ -122,16 +136,19 @@ Detalhes {{comanda.name}}
       </article>
     </dialog>
 
+    <dialog id="modal-obs" style="display: none;">
+      <textarea name="obs" id="obs"></textarea>
+      <button onclick="addOrder()" >OK</button>
+      <button onclick="closeModalObs()" >Cancela</button>
+    </dialog>
+
 
 
 <dialog id="payment-comanda" style="display: none;" >
   <article>
     <h2>Pagamento</h2>
     <h1>R$ {{ total }}</h1>
-    <p>
-    </p>
-    <ul>
-    </ul>
+
     <footer>
       <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">
         Receber

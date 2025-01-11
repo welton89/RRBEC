@@ -9,7 +9,18 @@
 {%  for item in consumo%}
 
 <tr>
-  <td>{{item.product.name}}</td>
+  <td>
+    {{item.product.name}}
+    {% if item.product.cuisine == True %}
+    <img
+    onclick="openModalObs({{item.id}})"
+    src="{% static 'midia/icons/edit.svg' %}"
+    style="width: 35px; height: 35px; cursor: pointer;">
+  </img>
+    {% endif %}
+
+
+  </td>
   <td>R$ {{item.product.price}}</td>
   <td>
     <img

@@ -2,9 +2,14 @@
 
 function openModal() {
     document.getElementById('Modal-add-product').style.display = 'block';
-    // document.getElementById('Modal-add-product').setAttribute();
 }
-
+function openModalObs(id) {
+    document.getElementById('modal-obs').style.display = 'block';
+    idd = document.getElementById('id-temp').value = id;
+    obs = document.getElementById('obs').value;
+    console.log(id);
+    console.log(obs);
+}
 
 
 function modal_payment_comanda() {
@@ -17,6 +22,9 @@ function close_modal_payment_comanda() {
 
 function closeModal() {
     document.getElementById('Modal-add-product').style.display = 'none';
+}
+function closeModalObs() {
+    document.getElementById('modal-obs').style.display = 'none';
 }
 
 
@@ -111,17 +119,61 @@ function backPage() {
 //   }
 
 // }
+function addOrder(){
+  obs = document.getElementById('obs').value
+  var id = document.getElementById('id-temp').value
+  fetch(`/comandas/editOrders/${id}/${obs}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'}
+    })
+    
+    .then(function(response) {
+      if(response.status == 200){
+        closeModalObs()
+        alert('Pedido atualizado com sucesso!')
+      }else{
+        alert('Erro ao atualizar pedido!')
+      }
+      
+  })
+}
 
+function addProductComanda(productId,comandaId, cuisine) {
+  obs = document.getElementById('obs');
+  console.log(obs.value);
+  console.log(cuisine);
+  if(cuisine == 'ggg'){
+    var obs = openModalObs();
+    
+  }else{
 
-function addProductComanda(productId) {
+  fetch(`/comandas/addProduct${productId}/${comandaId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'}
+    })
+    
+  .then(function(response) {
+    return response.text();
+  }).then(function(text) {
+    console.log(text);
+    var listProductsBalcaoElement = document.getElementById("list-products-comanda");
+    listProductsBalcaoElement.innerHTML = text;
+  })
+  
+  // const receber = document.getElementById('pagarComanda')
+  // const imprimir = document.getElementById('imprimirFichas')
+  // var search = document.getElementById('search-product')
+
+  // setTimeout(function() {
+  //   updateTotal();}, 100);
+    
   alert('Produto adicionado com sucesso!');
-    // const productName = document.getElementById('productName').value;
-    // const productPrice = document.getElementById('productPrice').value;
-    // const productDescription = document.getElementById('productDescription').value;
-    // const productqtd = document.getElementById('productqtd').value;
-    // const categorie = document.getElementById('select-categorie').value;
-    // const url = `/comandas/addProductComanda/${productName}/${productPrice}/${productDescription}/${productqtd}/${categorie}/`;
-    // window.location.href = url;
+  }
+
+
+
 }
 
 
@@ -133,4 +185,4 @@ function addProductComanda(productId) {
 // });
 
 
- 
+//  hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda"

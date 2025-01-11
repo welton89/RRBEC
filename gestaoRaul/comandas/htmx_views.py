@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from comandas.models import Comanda, ProductComanda
@@ -17,11 +18,13 @@ def listProduct(request, comanda_id):
     return render(request, "htmx_components/htmx_list_products.html", {"products": products,'comanda_id':comanda_id})
 
 def addProduct(request, product_id, comanda_id):
+    obs = request.GET.get("obs")
     product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
     product_comanda.save()
     product = Product.objects.get(id=product_id)
     comanda = Comanda.objects.get(id=comanda_id)
     print(product.cuisine)
+
     if product.cuisine == True:
         order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
         order.save()
@@ -30,6 +33,13 @@ def addProduct(request, product_id, comanda_id):
     for produto in consumo:
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total})
+
+def editOrders(request, productComanda_id, obs):
+    order = Order.objects.get(productComanda=productComanda_id)
+    print(obs)
+    order.obs = obs
+    order.save()
+    return JsonResponse({'status': 'ok'})
 
 
 def removeProductComanda(request, productComanda_id):
