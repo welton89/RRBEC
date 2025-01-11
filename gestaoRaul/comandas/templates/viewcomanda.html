@@ -58,13 +58,13 @@ Detalhes {{comanda.name}}
 
     </div>
      <div>
-       <span>Nome: {{comanda.name}} | </span>
-       <span>Mesa: {{comanda.mesa}}</span>
+       <span id="name-comanda">Nome: {{comanda.name}} | </span>
+       <span id="mesa-comanda">Mesa: {{comanda.mesa}}</span>
 
      </div>
-    <p>Aberta em: {{comanda.dt_open|date:"D"}} {{comanda.dt_open|date:"d/m/Y - H:i"}}</p>
+    <p id="open-comanda">Aberta em: {{comanda.dt_open|date:"D"}} {{comanda.dt_open|date:"d/m/Y - H:i"}}</p>
 
-
+<img hidden src="{% static 'midia/logo.png' %}" style="width: 240px; height: 200px;">
     <table id="list-products-comanda">
       <tr>
         <th style="text-align: left;">Produto</th>

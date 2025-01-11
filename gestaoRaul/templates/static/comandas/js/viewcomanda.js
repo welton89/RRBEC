@@ -41,14 +41,18 @@ function imprimirFichas() {
                     font-size: 24px;}
                     </style>`;
     const agora = new Date();
-    var dateString = agora.getDay() + '/' + agora.getMonth() + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes()+' - Raul Rock Bar & Café';
+    var dateString = agora.getDate() + '/' + (agora.getMonth()+1) + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes()+' - Raul Rock Bar & Café';
 
     if (element) {
       var content = element.innerHTML;
     //   console.log(content);
-      content = content.replace(/<img[^>]*>(?:(?!<\/img>)[\s\S])*<\/img>/gi,'');
+      content = content.replace( /<img[^>]*>/gi,'');
+      content = content.replace(/<tfoot[^>]*>(?:(?!<\/tfoot>)[\s\S])*<\/tfoot>/gi,'');
+
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
-      content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
+      // content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
+      content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+ '<BR>VÁLIDO SOMENTE POR ESSA NOITE'+'</td></tr>');
+
       console.log(content);
     
       var printWindow = window.open('', '_blank');
@@ -67,26 +71,37 @@ function imprimirConta() {
     const element = document.getElementById("list-products-comanda");
     const style = `<style>
                     td, th {
-                                      
                     border-collapse: collapse; 
                     padding-top: 15px;
                     margin: 15px;
-                    text-align: center;
-                    font-size: 18px;}
+                    text-align: justify;
+                    font-size: 15px;}
                     </style>`;
     const agora = new Date();
-    var dateString = agora.getDay() + '/' + agora.getMonth() + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes()+' - Raul Rock Bar & Café';
+    var dateString = agora.getDate() + '/' + (agora.getMonth()+1) + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes();
 
     if (element) {
       var content = element.innerHTML;
     //   console.log(content);
-      content = content.replace(/<img[^>]*>(?:(?!<\/img>)[\s\S])*<\/img>/gi,'');
+      content = content.replace(/<img[^>]*>/gi,'');
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
-      // content = content.replace(/<\/tr>/g,'</tr><tr><td colspan="2" style="font-size: 12px">'+dateString+'</td></tr>');
-      console.log(content);
+      // content = content.replace('icons','');
+      content = '<img src="/static/midia/logo.png" style="width: 240px; height: 200px;">'
+      +'<br>'  
+      +document.getElementById('name-comanda').innerText.replace(' | ', '')
+      +'<br>'  
+      +document.getElementById('mesa-comanda').innerText
+      +'<br>'  
+      +document.getElementById('open-comanda').innerText
+      +'<br> Fechado em: '
+      +dateString  
+        +content
+          +'<br>'
+          
+         
     
       var printWindow = window.open('', '_blank');
-      printWindow.document.write('<table>'+content+'</table>'+style);
+      printWindow.document.write('<table>'+content+'</table><b>Volte Sempre!😁😊</b>'+style);
       printWindow.document.close();
       printWindow.print();
       printWindow.close();
