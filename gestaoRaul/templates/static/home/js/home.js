@@ -1,7 +1,6 @@
 
 
-console.log(document.getElementById('n-0'))
-
+function productsPlus(){
 
 var xValues = [document.getElementById('n-0').innerText,
     document.getElementById('n-1').innerText,
@@ -35,3 +34,48 @@ new Chart("vendas", {
       
     }
   });
+}
+
+
+function mediaCuisine(){
+
+var yValues = [];
+var xValues = ['Fila', 'Preparando', 'Entregar'];
+var barColors = ["red", "green","blue","orange","brown"];
+
+var resposta =   fetch('/chartCuisine', {method: 'GET',
+  headers: {'Content-Type': 'application/json',
+   },})
+   .then(response => response.json())
+    .then(data => {
+      yValues.push(data['mediaFila'])
+      yValues.push(data['mediaPreparando'])
+      yValues.push(data['mediaFinalizado'])
+      
+      new Chart("cuisine", {
+        type: "doughnut",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          legend: {display: true},
+          title: {
+            display: true,
+            text: "Tempo médio (em minutos) do pedido em cada etapa."
+          },
+        }
+      });
+    })
+ .catch(error => {
+   alert('Erro ao trazer dados da cozinha:', error)
+   console.error('Erro ao trazer dados da cozinha:', error);
+ });
+}
+
+
+productsPlus()
+mediaCuisine()
