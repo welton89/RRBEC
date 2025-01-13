@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Sum
 from django.db.models import Count, F
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 
 from comandas.models import ProductComanda
@@ -9,6 +9,8 @@ from orders.models import Order
 from payments.models import Payments
 
 def home(request):
+    if not request.user.is_authenticated or 'Admin' not in str(request.user.groups.all()):
+        return HttpResponse({'<h1>Você não esta logado ou não tem permissão!</h1>'})
     total_pagamentos = Payments.objects.aggregate(total=Sum('value'))['total']
     qdt_pagamentos = Payments.objects.aggregate(total=Count('value'))['total']
     pagamentos = Payments.objects.all()
@@ -21,7 +23,17 @@ def home(request):
 
 
 def chartCuisine(request):
-    print('entrooooooouuuuu')
+    
+    user = request.user.groups.all()
+    for u in user:
+        print(type(u))
+    # print(user.email)
+    print(request.user.first_name)
+    print(request.user.last_name)
+
+    if 'Admin' in str(user):
+        print('tem permisão admin')
+
     tFila = []
     tPreparando = []
     tFinalizado = []
