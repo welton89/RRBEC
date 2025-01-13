@@ -1,7 +1,6 @@
 {% load static %}
 
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -26,10 +25,20 @@
                 <ul>
                     <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
                     <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
-                    <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link"> Pedidos</a></li>
-                    <li class="nav-item"><a href="{% url 'products' %}" class="nav-link"> Produtos</a></li>
+                    <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a></li>
                     <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link"> Balcão</a></li>
                     <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link"> Mapa</a></li>
+                    
+                    <div class="dropdown">
+                        <li class="nav-item">Cadastros </li>
+                        <div class="dropdown-content">
+                          <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
+                          <a href="{% url 'products' %}" class="nav-link"> Categorias</a>
+                          <a href="{% url 'products' %}" class="nav-link"> Clientes</a>
+
+                        </div>
+                      </div>
+
                 </ul>
             </div>
             <div class="login-button">
@@ -44,24 +53,25 @@
             <ul>
                 <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
                 <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
-                <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Pedidos</a></li>
-                <li class="nav-item"><a href="{% url 'products' %}" class="nav-link">Produtos</a></li>
+                <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a></li>
                 <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a></li>
-            </ul>
 
+
+                    <div class="dropdown">
+                        <li class="nav-item">Cadastros </li>
+                            <div class="dropdown-content">
+                            <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
+                            <a href="{% url 'products' %}" class="nav-link"> Categorias</a>
+                            <a href="{% url 'products' %}" class="nav-link"> Clientes</a>
+
+                            </div>
+                  </div>
+            </ul>
             <div class="login-button">
                 <button onclick="entrar()"><a href="#">Entrar</a></button>
             </div>
         </div>
     </header>
-        
-    <!-- <nav >
-        <ul>
-            <li><a href="{% url 'mesas' %}">Mesas</a></li>
-            <li><a href="#">Categorias</a></li> 
-        </ul>
-    </nav> -->
-
     
     
 </div>

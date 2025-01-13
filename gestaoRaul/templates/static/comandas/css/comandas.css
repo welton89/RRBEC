@@ -3,7 +3,7 @@
   grid-template-columns: repeat(5, 2fr);
   gap: 10px;
   max-width: 95%; 
-  margin-top: 40px;
+  margin: 40px;
   /* margin: 0 auto;  */
 }
 
@@ -24,7 +24,7 @@
   transition: transform 0.2s;
 }
 
-.card:hover {
+.card-comanda:hover {
     transform: scale(1.05);
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
   }
@@ -99,4 +99,10 @@ input, textarea {
       color: #333;
       transition: transform 0.2s;
     }
+
+    .card-comanda:hover {
+      transform: scale(1);
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+  
 }
