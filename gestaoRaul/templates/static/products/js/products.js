@@ -5,6 +5,8 @@ function openModal() {
     var productPrice = document.getElementById('productPrice');
     var productDescription = document.getElementById('productDescription');
     var productqtd = document.getElementById('productqtd');
+    var productCuisine = document.getElementById('cuisine');
+
     var categorie = document.getElementById('select-categorie');
     var buttonEdit = document.getElementById('edit');
     var buttonSave = document.getElementById('save');
@@ -16,6 +18,7 @@ function openModal() {
     productPrice.value = '';
     productDescription.value ='';
     productqtd.value = '';
+    productCuisine.checked = false
     categorie.value = 1;
 }
 
@@ -35,6 +38,7 @@ function editProduct(id) {
     var productPrice = document.getElementById('productPrice');
     var productDescription = document.getElementById('productDescription');
     var productqtd = document.getElementById('productqtd');
+    var productCuisine = document.getElementById('cuisine');
     var categorie = document.getElementById('select-categorie');
 
     productId.value = id;
@@ -45,7 +49,7 @@ function editProduct(id) {
     productPrice.value = preco;
     productDescription.value = document.getElementById('description-'+id).value;
     productqtd.value = document.getElementById('quantity-'+id).innerHTML;
-    // console.log(document.getElementById('h-category-'+id).value)
+    productCuisine.checked = document.getElementById('cuisine-'+id).value == 'True' ? true : false;
     categorie.value = document.getElementById('h-category-'+id).value;
 
     // const url = `/products/editProduct/${id}/`;

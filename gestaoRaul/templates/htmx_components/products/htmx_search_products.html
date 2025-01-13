@@ -24,8 +24,10 @@
     onclick="editProduct({{product.id}})" >
   </img>  <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
   <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
+  <input type="hidden" id="cuisine-{{product.id}}" value="{{ product.cuisine }}">
 
-  <form action="{% url 'onOffproduct' %}" method="post">
+
+  <form hx-post="{% url 'onOffproduct' %}" hx-trigger="click"  hx-target="#product-list">
     {% csrf_token %}
     <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 

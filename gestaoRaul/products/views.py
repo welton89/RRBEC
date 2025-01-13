@@ -23,7 +23,6 @@ def createProduct(request):
     product = Product(name=name, description=description, price=price, category=category)
     product.save()
     return redirect('/products')
-    # return render(request, 'products.html')
 
 
 def onOffProduct(request):
@@ -32,10 +31,11 @@ def onOffProduct(request):
     product = Product.objects.get(id=product_id)
     product.active = not product.active
     product.save()
-    return redirect('products')
+    products = Product.objects.all()
+    return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
+
 
 def editProduct(request, productId):
-    print('wwwwwwwwwwwwwwwwwwwwwwww      ', request.POST.get('productId'),'   ooooooooooo')
     product_id = int(request.POST.get('productId'))
     # product_id = productId
     product = Product.objects.get(id=product_id)
@@ -43,13 +43,11 @@ def editProduct(request, productId):
     product.description = request.POST.get('description')
     product.price = request.POST.get('price')
     product.quantity = request.POST.get('qtd')
+    product.cuisine = True if request.POST.get('cuisine') else False
     product.category = Categories.objects.get(id = int(request.POST.get('select-categorie')))
     product.save()
-    print(request.GET.get("search-product"))
     product = request.GET.get("search-product")
     if product == None:
         product = ''
     products = Product.objects.filter(name__icontains=product)
     return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
-    # return render(request, 'products.html')
-    # return redirect('/products')

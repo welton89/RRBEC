@@ -49,8 +49,9 @@ Produtos
 
           <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
           <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
+          <input type="hidden" id="cuisine-{{product.id}}" value="{{ product.cuisine }}">
 
-          <form action="{% url 'onOffproduct' %}" method="post">
+          <form hx-post="{% url 'onOffproduct' %}" hx-trigger="click"  hx-target="#product-list">
             {% csrf_token %}
             <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
@@ -90,10 +91,13 @@ Produtos
 
           {% csrf_token %}
             <h2>Cadastro de Produto</h2>
-            <input  type="text" id="productId" name="productId"  hidden ><br>
-            <input  type="text" id="productName" name="name" required placeholder="Nome"><br>
-             <input type="number" step="0.01" id="productPrice" name="price" required placeholder="Preço"><br>
-             <input type="number" step="1" id="productqtd" name="qtd"  placeholder="Quantidade"><br>
+            <input  type="text" id="productId" name="productId"  hidden >
+            <input  type="text" id="productName" name="name" required placeholder="Nome">
+             <input type="number" step="0.01" id="productPrice" name="price" required placeholder="Preço">
+             <input type="number" step="1" id="productqtd" name="qtd"  placeholder="Quantidade">
+              <div>
+             <input type="checkbox" id="cuisine" name="cuisine" placeholder="Cozinha">Cozinha
+            </div>
               <select id="select-categorie" name="select-categorie" >
 
                 {% for categorie in categories %}
@@ -101,7 +105,7 @@ Produtos
                 {% endfor %}
 
               </select>
-            <textarea id="productDescription" name="description" rows="4" placeholder="Descrição"></textarea><br>
+            <textarea id="productDescription" name="description" rows="4" placeholder="Descrição"></textarea>
             <footer class="grid-buttons">
               <button id="save" type="submit">Salvar</button>
               <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editProduct' 1 %}" hx-trigger="click"  hx-target="#product-list" >Alterar</button>
