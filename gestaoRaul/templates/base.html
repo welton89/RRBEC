@@ -41,9 +41,9 @@
                         <li class="nav-item">Cadastros</li>
                         <div class="dropdown-content">
                           <a href="{% url 'products' %}" class="nav-link">Produtos</a>
-                          <a href="{% url 'products' %}" class="nav-link">Categorias</a>
-                          <a href="{% url 'products' %}" class="nav-link">Clientes</a>
-                          <a href="{% url 'products' %}" class="nav-link">Admin</a>
+                          <a href="{% url 'categories' %}" class="nav-link">Categorias</a>
+                          <a href="{% url 'clients' %}" class="nav-link">Clientes</a>
+                          <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
 
                         </div>
                       </div>
@@ -52,8 +52,8 @@
             </div>
             
             <div class="logout-button">
-                <p>{{ user.first_name }} {{ user.last_name }}</p>
-                <a href="{% url 'logout' %}"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
+                {{ user.first_name }} {{ user.last_name }}
+                <a href="{% url 'logout' %}" style="width: 50px;"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
             </div>
 
             <div class="mobile-menu-icon">
@@ -74,8 +74,8 @@
                         <li class="nav-item">Cadastros </li>
                             <div class="dropdown-content">
                             <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
-                            <a href="{% url 'products' %}" class="nav-link"> Categorias</a>
-                            <a href="{% url 'products' %}" class="nav-link"> Clientes</a>
+                            <a href="{% url 'categories' %}" class="nav-link"> Categorias</a>
+                            <a href="{% url 'clients' %}" class="nav-link"> Clientes</a>
 
                             </div>
                   </div>

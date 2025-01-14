@@ -60,18 +60,19 @@ text-align: center;
 
 .logout-button{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* justify-content: center; */
+    align-items: center;
+    grid-template-columns: repeat(2, 0.5fr);
     border: none;
     border-radius: 5px;
-    margin-top: 20px;
-}
+    margin-top: 10px;
+    gap: 10px;}
 
-.login-button button a {
+.logout-button button a {
     text-decoration: none;
     color: #fff;
     font-weight: 500;
     font-size: 1.1rem;
+    margin-bottom: 10px;
 }
 
 .mobile-menu-icon {
