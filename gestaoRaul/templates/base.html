@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_filter_tag %}
+
 
 
 <!DOCTYPE html>
@@ -21,14 +23,15 @@
         <nav class="nav-bar">
             <div class="logo">
                 <h1>
-                    <!-- RRBEC -->
                      <img src="{% static 'midia/logo.png'  %}" width="60">
 
                 </h1>
             </div>
             <div class="nav-list">
                 <ul>
+                    {% if user|groupUser:"Gerente" %}
                     <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
+                    {% endif %}
                     <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
                     <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a></li>
                     <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link">Balcão</a></li>
@@ -59,7 +62,9 @@
         </nav>
         <div class="mobile-menu">
             <ul>
+                {% if user|groupUser:"Gerente" %}
                 <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
+                {% endif %}
                 <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
                 <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a></li>
                 <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a></li>

@@ -26,7 +26,7 @@ def home(request):
 
 @group_required(groupName='Gerente')
 def chartCuisine(request):
-    print(request.user.id)
+    print(request.user.groups.all())
     print(request.user.is_authenticated)
     # fulano = User()
     tFila = []

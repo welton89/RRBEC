@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filter_tag %}
+
 
 
 {% block 'title' %}
@@ -41,12 +43,13 @@ Detalhes {{comanda.name}}
       {% endif %}
   
 
-      <button class="button" id="imprimirFichas" 
       {%  if comanda.status != 'OPEN'%}
+      <button class="button" id="imprimirFichas" 
       style="display: none;"
-      {% endif %}
       onclick="imprimirFichas()">Fichas</button>
-
+      {% endif %}
+      
+      {% if user|groupUser:"Gerente" %}
       <button class="button" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
       {%  if comanda.status == 'OPEN'%}
       style="display: none;"
@@ -54,6 +57,8 @@ Detalhes {{comanda.name}}
       style="display: none;"
       {% endif %}
       >Reabrir</button>
+
+      {% endif %}
 
 
     </div>
