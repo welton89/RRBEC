@@ -2,8 +2,8 @@
     display: grid;
     grid-template-columns: repeat(3, 2fr);
     gap: 20px;
-    max-width: 800px; /* Define a largura máxima do grid */
-    margin: 0 auto; /* Centraliza o grid na página */
+    max-width: 800px; 
+    margin: 0 auto; 
   }
 
 .card {
@@ -13,7 +13,7 @@
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    line-height: 120px; /* Centraliza o texto verticalmente */
+    line-height: 120px; 
     font-size: 20px;
     font-weight: bold;
     color: #333;
@@ -26,11 +26,10 @@
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    line-height: 50px; /* Centraliza o texto verticalmente */
+    line-height: 50px; 
     font-size: 10px;
     font-weight: bold;
     color: #333;
-    /* position: absolute; */
     transition: transform 0.2s;
     cursor: move;
   }

@@ -1,5 +1,7 @@
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.shortcuts import render, redirect
+
 
 
 def group_required(groupName):
@@ -11,7 +13,7 @@ def group_required(groupName):
                 else:
                     return HttpResponseForbidden('tu nao tem acesso rapa')
             else:
-                return HttpResponseForbidden('Direcionar para tela de login aqui')
+                return  redirect('login')
         return wrapper
     return decorator
    

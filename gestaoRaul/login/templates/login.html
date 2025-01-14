@@ -1,13 +1,32 @@
-<!DOCTYPE html>
+{% load static %}
+
+
 <html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Entrar</button>
-    </form>
-</body>
+    <head>
+        <Title>Login Form</Title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'pico.css' %}">
+
+        <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+
+    </head>
+    <body>
+        <div class="c-form">
+            <h2>
+                <img src="{% static 'midia/logo.png'  %}" width="140px">
+            </h2>
+            <div class="c-input">
+                    <form method="post" class="c-inputBox">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="c-inputBox">
+                            <input type="submit" name="" value="Entrar"> 
+                        </div>
+                    </form>
+            </div>
+            <!-- <p class="forgot">Forgot Password? <a href="#">Click Here</a></p> -->
+            
+        </div>
+        
+    </body>
 </html>

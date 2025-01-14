@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -11,7 +17,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Substitua 'home' pelo nome da sua URL inicial
+                return redirect('home')
             else:
                 pass
                 # Mensagem de erro: Credenciais inválidas

@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'midia/favicon/favicon.ico' %}" />
     
     <link rel="stylesheet" href="{% static 'pico.css' %}">
     <link rel="stylesheet" href="{% static 'base.css' %}">
@@ -19,30 +20,37 @@
     <header class="p-header">
         <nav class="nav-bar">
             <div class="logo">
-                <h1>RRBEC</h1>
+                <h1>
+                    <!-- RRBEC -->
+                     <img src="{% static 'midia/logo.png'  %}" width="60">
+
+                </h1>
             </div>
             <div class="nav-list">
                 <ul>
                     <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
                     <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
                     <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a></li>
-                    <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link"> Balcão</a></li>
-                    <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link"> Mapa</a></li>
+                    <li class="nav-item"><a href="{% url 'viewBalcao' %}" class="nav-link">Balcão</a></li>
+                    <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a></li>
                     
                     <div class="dropdown">
-                        <li class="nav-item">Cadastros </li>
+                        <li class="nav-item">Cadastros</li>
                         <div class="dropdown-content">
-                          <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
-                          <a href="{% url 'products' %}" class="nav-link"> Categorias</a>
-                          <a href="{% url 'products' %}" class="nav-link"> Clientes</a>
+                          <a href="{% url 'products' %}" class="nav-link">Produtos</a>
+                          <a href="{% url 'products' %}" class="nav-link">Categorias</a>
+                          <a href="{% url 'products' %}" class="nav-link">Clientes</a>
+                          <a href="{% url 'products' %}" class="nav-link">Admin</a>
 
                         </div>
                       </div>
 
                 </ul>
             </div>
-            <div class="login-button">
-                <button onclick="entrar()" ><a href="#">Entrar</a></button>
+            
+            <div class="logout-button">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+                <a href="{% url 'logout' %}"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
             </div>
 
             <div class="mobile-menu-icon">
@@ -67,8 +75,9 @@
                             </div>
                   </div>
             </ul>
-            <div class="login-button">
-                <button onclick="entrar()"><a href="#">Entrar</a></button>
+            <div class="logout-button">
+                {{ user.first_name }} {{ user.last_name }}
+                <a href="{% url 'logout' %}"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
             </div>
         </div>
     </header>

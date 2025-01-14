@@ -22,7 +22,7 @@ def home(request):
     produtos_mais_vendidos = ProductComanda.objects.values('product').annotate(
     quantidade=Count('product'),
     nome=F('product__name') ).order_by('-quantidade')[:5]
-    return render(request, 'home.html', {'total_pagamentos': total_pagamentos, 'pagamentos': pagamentos, 'qdt_pagamentos': qdt_pagamentos, 'produtos_mais_vendidos': produtos_mais_vendidos, 'ticekMedio': ticekMedio})
+    return render(request, 'home.html', {'total_pagamentos': total_pagamentos, 'pagamentos': pagamentos, 'qdt_pagamentos': qdt_pagamentos, 'produtos_mais_vendidos': produtos_mais_vendidos, 'ticekMedio': ticekMedio, })
 
 @group_required(groupName='Gerente')
 def chartCuisine(request):
