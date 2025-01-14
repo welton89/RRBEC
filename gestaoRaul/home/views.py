@@ -3,13 +3,14 @@ from django.db.models import Sum
 from django.db.models import Count, F
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
+
 
 
 from comandas.models import ProductComanda
 from orders.models import Order
 from payments.models import Payments
 from gestaoRaul.decorators import group_required
-
 
 @group_required(groupName='Gerente')
 def home(request):
@@ -25,6 +26,9 @@ def home(request):
 
 @group_required(groupName='Gerente')
 def chartCuisine(request):
+    print(request.user.id)
+    print(request.user.is_authenticated)
+    # fulano = User()
     tFila = []
     tPreparando = []
     tFinalizado = []
