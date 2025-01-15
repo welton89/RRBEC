@@ -14,7 +14,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ### Módulo de Comandas
 * [x] Abrir nova comanda(inserindo nome, associando ou não a mesa).
-* [ ] Editar informações da comanda.
+* [x] Editar informações da comanda.
 * [x] Adicionar produtos na comanda.
 * [x] Remover produtos da comanda.
 * [x] Imprimir cupom de pagamento.
@@ -33,18 +33,20 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Excluir clientes.
 * [ ] Consultar o histórico de pedidos de um cliente.
 
-### Módulo de Pedidos
-* [ ] Realizar novos pedidos (produtos, quantidade, cliente).
-* [ ] Editar pedidos (adicionar/remover itens, alterar quantidade).
-* [ ] Cancelar pedidos.
-* [ ] Consultar o status de um pedido (em aberto, em preparo, entregue).
-* [ ] Gerar nota fiscal para pedidos finalizados.
+### Módulo de Guarita
+* [x] Adicionar produtos, quantidade.
+* [x] Pesquisa produto reativa.
+* [x] Exibição de produtos em ordem de maior saida.
+* [x] Excluir produtos.
+* [x] Impressão de fichas de consumo.
+* [x] Atalhos do teclado para maior agilidade.
+* [x] Calculo de troco do pagamento.
 
 ### Módulo de Funcionários
-* [ ] Cadastrar novos funcionários (nome, cargo, salário, data de admissão).
-* [ ] Editar informações de funcionários existentes.
-* [ ] Excluir funcionários.
-* [ ] Gerenciar as permissões de cada funcionário (acesso a módulos, funções).
+* [X] Cadastrar novos funcionários.
+* [x] Editar informações de funcionários existentes.
+* [x] Excluir funcionários.
+* [X] Gerenciar as permissões de cada funcionário (acesso a módulos, funções).
 
 ### Módulo de Relatórios
 * [ ] Gerar relatório de vendas por período (diário, semanal, mensal).
@@ -53,7 +55,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Gerar relatório de funcionários (horas trabalhadas, faltas).
 
 ### Módulo de Pagamentos
-* [ ] Integrar com gateways de pagamento (cartão de crédito, débito, dinheiro).
+* [ ] Integrar com gateways de pagamento (cartão de crédito, débito, PIX).
 * [x] Gerenciar formas de pagamento.
 * [ ] Emitir notas fiscais eletrônicas.
 
@@ -64,7 +66,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Acompanhar pedidos em tempo real.
 
 ### Módulo de Sistema
-* [ ] Gerenciar usuários do sistema (login, senha, permissões).
+* [x] Gerenciar usuários do sistema (login, senha, permissões).
 * [ ] Realizar backups do sistema.
 
 ## Tecnologias Utilizadas
