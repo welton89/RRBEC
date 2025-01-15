@@ -71,8 +71,11 @@
           {% for product in products %}
           {% if forloop.counter0 == 0 %}
 
-          <article name="productBox" id="productId-{{ product.id }}"
-            onclick="addProductClick({{product.id}} , {{comanda.id}})" style="background-color: #293552;">
+          <article 
+            name="productBox" 
+            id="productId-{{ product.id }}"
+            onclick="addProductClick({{product.id}} , {{comanda.id}})" 
+            style="background-color: #293552;">
             <p hidden id="{{forloop.counter0}}">{{product.id}}</p>
             <p hidden id="comanda{{forloop.counter0}}">{{comanda.id}}</p>
             {{product.name}} <br>
@@ -82,8 +85,11 @@
 
           {% else %}
 
-          <article name="productBox" id="productId-{{ product.id }}"
-            onclick="addProductClick({{product.id}} , {{comanda.id}})" style="background-color: #293552;">
+          <article 
+            name="productBox" 
+            id="productId-{{ product.id }}"
+            onclick="addProductClick({{product.id}} , {{comanda.id}})" 
+            style="background-color: #293552;">
             {{product.name}} <br>
             R$ {{product.price}}
           </article>

@@ -48,6 +48,7 @@
             <h4>{{order.id_product.name}}</h4>
             <h4>{{order.obs}} </h4>
             <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
             <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
             <button
             hx-get="{% url 'preparing' order.id %} " hx-trigger="click" hx-target="#list-orders"
@@ -72,6 +73,7 @@
             <h4>{{order.id_product.name}}</h4>
             <h4>{{order.obs}} </h4>
             <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
             <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
             <button
             hx-get="{% url 'finished' order.id %} " hx-trigger="click" hx-target="#list-orders"
@@ -95,6 +97,7 @@
             <h4>{{order.id_product.name}}</h4>
             <h4>{{order.obs}} </h4>
             <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
             <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
             <button
             hx-get="{% url 'delivered' order.id %} " hx-trigger="click" hx-target="#list-orders"
@@ -118,6 +121,7 @@
             <h4>{{order.id_product.name}}</h4>
             <h4>{{order.obs}} </h4>
             <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
             <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
             <!-- <button>Preparar</button> -->
         </div>

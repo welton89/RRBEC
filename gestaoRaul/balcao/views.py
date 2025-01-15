@@ -2,13 +2,22 @@ from django.shortcuts import render
 
 from comandas.models import Comanda, ProductComanda
 from products.models import Product
+from mesas.models import Mesa
 from django.db.models import Count, F
+from django.contrib.auth.models import User
+
 
 
 
 def viewBalcao(request):
+    try:
+        comanda = Comanda.objects.get(name='VENDA BALCÃO')
+    except:
+        user = User.objects.get(id=request.user.id)
+        mesa = Mesa.objects.get(id=1)
+        comanda = Comanda(name='VENDA BALCÃO', mesa=mesa, user=user,status='CLOSED')
+        comanda.save()
 
-    comanda = Comanda.objects.get(name='VENDA BALCÃO')
     consumo = ProductComanda.objects.filter(comanda=comanda.id)
     produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
     quantidade=Count('product'),

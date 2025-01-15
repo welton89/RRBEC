@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 from clients.models import Client
 from products.models import Product
@@ -8,6 +10,7 @@ from typePay.models import TypePay
 class Comanda(models.Model):
     id = models.AutoField(primary_key=True)
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=True)
     type_pay = models.ForeignKey(TypePay, on_delete=models.SET_NULL, null=True)
     dt_open = models.DateTimeField(auto_now_add=True)
     dt_close = models.DateTimeField(null=True, blank=True)

@@ -5,6 +5,7 @@ from django.db.models import Count, F
 
 
 from comandas.models import Comanda, ProductComanda
+from mesas.models import Mesa
 from products.models import Product
 from payments.models import Payments
 from typePay.models import TypePay
@@ -66,7 +67,12 @@ def removeProductBalcao(request, productComanda_id):
 def paymentBalcao(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
-    vendasBalcao = Comanda.objects.get(name='VENDAS BALCAO')
+    try:
+        vendasBalcao = Comanda.objects.get(name='VENDAS BALCAO')
+    except:
+        mesa = Mesa.objects.get(id=1)
+        vendasBalcao = Comanda(name='VENDAS BALCAO', mesa=mesa, user=request.user, status='CLOSED')
+        vendasBalcao.save()
     comanda = Comanda.objects.get(name='VENDA BALCÃO')
     total = 0
     for produto in consumo:
@@ -77,3 +83,7 @@ def paymentBalcao(request, comanda_id):
     pagamento.save()
     return redirect('viewBalcao')
 
+
+
+#"GET /balcao/addProductBalcaoTeclado83/1/1/ HTTP/1.1" 200 747
+#"GET /balcao/addProductBalcaoTeclado83/13/1/ HTTP/1.1" 500 133103

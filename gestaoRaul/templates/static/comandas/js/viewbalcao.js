@@ -150,8 +150,9 @@ function searchProduct() {
   function time(){
   var search_product = document.getElementById('search-product').value.trim()
   var productListElement = document.getElementById("product-list");
+  var comanda_id = document.getElementById("idComanda0").value;
   if(search_product.length == 0 ){search_product ='*';}
-  fetch(`/balcao/listProductBalcao/13/${search_product}`, {
+  fetch(`/balcao/listProductBalcao/${comanda_id}/${search_product}`, {
     method: 'GET',}
   ).then(function(response) {
     return response.text();
