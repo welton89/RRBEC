@@ -18,7 +18,6 @@
   <div class="grid-container">
     <div style="text-align: center;">
       <h1>Venda Balcão</h1>
-      <input hidden  id="id-comanda-balcao" type="text" name="id-comanda-balcao" value="{{comanda.id}}">
       <div>
 
         <button id="pagarComanda" onclick="modal_payment_comanda()"
@@ -75,7 +74,7 @@
           <article 
             name="productBox" 
             id="productId-{{ product.id }}"
-            onclick="addProductClick({{product.id}})" 
+            onclick="addProductClick({{product.id}} , {{comanda.id}})" 
             style="background-color: #293552;">
             <p hidden id="{{forloop.counter0}}">{{product.id}}</p>
             <p hidden id="comanda{{forloop.counter0}}">{{comanda.id}}</p>
@@ -89,7 +88,7 @@
           <article 
             name="productBox" 
             id="productId-{{ product.id }}"
-            onclick="addProductClick({{product.id}} )" 
+            onclick="addProductClick({{product.id}} , {{comanda.id}})" 
             style="background-color: #293552;">
             {{product.name}} <br>
             R$ {{product.price}}

@@ -1,12 +1,104 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 
 
 {% block 'title' %}
-Type Pay
+Clientes
 {% endblock %}
 
 {% block 'body' %}
-Body Type Pay
+
+
+<div class="grid-container">
+    <div class="grid-top">
+      <button style="
+      width: 30%; 
+      margin: 5px 10px 20px 10px;"
+       onclick="openModal()" id="openModal">Novo Cliente</button>
+    </div>
+
+    <table id="client-list">
+      <tr>
+        <th style="text-align: left;">Cliente</th>
+        <th style="text-align: left;width: 20%;">Débito</th>
+        <th class="hide-on-mobile" style="text-align: left;">Contato</th>
+        <th style="text-align: left;width: 20%;">Ações</th>
+      </tr>
+
+  {% for client in clients %}
+
+  <tr>
+    <td id="name-{{client.id}}" >{{client.name}}</td>
+    <td id="debt-{{client.id}}" >R$ {{client.debt}}</td>
+    <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
+    <td>
+      <div class="grid-buttons">
+      <img 
+      src="{% static 'midia/icons/edit.svg' %}" 
+      style=" width: 35px; height: 35px; cursor: pointer;" 
+      onclick="editclient({{client.id}})" >
+    </img>
+
+      <input type="hidden" id="name-{{client.id}}" value="{{ client.name }}">
+      <input type="hidden" id="contact-{{client.id}}" value="{{ client.contact }}">
+
+      <form hx-post="{% url 'payDebt' %}" hx-trigger="click"  hx-target="#client-list">
+        {% csrf_token %}
+        <input type="hidden"  name="id-client" id="id-{{client.id}}" value="{{ client.id }}">
+
+
+      <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;">
+        <img 
+      src="{% static 'midia/icons/toggle-on.svg' %}" 
+      style=" width: 35px; height: 35px; cursor: pointer;" 
+       >
+    </img>
+      </button>
+
+
+
+    </form>
+  </div>
+    </td>
+  </tr>
+
+  {% endfor %} 
+
+</table>
+</div>
+
+
+
+<dialog  id='Modal-create-client'  >
+    <article >
+      <form action="{% url 'createClient' %}" id="clientForm" method="post" >
+
+        {% csrf_token %}
+          <h2>Cadastro Cliente</h2>
+          <input  type="text" id="clientId" name="clientId"  hidden >
+
+          <input  type="text" id="clientName" name="name" required placeholder="Nome">
+           <input type="number" step="0.01" id="clientDebt" name="debt" required placeholder="Débito">
+           <input type="checkbox" id="active" name="active" placeholder="Ativo">Ativo
+           
+          <input type="text" id="clientDescription" name="contact"  placeholder="Contato"></input>
+          <footer class="grid-buttons">
+            <button id="save" type="submit">Salvar</button>
+            <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'createClient'  %}" hx-trigger="click"  hx-target="#client-list" >Alterar</button>
+            <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
+          </footer>
+      </form>
+
+    </article>
+  </dialog>
+
+
+
+
+<script src="{% static 'clients/js/clients.js' %}"></script>
+
+
+
 {% endblock %}
