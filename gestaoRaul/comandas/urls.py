@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.comandas, name='comandas'),
     path('viewcomanda/', views.viewComanda, name='viewcomanda'),
     path('createComanda/', views.createComanda, name='createComanda'),
+    path('editComanda/', views.editComanda, name='editComanda'),
 
 
 

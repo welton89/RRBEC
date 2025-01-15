@@ -20,6 +20,7 @@ def viewComanda(request):
     comanda_id = int(id)
     comanda = Comanda.objects.get(id=comanda_id)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
+    mesas = Mesa.objects.all()
 
     produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
     quantidade=Count('product'),
@@ -35,7 +36,7 @@ def viewComanda(request):
     for produto in consumo:
         total += produto.product.price
   
-    return render(request, 'viewcomanda.html', {'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados})
+    return render(request, 'viewcomanda.html', {'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
 
 
 @group_required(groupName='Garçom')
@@ -44,6 +45,16 @@ def createComanda(request):
     mesa_id = int(request.POST.get('select-mesa'))
     mesa = Mesa.objects.get(id=mesa_id)
     comanda = Comanda(name=name, mesa=mesa, user=request.user)
+    comanda.save()
+    return redirect('comandas')
+
+@group_required(groupName='Garçom')
+def editComanda(request):
+    name = request.POST.get('nameComanda')
+    comanda = Comanda.objects.get(id=int(request.POST.get('h-comandaId')))
+    mesa = Mesa.objects.get(id=int(request.POST.get('select-mesa')))
+    comanda.mesa = mesa
+    comanda.name = name
     comanda.save()
     return redirect('comandas')
 

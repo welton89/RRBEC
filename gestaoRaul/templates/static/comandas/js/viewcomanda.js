@@ -3,6 +3,22 @@
 function openModal() {
     document.getElementById('Modal-add-product').style.display = 'block';
 }
+function openModalAlter() {
+    document.getElementById('Modal-alter-comanda').style.display = 'block';
+    var name = document.getElementById('name-comanda').innerText.replace('Nome: ','').replace(' | ', '')
+    var mesa = document.getElementById('h-mesaId').value
+    console.log(name)
+    console.log(mesa)
+
+    var fildName =  document.getElementById('nameComanda')
+    fildName.value = name
+    var fildMesa =  document.getElementById('select-mesa')
+    fildMesa.value = mesa
+}
+
+function closeModalAlter() {
+    document.getElementById('Modal-alter-comanda').style.display = 'none';
+}
 function openModalObs(id) {
     document.getElementById('modal-obs').style.display = 'block';
     idd = document.getElementById('id-temp').value = id;

@@ -63,8 +63,15 @@ Detalhes {{comanda.name}}
 
     </div>
      <div>
+      <input hidden type="text" id="h-mesaId" value="{{comanda.mesa.id}}">
        <span id="name-comanda">Nome: {{comanda.name}} | </span>
        <span id="mesa-comanda">Mesa: {{comanda.mesa}}</span>
+
+       <img
+        onclick="openModalAlter()"
+        src="{% static 'midia/icons/edit.svg' %}"
+        style="width: 35px; height: 35px; cursor: pointer;">
+      </img>
 
      </div>
     <p id="open-comanda">Aberta em: {{comanda.dt_open|date:"D"}} {{comanda.dt_open|date:"d/m/Y - H:i"}}</p>
@@ -163,6 +170,31 @@ Detalhes {{comanda.name}}
     </footer>
   </article>
 </dialog>
+
+
+<dialog  id="Modal-alter-comanda">
+  <article >
+      <form id="form-comanda" method="post" action="{% url 'editComanda' %}">
+          {% csrf_token %}
+          <h2>Editar Comanda</h2>
+          <input hidden type="text" name="h-comandaId"  id="h-comandaId" value="{{comanda.id}}">
+
+          <input type="text" id="nameComanda" name="nameComanda" required placeholder="Nome"><br>
+           
+          <select name="select-mesa" id="select-mesa" >
+
+              {% for mesa in mesas %}
+              <option value="{{mesa.id}}">{{mesa.name}}</option>
+              {% endfor %}
+
+          </select>
+          <button type="submit">Alterar</button>
+          <button type="button" onclick="closeModalAlter()" style="background-color:red;">Cancelar</button>
+      </form>
+  </article>
+</dialog >
+
+
 
 <script src="{% static 'comandas/js/viewcomanda.js' %}"></script>
 
