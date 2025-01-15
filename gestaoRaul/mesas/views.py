@@ -5,6 +5,7 @@ from mesas.models import Mesa
 
 
 def mesas(request):
+    
     mesas = Mesa.objects.all()
     return render(request, 'mesas.html', {'mesas': mesas})
 

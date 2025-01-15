@@ -11,6 +11,7 @@ from payments.models import Payments
 from typePay.models import TypePay
 
 def listProductBalcao(request, comanda_id, search_product):
+    comanda_id = request.GET.get("id-comanda-balcao")
     if search_product == '*':
         produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
         quantidade=Count('product'),
@@ -83,7 +84,3 @@ def paymentBalcao(request, comanda_id):
     pagamento.save()
     return redirect('viewBalcao')
 
-
-
-#"GET /balcao/addProductBalcaoTeclado83/1/1/ HTTP/1.1" 200 747
-#"GET /balcao/addProductBalcaoTeclado83/13/1/ HTTP/1.1" 500 133103

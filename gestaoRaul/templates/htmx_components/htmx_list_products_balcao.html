@@ -3,13 +3,12 @@
 {% for product in products %}
 
 {% if forloop.counter0 == 0 %}
-<input hidden type="text" id="idComanda0" value="{{comanda_id}}">
 
                 <article 
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 style="background-color: #293552;" 
-                onclick="addProductClick({{product.id}} , {{comanda_id}})"
+                onclick="addProductClick({{product.id}} )"
                 >
                 <p hidden id="{{forloop.counter0}}" >{{product.id}}</p>
                 <p hidden id="comanda{{forloop.counter0}}" >{{comanda.id}}</p>
@@ -23,7 +22,7 @@
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 style="background-color: #293552;" 
-                onclick="addProductClick({{product.id}} , {{comanda.id}})"
+                onclick="addProductClick({{product.id}})"
                 >
                 {{product.name}} <br>
                 R$ {{product.price}}

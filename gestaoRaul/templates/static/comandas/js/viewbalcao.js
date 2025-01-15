@@ -93,8 +93,9 @@ function updateTotal(){
 
 function addProductBalcao() {
   var productId = document.getElementById('0').innerText;
-  var comandaId = document.getElementById('comanda0').innerText;
+  var comandaId = document.getElementById("id-comanda-balcao").value;
   fieldQtd = document.getElementById('qtd-product');
+
   var qtd = fieldQtd.value;
   const url = `/balcao/addProductBalcaoTeclado${productId}/${comandaId}/${qtd}/`;
   fetch(url, {
@@ -150,9 +151,10 @@ function searchProduct() {
   function time(){
   var search_product = document.getElementById('search-product').value.trim()
   var productListElement = document.getElementById("product-list");
-  var comanda_id = document.getElementById("idComanda0").value;
+  var comanda_id = document.getElementsByName("id-comanda-balcao").value;
   if(search_product.length == 0 ){search_product ='*';}
-  fetch(`/balcao/listProductBalcao/${comanda_id}/${search_product}`, {
+  fetch(`/balcao/listProductBalcao/1/${search_product}`, {
+  // fetch(`/balcao/listProductBalcao/${comanda_id}/${search_product}`, {
     method: 'GET',}
   ).then(function(response) {
     return response.text();
@@ -162,10 +164,12 @@ function searchProduct() {
   })}
 }
 
-function addProductClick(productId, comandaId) {
+function addProductClick(productId) {
   fieldQtd = document.getElementById('qtd-product');
   var qtd = fieldQtd.value;
-  fetch(`/balcao/addProductBalcaoTeclado${productId}/${comandaId}/${qtd}`, {
+  var comanda_id = document.getElementById("id-comanda-balcao").value;
+  console.log()
+  fetch(`/balcao/addProductBalcaoTeclado${productId}/${comanda_id}/${qtd}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'}
