@@ -4,14 +4,17 @@ from django.db.models import Count, F
 from comandas.models import Comanda, ProductComanda
 from products.models import Product
 from mesas.models import Mesa
+from gestaoRaul.decorators import group_required
 
 
+@group_required(groupName='Garçom')
 def comandas(request):
     comandas = Comanda.objects.filter(status__in=["OPEN", "PAYING"])
     mesas = Mesa.objects.all()
     return render(request, 'comandas.html', {'comandas': comandas, 'mesas': mesas})
 
 
+@group_required(groupName='Garçom')
 def viewComanda(request):
     id = request.GET.get('parametro')
     comanda_id = int(id)
@@ -35,7 +38,7 @@ def viewComanda(request):
     return render(request, 'viewcomanda.html', {'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados})
 
 
-
+@group_required(groupName='Garçom')
 def createComanda(request):
     name = request.POST.get('name-comanda')
     mesa_id = int(request.POST.get('select-mesa')[0])

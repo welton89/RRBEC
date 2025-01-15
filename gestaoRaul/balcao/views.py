@@ -5,10 +5,11 @@ from products.models import Product
 from mesas.models import Mesa
 from django.db.models import Count, F
 from django.contrib.auth.models import User
+from gestaoRaul.decorators import group_required
 
 
 
-
+@group_required(groupName='Garçom')
 def viewBalcao(request):
     try:
         comanda = Comanda.objects.get(name='VENDA BALCÃO')

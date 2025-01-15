@@ -9,6 +9,7 @@ from mesas.models import Mesa
 from products.models import Product
 from payments.models import Payments
 from typePay.models import TypePay
+from gestaoRaul.decorators import group_required
 
 def listProductBalcao(request, comanda_id, search_product):
     comanda_id = request.GET.get("id-comanda-balcao")
@@ -32,7 +33,7 @@ def listProductBalcao(request, comanda_id, search_product):
         return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
 
 
-
+@group_required(groupName='Garçom')
 def addProductBalcao(request, product_id, comanda_id, qtd):
     for i in range(qtd):
         product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
@@ -43,6 +44,7 @@ def addProductBalcao(request, product_id, comanda_id, qtd):
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_balcao.html",{'consumo': consumo, 'total': total})
 
+@group_required(groupName='Garçom')
 @csrf_exempt
 def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
     for i in range(qtd):
@@ -54,7 +56,7 @@ def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_balcao.html",{'consumo': consumo, 'total': total})
 
-
+@group_required(groupName='Garçom')
 def removeProductBalcao(request, productComanda_id):
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
     consumo = ProductComanda.objects.filter(comanda=product_comanda.comanda)
@@ -64,7 +66,7 @@ def removeProductBalcao(request, productComanda_id):
         total += produto.product.price
     return render(request, "htmx_components/htmx_list_products_in_balcao.html",{'consumo': consumo, 'total': total})
 
-
+@group_required(groupName='Garçom')
 def paymentBalcao(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
