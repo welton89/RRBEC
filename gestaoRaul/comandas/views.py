@@ -41,7 +41,7 @@ def viewComanda(request):
 @group_required(groupName='Garçom')
 def createComanda(request):
     name = request.POST.get('name-comanda')
-    mesa_id = int(request.POST.get('select-mesa')[0])
+    mesa_id = int(request.POST.get('select-mesa'))
     mesa = Mesa.objects.get(id=mesa_id)
     comanda = Comanda(name=name, mesa=mesa, user=request.user)
     comanda.save()
