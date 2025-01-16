@@ -168,7 +168,6 @@ function addProductClick(productId) {
   fieldQtd = document.getElementById('qtd-product');
   var qtd = fieldQtd.value;
   var comanda_id = document.getElementById("id-comanda-balcao").value;
-  console.log()
   fetch(`/balcao/addProductBalcaoTeclado${productId}/${comanda_id}/${qtd}`, {
     method: 'GET',
     headers: {
@@ -188,7 +187,6 @@ function addProductClick(productId) {
   receber.removeAttribute('disabled');
   imprimir.removeAttribute('disabled');
   search.focus()
-  // search.setAttribute('autofocus');
   fieldQtd.value = 1;
 
   setTimeout(function() {
