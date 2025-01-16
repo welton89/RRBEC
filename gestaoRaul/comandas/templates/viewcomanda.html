@@ -38,11 +38,9 @@ Detalhes {{comanda.name}}
       <button  id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
       {% else %}
 
-      
 
       {% endif %}
   
-
       {%  if comanda.status != 'OPEN'%}
       <button class="button" id="imprimirFichas" 
       style="display: none;"
@@ -59,7 +57,6 @@ Detalhes {{comanda.name}}
       >Reabrir</button>
 
       {% endif %}
-
 
     </div>
      <div>
@@ -102,8 +99,6 @@ Detalhes {{comanda.name}}
       {%  if comanda.status != 'OPEN'%}
       {% else %}
       <td>
-
-
         <img
         src="{% static 'midia/icons/delete.svg' %}"
         style="width: 35px; height: 35px; cursor: pointer;"
@@ -114,9 +109,6 @@ Detalhes {{comanda.name}}
       </img>
       </td>
         {% endif %}
-        
-        
-        
       </tr>
         {% endfor %}
     <tfoot>
@@ -164,15 +156,13 @@ Detalhes {{comanda.name}}
       <p>Recebido:</p> <input id="recebido" type="number">
       <h4 id="troco">Troco: </h4>
     </div>
-
     <footer>
       <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()" style="background-color:green;">
         Receber
       </button>
-      <button class="secondary"  onclick="backPage()">
+      <button class="secondary"  onclick=" modal_conta_client()">
         Conta Cliente
       </button>
-
       <button onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
     </footer>
   </article>
@@ -185,10 +175,9 @@ Detalhes {{comanda.name}}
           {% csrf_token %}
           <h2>Editar Comanda</h2>
           <input hidden type="text" name="h-comandaId"  id="h-comandaId" value="{{comanda.id}}">
-
           <input type="text" id="nameComanda" name="nameComanda" required placeholder="Nome"><br>
-           
-          <select name="select-mesa" id="select-mesa" >
+          <select name="select-mesa" id="select-mesa" required >
+            
 
               {% for mesa in mesas %}
               <option value="{{mesa.id}}">{{mesa.name}}</option>
@@ -205,20 +194,29 @@ Detalhes {{comanda.name}}
 
 <dialog id="conta-cliente" style="display: none;" >
   <article>
-    <h2>Pagamento</h2>
+    <form id="form-comanda" method="post" action="{% url 'addContaCliente' %}">
+      {% csrf_token %}
+    <h2>Adicionar na Conta</h2>
     <h1>R$ {{ total }}</h1>
     <div>
-      <p>Recebido:</p> <input id="recebido" type="number">
-      <h4 id="troco">Adicionar a conta: </h4>
+      <input hidden type="text" name="valor-conta" value="{{ total }}">
+      <input hidden type="text" name="idComanda" value="{{ comanda.id }}">
+      <p>Selecione o Cliente:</p>
+       <select name="select-client" id="select-client" required>
+        <option value="">Selecione um cliente</option>
+
+          {% for client in clients %}
+            <option value="{{client.id}}">{{client.name}}</option>
+          {% endfor %}
+
+       </select>
     </div>
-
     <footer>
-      <button class="secondary" style="background-color:green;">
-        Receber
+      <button type="submit" class="secondary" style="background-color:green;" >
+        Adicionar a conta
       </button>
-
-
-      <button onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
+      <button onclick="close_modal_conta_client()" style="background-color:red;">Cancelar</button>
+    </form>
     </footer>
   </article>
 </dialog>

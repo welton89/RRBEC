@@ -52,7 +52,8 @@ Comandas
             {% csrf_token %}
             <h2>Abrir Comanda</h2>
             <input type="text" id="name-comanda" name="name-comanda" required placeholder="Nome"><br>
-             <select name="select-mesa" >
+             <select name="select-mesa" required>
+              <option value="">Selecione um local</option>
 
                 {% for mesa in mesas %}
                 <option value="{{mesa.id}}">{{mesa.name}}</option>

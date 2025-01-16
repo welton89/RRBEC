@@ -34,6 +34,18 @@ function modal_payment_comanda() {
     recebido.focus()
 }
 
+
+function modal_conta_client() {
+    document.getElementById('conta-cliente').style.display = 'block';
+    // recebido = document.getElementById('recebido')
+    // recebido.focus()
+}
+
+function close_modal_conta_client() {
+    document.getElementById('conta-cliente').style.display = 'none';
+}
+
+
 function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
 }

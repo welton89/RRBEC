@@ -1,7 +1,9 @@
+from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.db.models import Count, F
 
 from comandas.models import Comanda, ProductComanda
+from clients.models import Client
 from products.models import Product
 from mesas.models import Mesa
 from gestaoRaul.decorators import group_required
@@ -21,6 +23,7 @@ def viewComanda(request):
     comanda = Comanda.objects.get(id=comanda_id)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     mesas = Mesa.objects.all()
+    clients = Client.objects.filter(active=True)
 
     produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
     quantidade=Count('product'),
@@ -36,7 +39,7 @@ def viewComanda(request):
     for produto in consumo:
         total += produto.product.price
   
-    return render(request, 'viewcomanda.html', {'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
+    return render(request, 'viewcomanda.html', {'clients':clients,'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
 
 
 @group_required(groupName='Garçom')
@@ -55,6 +58,21 @@ def editComanda(request):
     mesa = Mesa.objects.get(id=int(request.POST.get('select-mesa')))
     comanda.mesa = mesa
     comanda.name = name
+    comanda.save()
+    return redirect('comandas')
+
+@group_required(groupName='Gerente')
+def addContaCliente(request):
+   
+    comandaId = int(request.POST.get('idComanda'))
+    clientId = int(request.POST.get('select-client'))
+    valor = float(request.POST.get('valor-conta').replace(',','.'))
+    comanda = Comanda.objects.get(id=comandaId)
+    client = Client.objects.get(id=clientId)
+    client.debt = client.debt + Decimal(valor)
+    comanda.client = client
+    comanda.status = 'CLOSED'
+    client.save()
     comanda.save()
     return redirect('comandas')
 

@@ -9,6 +9,7 @@ urlpatterns = [
     path('viewcomanda/', views.viewComanda, name='viewcomanda'),
     path('createComanda/', views.createComanda, name='createComanda'),
     path('editComanda/', views.editComanda, name='editComanda'),
+    path('addContaCliente/', views.addContaCliente, name='addContaCliente'),
 
 
 
