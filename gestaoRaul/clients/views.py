@@ -22,6 +22,17 @@ def createClient(request):
     client.save()
     return redirect('/clients')
 
+@group_required(groupName='Gerente')
+def editClient(request):
+    client_id = int(request.POST.get('clientId'))
+    client = Client.objects.get(id=client_id)
+    client.name = request.POST.get('name')
+    client.contact = request.POST.get('contact')
+    client.active = True if request.POST.get('active') else False
+    # client = Client(name=name, contact=contact,debt=0, active=active)
+    client.save()
+    return redirect('/clients')
+
 def payDebt(request):
     # id = request.POST.get('id-client')
     # client_id = int(id)

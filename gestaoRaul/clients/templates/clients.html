@@ -33,6 +33,7 @@ Clientes
     <td id="name-{{client.id}}" >{{client.name}}</td>
     <td id="debt-{{client.id}}" >R$ {{client.debt}}</td>
     <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
+    <td hidden  id="active-{{client.id}}" >{{client.active}}</td>
     <td>
       <div class="grid-buttons">
       <img 
@@ -83,10 +84,10 @@ Clientes
            <input type="number" step="0.01" id="clientDebt" name="debt" required placeholder="Débito">
            <input type="checkbox" id="active" name="active" placeholder="Ativo">Ativo
            
-          <input type="text" id="clientDescription" name="contact"  placeholder="Contato"></input>
+          <input type="text" id="clientContact" name="contact"  placeholder="Contato"></input>
           <footer class="grid-buttons">
             <button id="save" type="submit">Salvar</button>
-            <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'createClient'  %}" hx-trigger="click"  hx-target="#client-list" >Alterar</button>
+            <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editClient'  %}" hx-trigger="click"  hx-target="#client-list" >Alterar</button>
             <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
           </footer>
       </form>
