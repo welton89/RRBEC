@@ -53,19 +53,14 @@ input, textarea {
 
 * dialog {
     transform: scale(1);
-    /* display: flexbox;
-    max-width: 200;
-    max-height: 400; */
+
 }
 
 
 
 .grid-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    max-width: 500px; /* Define a largura máxima do grid */
-    /* margin: 0 auto;  */
+  display: flex;
+  gap: 10px;
   }
 
 .grid-container {
@@ -88,7 +83,7 @@ input, textarea {
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    line-height: 120px; /* Centraliza o texto verticalmente */
+    line-height: 120px;
     font-size: 20px;
     font-weight: bold;
     color: #333;

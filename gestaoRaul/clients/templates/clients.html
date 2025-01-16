@@ -8,6 +8,10 @@
 Clientes
 {% endblock %}
 
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'clients/css/clients.css' %}">
+{% endblock %}
+
 {% block 'body' %}
 
 
@@ -30,38 +34,34 @@ Clientes
   {% for client in clients %}
 
   <tr>
-    <td id="name-{{client.id}}" >{{client.name}}</td>
-    <td id="debt-{{client.id}}" >R$ {{client.debt}}</td>
-    <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
-    <td hidden  id="active-{{client.id}}" >{{client.active}}</td>
-    <td>
-      <div class="grid-buttons">
-      <img 
+      <td id="name-{{client.id}}" >{{client.name}}</td>
+      <td id="debt-{{client.id}}" >R$ {{client.debt}}</td>
+      <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
+      <td hidden  id="active-{{client.id}}" >{{client.active}}</td>
+      <td>
+    <div class="grid-buttons">
+      
+    <img 
       src="{% static 'midia/icons/edit.svg' %}" 
       style=" width: 35px; height: 35px; cursor: pointer;" 
       onclick="editclient({{client.id}})" >
     </img>
 
-      <input type="hidden" id="name-{{client.id}}" value="{{ client.name }}">
-      <input type="hidden" id="contact-{{client.id}}" value="{{ client.contact }}">
-
-      <form hx-post="{% url 'payDebt' %}" hx-trigger="click"  hx-target="#client-list">
+        <input type="hidden" id="name-{{client.id}}" value="{{ client.name }}">
+        <input type="hidden" id="contact-{{client.id}}" value="{{ client.contact }}">
+     
+        <form style="max-width: 50px;" hx-post="{% url 'payDebt' %}" hx-trigger="click"  hx-target="#client-list">
         {% csrf_token %}
         <input type="hidden"  name="id-client" id="id-{{client.id}}" value="{{ client.id }}">
+        <button style="background-color: rgba(255, 0, 0, 0); padding: 0px; border: none;">
+          <img 
+            src="{% static 'midia/icons/pay.svg' %}" 
+            style="width: 35px; height: 35px; cursor: pointer;">
+          </img>
+        </button>
+      </form>
+    </div>
 
-
-      <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;">
-        <img 
-      src="{% static 'midia/icons/toggle-on.svg' %}" 
-      style=" width: 35px; height: 35px; cursor: pointer;" 
-       >
-    </img>
-      </button>
-
-
-
-    </form>
-  </div>
     </td>
   </tr>
 

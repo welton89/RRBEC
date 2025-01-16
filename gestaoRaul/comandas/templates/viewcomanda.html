@@ -69,8 +69,8 @@ Detalhes {{comanda.name}}
 
        <img
         onclick="openModalAlter()"
-        src="{% static 'midia/icons/edit.svg' %}"
-        style="width: 35px; height: 35px; cursor: pointer;">
+        src="{% static 'midia/icons/pen.svg' %}"
+        style="width: 30px; height: 35px; cursor: pointer;">
       </img>
 
      </div>
@@ -92,8 +92,8 @@ Detalhes {{comanda.name}}
         {% if item.product.cuisine == True %}
         <img
         onclick="openModalObs({{item.id}})"
-        src="{% static 'midia/icons/edit.svg' %}"
-        style="width: 35px; height: 35px; cursor: pointer;">
+        src="{% static 'midia/icons/note.svg' %}"
+        style="width: 25px; height: 35px; cursor: pointer;">
       </img>
         {% endif %}
 

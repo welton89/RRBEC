@@ -18,8 +18,14 @@ function openModal() {
     clientActive.checked = false
 }
 
+function reloadPage(){
+    setTimeout(function() {
+      location.reload();}, 100);
+  }
+
 function closeModal() {
-    document.getElementById('Modal-create-client').style.display = 'none';
+    reloadPage()
+    // document.getElementById('Modal-create-client').style.display = 'none';
 }
 
 function editclient(id) {
