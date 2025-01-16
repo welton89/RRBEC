@@ -159,14 +159,21 @@ Detalhes {{comanda.name}}
 <dialog id="payment-comanda" style="display: none;" >
   <article>
     <h2>Pagamento</h2>
-    <h1>R$ {{ total }}</h1>
+    <h1 id="first-total">R$ {{ total }}</h1>
+    <div>
+      <p>Recebido:</p> <input id="recebido" type="number">
+      <h4 id="troco">Troco: </h4>
+    </div>
 
     <footer>
-      <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">
+      <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()" style="background-color:green;">
         Receber
       </button>
+      <button class="secondary"  onclick="backPage()">
+        Conta Cliente
+      </button>
 
-      <button onclick="close_modal_payment_comanda()" >Cancelar</button>
+      <button onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
     </footer>
   </article>
 </dialog>
@@ -193,6 +200,28 @@ Detalhes {{comanda.name}}
       </form>
   </article>
 </dialog >
+
+
+
+<dialog id="conta-cliente" style="display: none;" >
+  <article>
+    <h2>Pagamento</h2>
+    <h1>R$ {{ total }}</h1>
+    <div>
+      <p>Recebido:</p> <input id="recebido" type="number">
+      <h4 id="troco">Adicionar a conta: </h4>
+    </div>
+
+    <footer>
+      <button class="secondary" style="background-color:green;">
+        Receber
+      </button>
+
+
+      <button onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
+    </footer>
+  </article>
+</dialog>
 
 
 

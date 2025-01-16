@@ -30,6 +30,8 @@ function openModalObs(id) {
 
 function modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'block';
+    recebido = document.getElementById('recebido')
+    recebido.focus()
 }
 
 function close_modal_payment_comanda() {
@@ -139,17 +141,35 @@ function backPage() {
 }
   
 
-// document.onkeydown = teclado
+function troco(){
+  recebido = document.getElementById('recebido').value
+  total = document.getElementById('first-total').innerHTML
+  resultado = document.getElementById('troco')
+  total = total.replace('R$ ','')
+  total = total.replace(',','.')
+  result = recebido - total
+  resultado.innerHTML = 'Troco: R$ '+result
+}
 
-// function teclado(event){
-//   if (event.keyCode == 65){
-//     openModal()
-//   }
-//   else if (event.keyCode == 73){
-//     imprimirFichas()
-//   }
 
-// }
+document.onkeydown = teclado
+
+function teclado(event){
+  if (document.getElementById('payment-comanda').style.display == 'block'){
+    if (event.keyCode == 13){
+      troco()
+    }else{
+      console.log(event.keyCode)
+    }
+  }else{
+    if (event.keyCode == 13){
+      troco()
+    }else{
+      console.log('')
+    }
+  }
+
+}
 function addOrder(){
   obs = document.getElementById('obs').value
   var id = document.getElementById('id-temp').value
