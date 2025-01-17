@@ -4,6 +4,9 @@ from django.db.models import Count, F
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
+from django.utils.dateparse import parse_datetime
+
+import datetime
 
 
 
@@ -29,35 +32,39 @@ def home(request):
 
 
 @group_required(groupName='Gerente')
-def chartCuisine(request):
-    print(request.user.groups.all())
-    print(request.user.is_authenticated)
+def chartCuisine(request,dateStart,dateEnd):
+    try:
+        dateStart = parse_datetime(dateStart+' 07:00:00')
+        dateEnd = parse_datetime(dateEnd+' 07:00:00')+ datetime.timedelta(days=1)
+    except:
+        dateStart = parse_datetime('2025-01-01 07:00:00')
+        dateEnd = datetime.datetime.now()
+    # print(request.user.groups.all())
+    # print(request.user.is_authenticated)
     # fulano = User()
     tFila = []
     tPreparando = []
     tFinalizado = []
-    dataStart = request.GET.get("data-start")
-    dataEnd = request.GET.get("data-end")
 
-    orders = Order.objects.filter(delivered__isnull=False)
+    orders = Order.objects.filter(delivered__isnull=False, queue__gt=dateStart, queue__lt=dateEnd)
+    try:
+        for order in orders:
+            tFila.append((order.preparing - order.queue).total_seconds())
+            tPreparando.append((order.finished - order.preparing).total_seconds())
+            tFinalizado.append((order.delivered - order.finished).total_seconds())
 
-    for order in orders:
-        tFila.append((order.preparing - order.queue).total_seconds())
-        tPreparando.append((order.finished - order.preparing).total_seconds())
-        tFinalizado.append((order.delivered - order.finished).total_seconds())
+        mediaFila = int((sum(tFila) / len(tFila))/60)
+        mediaPreparando = int((sum(tPreparando) / len(tPreparando))/60)
+        mediaFinalizado = int((sum(tFinalizado) / len(tFinalizado))/60)
 
-    mediaFila = int((sum(tFila) / len(tFila))/60)
-    mediaPreparando = int((sum(tPreparando) / len(tPreparando))/60)
-    mediaFinalizado = int((sum(tFinalizado) / len(tFinalizado))/60)
-
-    # orders = Order.objects.filter(
-    # created_at__gte='a',
-    # created_at__lte='b',
-    # delivered__isnull=False
-    # )
-
-    return JsonResponse({
-        'mediaFila': mediaFila,
-        'mediaPreparando': mediaPreparando,
-        'mediaFinalizado': mediaFinalizado,
-        })
+        return JsonResponse({
+            'mediaFila': mediaFila,
+            'mediaPreparando': mediaPreparando,
+            'mediaFinalizado': mediaFinalizado,
+            })
+    except:
+        return JsonResponse({
+            'mediaFila': 0,
+            'mediaPreparando': 0,
+            'mediaFinalizado': 0,
+            })

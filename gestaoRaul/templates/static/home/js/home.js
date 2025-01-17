@@ -38,20 +38,22 @@ new Chart("vendas", {
 
 
 function mediaCuisine(){
-
+var dateStart = document.getElementById('data-start').value == '' ? '2025-01-01' :document.getElementById('data-start').value;
+var dateEnd = document.getElementById('data-end').value == '' ? '2025-01-15' :document.getElementById('data-end').value;;
 var yValues = [];
 var xValues = ['Fila', 'Preparando', 'Entregar'];
 var barColors = ["red", "green","blue","orange","brown"];
 
-var resposta =   fetch('/chartCuisine', {method: 'GET',
+var resposta =   fetch(`/chartCuisine/${dateStart}/${dateEnd}`, {method: 'GET',
   headers: {'Content-Type': 'application/json',
    },})
    .then(response => response.json())
     .then(data => {
+      yValues = []
       yValues.push(data['mediaFila'])
       yValues.push(data['mediaPreparando'])
       yValues.push(data['mediaFinalizado'])
-      
+      console.log(yValues)
       new Chart("cuisine", {
         type: "doughnut",
         data: {
@@ -76,6 +78,11 @@ var resposta =   fetch('/chartCuisine', {method: 'GET',
  });
 }
 
-
-productsPlus()
+function deleyGraficos(){
+  setTimeout(function() {
+    mediaCuisine();}, 20000);
+}
+// productsPlus()
 mediaCuisine()
+
+// console.log(document.getElementById('data-start').value)
