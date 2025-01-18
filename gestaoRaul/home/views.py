@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.utils.dateparse import parse_datetime
 
 import datetime
+import json
 
 
 
@@ -17,17 +18,7 @@ from gestaoRaul.decorators import group_required
 
 @group_required(groupName='Gerente')
 def home(request):
-    try:
-        total_pagamentos = Payments.objects.aggregate(total=Sum('value'))['total']
-        qdt_pagamentos = Payments.objects.aggregate(total=Count('value'))['total']
-        pagamentos = Payments.objects.all()
-        ticekMedio = total_pagamentos / qdt_pagamentos
 
-        produtos_mais_vendidos = ProductComanda.objects.values('product').annotate(
-        quantidade=Count('product'),
-        nome=F('product__name') ).order_by('-quantidade')[:5]
-        return render(request, 'home.html', {'total_pagamentos': total_pagamentos, 'pagamentos': pagamentos, 'qdt_pagamentos': qdt_pagamentos, 'produtos_mais_vendidos': produtos_mais_vendidos, 'ticekMedio': ticekMedio, })
-    except:
         return render(request, 'home.html')
 
 
@@ -39,13 +30,41 @@ def chartCuisine(request,dateStart,dateEnd):
     except:
         dateStart = parse_datetime('2025-01-01 07:00:00')
         dateEnd = datetime.datetime.now()
-    # print(request.user.groups.all())
-    # print(request.user.is_authenticated)
-    # fulano = User()
+
     tFila = []
     tPreparando = []
     tFinalizado = []
 
+    total_pagamentos =  Payments.objects.filter(datetime__range=(dateStart, dateEnd)).aggregate(total=Sum('value'))['total']
+    total_pagamentos = 0 if total_pagamentos is None else total_pagamentos
+    qdt_pagamentos = Payments.objects.filter(datetime__range=(dateStart, dateEnd)).aggregate(total=Count('value'))['total']
+    qdt_pagamentos = 0 if qdt_pagamentos is None else qdt_pagamentos
+    try:
+        ticket_medio = total_pagamentos / qdt_pagamentos
+    except:
+        ticket_medio = 0
+
+    try:
+        produtos_mais_vendidos = ProductComanda.objects.filter(
+                                    data_time__range=(dateStart, dateEnd)
+                                ).values('product').annotate(
+                                    quantidade=Count('product'),
+                                    nome=F('product__name')
+                                ).order_by('-quantidade')[:5]
+        maisVendidos = {}
+        for produto in produtos_mais_vendidos:
+            maisVendidos[produto['nome']] = produto['quantidade']
+        produtos_mais_vendidos = maisVendidos
+  
+    except:
+        produtos_mais_vendidos = {
+                                    'petra': 25,
+                                    'petra2': 26,
+                                    'petra3': 27,
+                                    'petra4': 28,
+                                    'petra5': 29,
+                                  }
+      
     orders = Order.objects.filter(delivered__isnull=False, queue__gt=dateStart, queue__lt=dateEnd)
     try:
         for order in orders:
@@ -61,10 +80,18 @@ def chartCuisine(request,dateStart,dateEnd):
             'mediaFila': mediaFila,
             'mediaPreparando': mediaPreparando,
             'mediaFinalizado': mediaFinalizado,
+            'total_pagamentos': round(total_pagamentos, 2),
+            'qtd_pagamentos': qdt_pagamentos,
+            'ticket_medio': round(ticket_medio, 2),
+            'produtos_mais_vendidos': produtos_mais_vendidos,
             })
     except:
         return JsonResponse({
             'mediaFila': 0,
             'mediaPreparando': 0,
             'mediaFinalizado': 0,
+            'total_pagamentos': round(total_pagamentos, 2),
+            'qtd_pagamentos': qdt_pagamentos,
+            'ticket_medio': round(ticket_medio, 2),
+            'produtos_mais_vendidos': produtos_mais_vendidos,
             })

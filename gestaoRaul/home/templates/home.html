@@ -29,33 +29,31 @@ RRB&C - DashBoard
 <body>
 
   <h1>DashBoard</h1>
-    <!-- <form class="grid-container" > -->
-      <input id="data-start" name="data-start" type="date">
-      <input id="data-end" name="data-end" type="date">
-      <!-- <input type="submit"> -->
-       <button onclick="mediaCuisine()" >Filtrar</button>
-    <!-- </form> -->
+  <div class="grid-container">
+      <input id="data-start" name="data-start" oninput="mediaCuisine()" type="date">
+      <input id="data-end" name="data-end" oninput="mediaCuisine()" type="date">
+       <!-- <button onclick="mediaCuisine()" >Filtrar</button> -->
+  </div>
+
   <div class="grid-container">
 
     <div class="card">
       <h4> Valor de Pagamentos </h4>
-      <h5>R$ {{total_pagamentos |floatformat:2 }} </h5>
+      <h5 id="total-pagamentos">R$ {{total_pagamentos |floatformat:2 }} </h5>
       <hr>
       <h4> Quantidade de Pagamentos </h4>
-      <h5> {{ qdt_pagamentos }} </h5>
+      <h5 id="qtd-pagamentos"> {{ qdt_pagamentos }} </h5>
       <hr>
       <h4> Ticket médio </h4>
-      <h5>R$ {{ ticekMedio |floatformat:2}} </h5>
+      <h5 id="ticket-medio">R$ {{ ticekMedio |floatformat:2}} </h5>
       <hr>
     </div>
 
     <div class="card">
       <h4> Gráficos de vendas </h4>
-      <div></div>
       <canvas id="vendas" style="width:100%;height: 85%;max-width:100%; background-color: rgb(191, 225, 255);border-radius: 5px;">
       </canvas>
     </div>
-
 
     <div class="card">
       <h4> Gráficos cozinha </h4>
@@ -64,22 +62,7 @@ RRB&C - DashBoard
       </canvas>
     </div>
 
-    <div class="card">
-      <h4> Mais Vendidos </h4>
-      <table style="background-color: rgba(0, 255, 255, 0);">
-        <tr style="background-color: rgba(0, 255, 255, 0);">
-          <th style="text-align: left;background-color: rgba(0, 255, 255, 0.089);">Produto</th>
-          <th style="text-align: left;background-color: rgba(0, 255, 255, 0.075);">Quantidade</th>
-        </tr>
-      {% for produto in produtos_mais_vendidos %}
-      <tr>
-      <td id="n-{{forloop.counter0}}" style="background-color: rgba(0, 255, 255, 0);"> {{ produto.nome }} </td>
-      <td id="q-{{forloop.counter0}}" style="background-color: rgba(0, 255, 255, 0);"> {{ produto.quantidade }} </td>
-    </tr>
-    
-      {% endfor %}
-    </table>
-    </div>
+
 
 
 
