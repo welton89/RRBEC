@@ -20,16 +20,37 @@ RRB&C - Mapa de Mesas
     width: 1400px;
     height: 800px;
     border-radius: 15px;
-    /* margin: 15; */
-
+    margin-left: 30px;
     background-image: url("{% static 'midia/mapMesa.webp' %}" );
     background-size: cover;
     position: relative;
+
 }
+
+#scroll {
+  display: grid;
+  position: relative;
+    scrollbar-width: thin;
+}
+
+@media screen and (max-width: 730px) {
+  #scroll {
+    margin: 10px;
+
+    overflow: scroll;
+}
+
+#mapa {
+  margin: 0px;
+
+}
+
+    }
+
 </style>
 
 <h1>Mapa de Mesas</h1>
-
+<div id="scroll">
 <div id="mapa" >
 
   {% for eixo in eixosXY %}
@@ -43,6 +64,7 @@ RRB&C - Mapa de Mesas
         top: {{eixo.x}}px;position: absolute" >
       </div>
   {% endfor %}
+</div>
 
 </div>
 <h2>Depósito</h2>

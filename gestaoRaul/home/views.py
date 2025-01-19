@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from django.db.models import Sum
 from django.db.models import Count, F
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.utils.dateparse import parse_datetime
 
 import datetime
-import json
 
 
 
