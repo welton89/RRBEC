@@ -1,23 +1,55 @@
 
-var barColors = ["red", "green","blue","orange","brown"];
+const barColors = ['rgba(252, 52, 95, 0.65)', 
+                'rgba(253, 193, 53, 0.65)',
+                'rgba(54, 162, 235, 0.65)',
+                'rgba(75, 192, 192, 0.65)',
+                'rgba(153, 102, 255, 0.65)',];
+
+const barColorsBorder = ['rgba(252, 52, 95)', 
+                'rgb(253, 193, 53)',
+                'rgb(54, 162, 235)',
+                'rgb(75, 192, 192)',
+                'rgb(153, 102, 255)',];
 
 var chartVendas = new Chart("vendas", {
   type: "bar",
   data: {
     labels: [],
     datasets: [{
+      fill: true,
+      // barPercentage: 1.0,
       data: [],
       backgroundColor: barColors,
+      borderColor: barColorsBorder,
+      borderWidth: 2,
+      borderRadius: 8
     }]
   },
   options: {
+    
+    indexAxis: 'y',
+    scales: {
+      y: {
+        ticks: {
+          display: true,
+
+          // color: 'white'
+          // padding: 5,
+          callback: function(value, index, values) {
+            return chartVendas.data.labels[index].substring(0, 6); // Retorna o valor normal do label
+          },
+        }
+      },
+      
+    },
     legend: {display: false},
     title: {
-      display: true,
+      display: false,
       text: "Produtos mais vendidos"
     },
     
-  }
+  },
+ 
 });
 
 var chartCuisine = new Chart("cuisine", {
@@ -228,7 +260,7 @@ function mediaCuisine(){
 var dateStart = document.getElementById('data-start').value == '' ? '2025-01-01' :document.getElementById('data-start').value;
 var dateEnd = document.getElementById('data-end').value == '' ? getDataAtualFormatada()[1] :document.getElementById('data-end').value;;
 var yValues = [];
-var xValues = ['Fila', 'Preparando', 'Entregar'];
+var xValues = ['Fila', 'Preparo', 'Entrega'];
 var totalPagamenstos = document.getElementById('total-pagamentos')
 var qtdPagamentos = document.getElementById('qtd-pagamentos')
 var ticketMedio = document.getElementById('ticket-medio')
