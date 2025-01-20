@@ -85,7 +85,6 @@ Detalhes {{comanda.name}}
     <tr>
       <td>
         {{item.product.name}}
-
         {% if item.product.cuisine == True %}
         <img
         onclick="openModalObs({{item.id}})"
@@ -96,6 +95,10 @@ Detalhes {{comanda.name}}
 
       </td>
       <td>R$ {{item.product.price}}</td>
+
+
+
+      
       {%  if comanda.status != 'OPEN'%}
       {% else %}
       <td>

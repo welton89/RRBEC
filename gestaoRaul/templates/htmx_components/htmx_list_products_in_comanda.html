@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <tr>
     <th style="text-align: left;">Produto</th>
     <th style="text-align: left;">Preço</th>
@@ -19,9 +18,13 @@
   </img>
     {% endif %}
 
-
   </td>
   <td>R$ {{item.product.price}}</td>
+
+
+
+  {%  if comanda.status != 'OPEN'%}
+  {% else %}
   <td>
     <img
     src="{% static 'midia/icons/delete.svg' %}"
@@ -32,10 +35,9 @@
     hx-confirm="Tem certeza que deseja excluir o produto {{item.product.name}}?" >
   </img>
   </td>
+  {% endif %}
 </tr>
-
 {% endfor %}
-
 <tfoot>
     <tr>
       <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
