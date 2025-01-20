@@ -13,7 +13,7 @@
   gap: 3px;
   /* min-width: 220px;
   min-height: 250px; */
-  background-color: #292929;
+  background: var(--main-gradient);
   border-radius: 5px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   text-align: center;

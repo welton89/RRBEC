@@ -3,6 +3,8 @@
 ## Sobre o Projeto
 Este projeto é uma aplicação web desenvolvida em Django com o objetivo de explorar as funcionalidades e recursos desse framework. A aplicação visa simular um sistema de gestão para bares e restaurantes, abrangendo desde o cadastro de produtos e clientes até a geração de relatórios de vendas.
 
+![texto alternativo](readme/dashboard.gif)
+
 ## Requisitos Funcionais
 
 ### Módulo de Produtos
