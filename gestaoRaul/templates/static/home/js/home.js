@@ -1,4 +1,3 @@
-
 const barColors = ['rgba(252, 52, 95, 0.65)', 
                 'rgba(253, 193, 53, 0.65)',
                 'rgba(54, 162, 235, 0.65)',
@@ -17,7 +16,6 @@ var chartVendas = new Chart("vendas", {
     labels: [],
     datasets: [{
       fill: true,
-      // barPercentage: 1.0,
       data: [],
       backgroundColor: barColors,
       borderColor: barColorsBorder,
@@ -26,30 +24,28 @@ var chartVendas = new Chart("vendas", {
     }]
   },
   options: {
-    
     indexAxis: 'y',
     scales: {
       y: {
         ticks: {
           display: true,
-
-          // color: 'white'
-          // padding: 5,
           callback: function(value, index, values) {
-            return chartVendas.data.labels[index].substring(0, 6); // Retorna o valor normal do label
+            return chartVendas.data.labels[index].substring(0, 6);
           },
         }
       },
-      
     },
-    legend: {display: false},
+    legend: {
+      display: true,
+      labels: {
+        color: 'white' 
+      }
+    },
     title: {
       display: false,
       text: "Produtos mais vendidos"
     },
-    
   },
- 
 });
 
 var chartCuisine = new Chart("cuisine", {
@@ -62,7 +58,12 @@ var chartCuisine = new Chart("cuisine", {
     }]
   },
   options: {
-    legend: {display: true},
+    legend: {
+      display: true,
+      labels: {
+        color: 'white' // Cor da legenda alterada para branca
+      }
+    },
     title: {
       display: true,
       text: "Média (em minutos) do pedido em cada etapa."
@@ -70,8 +71,7 @@ var chartCuisine = new Chart("cuisine", {
   }
 });
 
-function faturaMensal() {
-
+// O restante do código permanece inalterado
   const genericOptions = {
     responsive: true,
     hoverBackgroundColor: 'white',
@@ -79,11 +79,18 @@ function faturaMensal() {
     hoverBorderWidth: 3,
     onHover: { mode: ['dataset', 'tooltip'] },
     scales: {
-      x: { grid: { display: true } },
+      x: { grid: { display: true },
+      ticks: {
+        display: true,
+        color: 'white'
+      } },
       y: {
         min: 0,
         max: 200,
-        ticks: { stepSize: 50 },
+        ticks: { stepSize: 50 ,
+          display: true,
+          color: 'white'
+        },
         grid: { borderDash: [5, 5] }
       }
     },
@@ -91,7 +98,7 @@ function faturaMensal() {
       padding: {
         bottom: 10,
         left: 15,
-        right: 25
+        right: 25,
       }
     },
     interaction: {
@@ -100,6 +107,8 @@ function faturaMensal() {
     },
     plugins: {
       legend: { display: true },
+      labels:{
+        color: 'white'},
       tooltip: {
         padding: 16,
         titleFont: {
@@ -107,7 +116,7 @@ function faturaMensal() {
           size: 18,
           weight: 'normal'
         },
-        backgroundColor: 'rgba(8, 26, 81, 1)',
+        backgroundColor: 'rgba(8, 26, 81, 0.66)',
         bodyColor: 'rgba(255, 255, 255, 0.7)',
         bodyFont: {
           family: "'Poppins', 'sans-serif'",
@@ -232,7 +241,7 @@ var faturamentoMensal = new Chart('mensal', {
 
 });
 
-}
+
 
 
 function getDataAtualFormatada() {
