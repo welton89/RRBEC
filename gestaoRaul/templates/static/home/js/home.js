@@ -15,6 +15,7 @@ var chartVendas = new Chart("vendas", {
   data: {
     labels: [],
     datasets: [{
+      label:'',
       fill: true,
       data: [],
       backgroundColor: barColors,
@@ -80,7 +81,6 @@ var chartCuisine = new Chart("cuisine", {
   }
 });
 
-// O restante do código permanece inalterado
   const genericOptions = {
     responsive: true,
     hoverBackgroundColor: 'white',
@@ -177,7 +177,6 @@ var chartCuisine = new Chart("cuisine", {
               case 'Dez':
                 titulo = 'Dezembro'
                 break;
-              // ... outros dias
               default:
                 console.log("Dia inválido");
             }
