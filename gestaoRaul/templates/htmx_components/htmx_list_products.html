@@ -4,7 +4,7 @@
 
 <article 
         onclick="addProductComanda({{product.id}})" 
-        style="background-color: #293552;" 
+        class="card-product"
         hx-get="{% url 'addProduct' product.id comanda_id %} " 
         hx-trigger="click" 
         hx-target="#list-products-comanda">

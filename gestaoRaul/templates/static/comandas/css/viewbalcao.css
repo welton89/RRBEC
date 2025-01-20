@@ -1,3 +1,5 @@
+
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 2fr);
@@ -14,24 +16,15 @@
     margin: 0 auto;
   }
 
-.card {
-    width: 120px;
-    height: 120px;
-    background-color: #c9ffbc;
-    border-radius: 15px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    transition: transform 0.2s;
-    cursor: pointer;
+.card-product {
+  background: var(--main-gradient);
+  box-shadow: 3px 3px 10px rgba(2, 2, 2, 0.678);
+
   }
 
-.card:hover {
+.card-product:hover {
     transform: scale(1.05);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 10px rgba(185, 185, 185, 0.678);
   }
 
   table td th {

@@ -130,7 +130,7 @@ Detalhes {{comanda.name}}
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                <article onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" style="background-color: #293552;" >
+                <article class="card-product" onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
                   {{product.name}} <br>
                   R$ {{product.price}}
                 </article >

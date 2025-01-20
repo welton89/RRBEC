@@ -1,12 +1,13 @@
 .grid-container {
   display: grid;
+  justify-self: center;
   justify-content: center;
   justify-items: center;
   align-items: center;
   grid-template-columns: repeat(3, 2fr);
-  gap: 20px;
+  gap: 30px;
   max-width: 1200px;
-  margin: 0 auto; 
+  margin: 0px 0px 20px 0px; 
   padding: 10px;
 }
 
@@ -14,9 +15,11 @@
   width: 420px;
   height: 420px;
   justify-items: center;
-  background: linear-gradient(135deg, #97cefa, #457bd1);
+  /* background: linear-gradient(135deg, #97cefa, #457bd1); */
+  background: var(--main-gradient);
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.719);
+
   text-align: center;
   line-height: 30px; 
   font-size: 20px;
@@ -27,8 +30,8 @@
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(199, 199, 199, 0.25);
 }
 
 .card-resumo {
@@ -38,9 +41,19 @@
   align-items: center;
   width: 300px;
   height: 130px;
-  background: linear-gradient(135deg, #1a237e, #3f51b5);
+  background: var(--main-gradient);
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(156, 156, 156, 0.2);
+  box-shadow: 0 4px 10px rgba(12, 12, 12, 0.973);
+  text-align: left;
+  line-height: 20px; 
+  padding: 15px 30px 15px 30px;
+  transition: box-shadow 0.4s;
+
+}
+
+.card-resumo:hover {
+  
+  box-shadow: 0 4px 15px rgba(175, 175, 175, 0.295);
   text-align: left;
   line-height: 20px; 
   padding: 15px 30px 15px 30px;
@@ -48,12 +61,13 @@
 .card-faturamento-anual {
   justify-self: center;
   align-items: center;
-  width: 80%;
+  width: 70%;
+  max-width: 1350px;;
   max-height: 350px;
   margin: 30px;
-  background: linear-gradient(135deg, #1a237e, #3f51b5);
+  background: var(--main-gradient);
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(156, 156, 156, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.493);
   text-align: left;
   line-height: 20px; 
   padding: 15px 30px 15px 30px;
@@ -77,13 +91,9 @@
 
   .card {
     width: 95%;
-    background: linear-gradient(135deg, #d3ebff, #a1c4fd);
-    text-align: center;
-    line-height: 30px; 
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px;
-    color: #333;
-    transition: transform 0.2s, box-shadow 0.2s;
+ 
+  }
+  .card-faturamento-anual {
+  max-width: 120%;
   }
 }

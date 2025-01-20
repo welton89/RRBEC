@@ -13,11 +13,11 @@ RRB&C - DashBoard
 <body>
   <div class="grid-container">
     <h1>DashBoard</h1>
-      <div class="grid-container" style="grid-template-columns: repeat(2, 2fr);">
+      <div class="grid-container" style="grid-template-columns: repeat(2, 2fr); align-items: center; margin: 0px;">
         <input id="data-start" name="data-start" oninput="mediaCuisine()" type="date">
         <input id="data-end" name="data-end" oninput="mediaCuisine()" type="date">
       </div>
-      <h4 id="30-days"></h4>
+      <h4 id="30-days">Últimos 30 dias</h4>
   </div>
   
   <div class="grid-container">
@@ -61,7 +61,7 @@ RRB&C - DashBoard
       </div>
     </div>
   </div>
-  <h4>Faturamento anual</h4>
+  <h4 style="justify-self: center;">Faturamento mês a mês</h4>
   <!-- <div  class="card-faturamento-anual"> -->
     <canvas class="card-faturamento-anual" id="mensal" ></canvas>
   <!-- </div> -->

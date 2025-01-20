@@ -309,7 +309,7 @@ details summary[role=button]:not(.outline)::after {
   --pico-accordion-active-summary-color: var(--pico-primary-hover);
   --pico-accordion-close-summary-color: var(--pico-color);
   --pico-accordion-open-summary-color: var(--pico-muted-color);
-  --pico-card-background-color: var(--pico-background-color);
+  --pico-card-background-color: linear-gradient(145deg, #1E2A3B, #2C3E50);
   --pico-card-border-color: var(--pico-muted-border-color);
   --pico-card-box-shadow: var(--pico-box-shadow);
   --pico-card-sectioning-background-color: #fbfcfc;
@@ -1974,7 +1974,7 @@ article {
   transition: transform 0.2s;
 }
 article:hover {
-  transform: scale(1.02);
+  /* transform: scale(1.02); */
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 article > header,

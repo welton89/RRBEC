@@ -7,7 +7,7 @@
                 <article 
                 name="productBox"
                 id="productId-{{ product.id }}" 
-                style="background-color: #293552;" 
+                class="card-product"
                 onclick="addProductClick({{product.id}} )"
                 >
                 <p hidden id="{{forloop.counter0}}" >{{product.id}}</p>
@@ -21,7 +21,7 @@
                 <article 
                 name="productBox"
                 id="productId-{{ product.id }}" 
-                style="background-color: #293552;" 
+                class="card-product" 
                 onclick="addProductClick({{product.id}})"
                 >
                 {{product.name}} <br>

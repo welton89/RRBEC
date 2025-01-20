@@ -29,11 +29,20 @@ var chartVendas = new Chart("vendas", {
       y: {
         ticks: {
           display: true,
+          color: 'white',
           callback: function(value, index, values) {
             return chartVendas.data.labels[index].substring(0, 6);
           },
         }
       },
+      x: {
+        ticks: {
+          display: true,
+          color: 'white',
+
+
+        }
+      }
     },
     legend: {
       display: true,
@@ -116,7 +125,7 @@ var chartCuisine = new Chart("cuisine", {
           size: 18,
           weight: 'normal'
         },
-        backgroundColor: 'rgba(8, 26, 81, 0.66)',
+        backgroundColor: 'rgba(1, 2, 5, 0.66)',
         bodyColor: 'rgba(255, 255, 255, 0.7)',
         bodyFont: {
           family: "'Poppins', 'sans-serif'",
@@ -306,7 +315,7 @@ var resposta =   fetch(`/chartCuisine/${dateStart}/${dateEnd}`, {method: 'GET',
       chartCuisine.data.labels = xValues
       chartCuisine.update();
 
-      document.getElementById('30-days').innerText = ''
+      document.getElementById('30-days').innerText = 'Período de 30 dias'
 
     })
  .catch(error => {
