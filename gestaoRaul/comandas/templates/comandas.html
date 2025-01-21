@@ -14,7 +14,9 @@ Comandas
 {% block 'body' %}
 
 <body>
-  <button  id="openModal">Abrir Comanda</button>
+  <div style="justify-self: center;">
+    <button  id="openModal">Abrir Comanda</button>
+  </div>
   
     <div class="grid-container ">
 
@@ -60,8 +62,10 @@ Comandas
                 {% endfor %}
 
             </select>
-            <button type="submit">Abrir</button>
-            <button type="button" onclick="closeModal()" style="background-color:red;">Cancelar</button>
+            <div style="display: flex;gap: 10px;">
+              <button type="submit">Abrir</button>
+              <button type="button" onclick="closeModal()" style="background-color:red;border: none;">Cancelar</button>
+            </div>
         </form>
     </article>
 </dialog >

@@ -3,39 +3,50 @@
 ## Sobre o Projeto
 Este projeto é uma aplicação web desenvolvida em Django com o objetivo de explorar as funcionalidades e recursos desse framework. A aplicação visa simular um sistema de gestão para bares e restaurantes, abrangendo desde o cadastro de produtos e clientes até a geração de relatórios de vendas.
 
-![texto alternativo](readme/dashboard.gif)
 
-## Requisitos Funcionais
 
-### Módulo de Produtos
-* [x] Cadastrar novos produtos.
-* [x] Editar informações de produtos existentes.
-* [x] Ativar/Desativar produtos.
+
+
+## Módulo Dashboard
+![dashboard](readme/dashboard.gif)
+* [x] Cards com faturamento vendas, e ticket médio.
+* [x] Graficos - Produtos mais vendidos e tempos de preparo de petiscos.
+* [x] Grafico de faturamento mês a mês do ano anterio, atual, e projeção.
+* [x] Filtro por data (padrão últimos 30 dias).
+
+## Módulo Produtos
+![dashboard](readme/produtos.gif)
+* [x] Cadastrar e editar produtos.
+* [x] Ativar/Desativar produtos direto da tela de lista de produtos com um só click.
 * [x] Pesquisar produtos por nome.
-* [ ] Gerenciar o estoque de cada produto.
+* [x] Pesquisa reativa.
+* [ ] Gerenciar o estoque de produto.
 
-### Módulo de Comandas
+### Módulo Comandas
 * [x] Abrir nova comanda(inserindo nome, associando ou não a mesa).
 * [x] Editar informações da comanda.
 * [x] Adicionar produtos na comanda.
+* [x] Adicionar observação ao produto(somente item da cozinha).
 * [x] Remover produtos da comanda.
 * [x] Imprimir cupom de pagamento.
 * [x] Imprimir fichas dos produtos.
 * [x] Fechamento da comanda.
-* [x] Receber pagamento
+* [x] Receber pagamento.
+* [x] Adicionar valor na conta do cliente.
+* [x] Responsivo para mobile.
 
-### Módulo de Mesa
+### Módulo Mesa
 * [ ] Gerenciar mesas (ocupação, reserva).
 * [x] Associar pedidos e comandas a mesas.
 * [ ] Dividir contas.
 
-### Módulo de Clientes
-* [ ] Cadastrar novos clientes (nome, endereço, telefone, email).
-* [ ] Editar informações de clientes existentes.
+### Módulo Clientes
+* [x] Cadastrar novos clientes (nome, endereço, telefone, email).
+* [x] Editar informações de clientes existentes.
 * [ ] Excluir clientes.
 * [ ] Consultar o histórico de pedidos de um cliente.
 
-### Módulo de Guarita
+### Módulo Guarita
 * [x] Adicionar produtos, quantidade.
 * [x] Pesquisa produto reativa.
 * [x] Exibição de produtos em ordem de maior saida.
@@ -44,13 +55,13 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [x] Atalhos do teclado para maior agilidade.
 * [x] Calculo de troco do pagamento.
 
-### Módulo de Funcionários
+### Módulo Funcionários
 * [X] Cadastrar novos funcionários.
 * [x] Editar informações de funcionários existentes.
 * [x] Excluir funcionários.
 * [X] Gerenciar as permissões de cada funcionário (acesso a módulos, funções).
 
-### Módulo de Relatórios
+### Módulo Relatórios
 * [ ] Gerar relatório de vendas por período (diário, semanal, mensal).
 * [ ] Gerar relatório de estoque (produtos em falta, produtos com alta rotatividade).
 * [ ] Gerar relatório de clientes (mais ativos, menos ativos).
@@ -62,7 +73,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Emitir notas fiscais eletrônicas.
 
 
-### Módulo de Delivery (opcional para restaurantes)
+### Módulo de Delivery
 * [ ] Cadastrar entregadores.
 * [ ] Gerenciar rotas de entrega.
 * [ ] Acompanhar pedidos em tempo real.
