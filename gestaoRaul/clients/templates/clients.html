@@ -28,7 +28,7 @@ Clientes
         <th style="text-align: left;">Cliente</th>
         <th style="text-align: left;width: 20%;">Débito</th>
         <th class="hide-on-mobile" style="text-align: left;">Contato</th>
-        <th style="text-align: left;width: 20%;">Ações</th>
+        <th class="hide-on-mobile" style="text-align: left;width: 20%;">Ações</th>
       </tr>
 
   {% for client in clients %}
@@ -39,7 +39,7 @@ Clientes
       <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
       <td hidden  id="active-{{client.id}}" >{{client.active}}</td>
       <td>
-    <div class="grid-buttons">
+    <div class="grid-buttons hide-on-mobile">
       
     <img 
       src="{% static 'midia/icons/edit.svg' %}" 
@@ -77,18 +77,17 @@ Clientes
       <form action="{% url 'createClient' %}" id="clientForm" method="post" >
 
         {% csrf_token %}
-          <h2>Cadastro Cliente</h2>
+          <h2 id="title-window">Cadastro Cliente</h2>
           <input  type="text" id="clientId" name="clientId"  hidden >
 
           <input  type="text" id="clientName" name="name" required placeholder="Nome">
-           <input type="number" step="0.01" id="clientDebt" name="debt" required placeholder="Débito">
            <input type="checkbox" id="active" name="active" placeholder="Ativo">Ativo
            
           <input type="text" id="clientContact" name="contact"  placeholder="Contato"></input>
           <footer class="grid-buttons">
             <button id="save" type="submit">Salvar</button>
-            <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editClient'  %}" hx-trigger="click"  hx-swap="none" >Alterar</button>
-            <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
+            <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editClient'  %}" hx-trigger="click"  hx-swap="none" style="width: 100%;">Alterar</button>
+            <button type="button" onclick="closeModal()" style="background-color:red;">Cancelar</button>
           </footer>
       </form>
 

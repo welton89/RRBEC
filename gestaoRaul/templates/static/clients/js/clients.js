@@ -32,8 +32,10 @@ function editclient(id) {
     openModal();
     var buttonSave = document.getElementById('save');
     var buttonEdit = document.getElementById('edit');
+    var titleWindow = document.getElementById('title-window')
     buttonSave.style.display = 'none';
     buttonEdit.style.display = 'block';
+    titleWindow.innerText = 'Editar '
     var clientId = document.getElementById('clientId');
     var clientName = document.getElementById('clientName');
     var clientContact = document.getElementById('clientContact');

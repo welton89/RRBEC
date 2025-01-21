@@ -1,40 +1,4 @@
 
-button {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.modal {
-    display: none; 
-    position: fixed; 
-    padding: 20px;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); 
-    transform: translate(-50%, -50%);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 10px;
-    width: 90%; 
-    max-width: 500px;
-}
-
 
 form {
     display: flex;
@@ -51,21 +15,11 @@ input, textarea {
     border: 1px solid #ccc;
 }
 
-* dialog {
-    transform: scale(1);
-    /* display: flexbox;
-    max-width: 200;
-    max-height: 400; */
-}
-
-
-
 .grid-buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    max-width: 500px; /* Define a largura máxima do grid */
-    /* margin: 0 auto;  */
+    max-width: 500px; 
   }
 
 .grid-container {
@@ -81,27 +35,6 @@ input, textarea {
     width: 100%; 
   }
 
-.card {
-    width: 100%;
-    height: 120px;
-    background-color: #f2f2f2;
-    border-radius: 15px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    line-height: 120px; /* Centraliza o texto verticalmente */
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    transition: transform 0.2s;
-  }
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-  }
-
-
-  
 
   @media (max-width: 768px) {
     .hide-on-mobile {
