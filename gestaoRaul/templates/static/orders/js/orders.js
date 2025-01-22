@@ -15,6 +15,12 @@ function openTab(evt, etapa) {
     // console.log(evt.currentTarget.className += " active");
   }
 
+  function displayBlock(etapa) {
+
+    document.getElementById('loading').style.display = "none";
+    document.getElementById(etapa).style.display = "block";
+  }
+
 
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -23,7 +29,17 @@ function openTab(evt, etapa) {
   tabcontent[0].style.display = "block";
 
 
-  function delayTab(evt,tab){
-    setTimeout(function() {
-      openTab(evt, tab);}, 200);
+  function delayTab(tab){
+    document.getElementById('Fila').style.display = "none";
+    document.getElementById('Preparo').style.display = "none";
+    document.getElementById('Finalizado').style.display = "none";
+    document.getElementById('Entregue').style.display = "none";
+    document.getElementById('loading').style.display = "block";
+  
+    
+        setTimeout(function() {
+      displayBlock(tab);}, 1000);
   }
+
+
+  displayBlock('Fila');

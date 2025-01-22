@@ -25,7 +25,6 @@
     <h1>Pedidos cozinha</h1>
 
 
-
 <div id="list-orders">
 
     <div class="tab">
@@ -37,106 +36,106 @@
 
     <div id="etapas">
 
-    <div id="Fila" class="tabcontent">
-        {% for order in orders %}
-        {% if order.preparing == None and order.productComanda != Null %}
-        <div class="m-card"
-        {% if order.productComanda == Null %}
-        style="background-color: rgb(253, 69, 69);"
-        {% elif order.obs != '' %}
-        style="background-color: rgb(243, 165, 75);"
-        {% endif %}
-        >
-            <h4>{{order.id_product.name}}</h4>
-            <h4>{{order.obs}} </h4>
-            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
-            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
-            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-            <button onclick="delayTab(event, 'Fila')"
-            hx-get="{% url 'preparing' order.id %} " hx-trigger="click" hx-target="#etapas"
-            >Preparar</button>
+        <div id="Fila" class="tabcontent">
+            {% for order in orders %}
+                {% if order.preparing == None and order.productComanda != Null %}
+                    <div class="m-card"
+                        {% if order.productComanda == Null %}
+                        style="background-color: rgb(253, 69, 69);"
+                        {% elif order.obs != '' %}
+                        style="background-color: rgb(243, 165, 75);"
+                        {% endif %}
+                        >
+                        <h4>{{order.id_product.name}}</h4>
+                        <h4>{{order.obs}} </h4>
+                        <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+                        <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
+                        <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                        <button onclick="delayTab('Fila')"
+                        hx-get="{% url 'preparing' order.id %} " hx-trigger="click" hx-target="#etapas"
+                        >Preparar</button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
         </div>
-        {% endif %}
-        {% endfor %}
-    </div>
 
 
-    <div id="Preparo" class="tabcontent">
-        {% for order in orders %}
-        {% if order.finished == None and order.preparing != None %}
-
-        <div class="m-card"
-        {% if order.productComanda == Null %}
-        style="background-color: rgb(253, 69, 69);"
-        {% elif order.obs != '' %}
-        style="background-color: rgb(243, 165, 75);"
-        {% endif %}
-        >
-            <h4>{{order.id_product.name}}</h4>
-            <h4>{{order.obs}} </h4>
-            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
-            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
-            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-            <button  onclick="delayTab(event, 'Preparo')"
-            hx-get="{% url 'finished' order.id %} " hx-trigger="click" hx-target="#etapas"
-            >Finalizar</button>
+        <div id="Preparo" class="tabcontent">
+            {% for order in orders %}
+                {% if order.finished == None and order.preparing != None %}
+                    <div class="m-card"
+                        {% if order.productComanda == Null %}
+                        style="background-color: rgb(253, 69, 69);"
+                        {% elif order.obs != '' %}
+                        style="background-color: rgb(243, 165, 75);"
+                        {% endif %}
+                        >
+                        <h4>{{order.id_product.name}}</h4>
+                        <h4>{{order.obs}} </h4>
+                        <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+                        <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
+                        <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                        <button  onclick="delayTab( 'Preparo')"
+                        hx-get="{% url 'finished' order.id %} " hx-trigger="click" hx-target="#etapas"
+                        >Finalizar</button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
         </div>
-        {% endif %}
-        {% endfor %}
-    </div>
 
-    <div id="Finalizado" class="tabcontent">
-        {% for order in orders %}
-        {% if order.delivered == None and order.finished != None %}
-
-        <div class="m-card"
-        {% if order.productComanda == Null %}
-        style="background-color: rgb(253, 69, 69);"
-        {% elif order.obs != '' %}
-        style="background-color: rgb(243, 165, 75);"
-        {% endif %}
-        >
-            <h4>{{order.id_product.name}}</h4>
-            <h4>{{order.obs}} </h4>
-            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
-            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
-            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-            <button onclick="delayTab(event, 'Finalizado')"
-            hx-get="{% url 'delivered' order.id %} " hx-trigger="click" hx-target="#etapas"
-            >Entregar</button>
+        <div id="Finalizado" class="tabcontent">
+            {% for order in orders %}
+                {% if order.delivered == None and order.finished != None %}
+                    <div class="m-card"
+                        {% if order.productComanda == Null %}
+                        style="background-color: rgb(253, 69, 69);"
+                        {% elif order.obs != '' %}
+                        style="background-color: rgb(243, 165, 75);"
+                        {% endif %}
+                        >
+                        <h4>{{order.id_product.name}}</h4>
+                        <h4>{{order.obs}} </h4>
+                        <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+                        <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
+                        <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                        <button onclick="delayTab( 'Finalizado')"
+                        hx-get="{% url 'delivered' order.id %} " hx-trigger="click" hx-target="#etapas"
+                        >Entregar</button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
         </div>
-        {% endif %}
-        {% endfor %}
-    </div>
 
-    <div id="Entregue" class="tabcontent">
-        {% for order in orders %}
-        {% if order.delivered != None %}
-
-        <div class="m-card"
-        {% if order.productComanda == Null %}
-        style="background-color: rgb(253, 69, 69);"
-        {% elif order.obs != '' %}
-        style="background-color: rgb(243, 165, 75);"
-        {% endif %}
-        >
-            <h4>{{order.id_product.name}}</h4>
-            <h4>{{order.obs}} </h4>
-            <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
-            <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
-            <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-            <!-- <button>Preparar</button> -->
+        <div id="Entregue" class="tabcontent">
+            {% for order in orders %}
+                {% if order.delivered != None %}
+                    <div class="m-card"
+                        {% if order.productComanda == Null %}
+                        style="background-color: rgb(253, 69, 69);"
+                        {% elif order.obs != '' %}
+                        style="background-color: rgb(243, 165, 75);"
+                        {% endif %}
+                        >
+                        <h4>{{order.id_product.name}}</h4>
+                        <h4>{{order.obs}} </h4>
+                        <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
+                        <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
+                        <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
-    </div>
-        {% endif %}
-        {% endfor %}
     </div>
 </div>
 
 
-
-
-
+<dialog id="loading" >
+    <div class="loading">
+        <img src="{% static 'midia/icons/loading.svg' %}" alt="">
+    </div>
+    <br><br>
+    <h1>Carregando...</h1>
+</dialog>
 
     <script src="{% static 'orders/js/orders.js' %}"></script> {% endblock %}
 </body>
