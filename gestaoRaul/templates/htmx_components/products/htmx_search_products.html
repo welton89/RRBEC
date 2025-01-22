@@ -32,20 +32,22 @@
     <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
   {% if product.active == True %}
-  <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;">
-    <img 
-  src="{% static 'midia/icons/toggle-on.svg' %}" 
-  style=" width: 35px; height: 35px; cursor: pointer;" 
-   >
-</img>
+  <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;border: 0px;">
+    <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
+      <img 
+      src="{% static 'midia/icons/toggle-on.svg' %}" 
+      style=" width: 35px; height: 35px; cursor: pointer;" >
+    </img>
+  </span>
   </button>
   {% else %}
-  <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;" >
+  <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;border: 0px;" >
+    <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
     <img 
-  src="{% static 'midia/icons/toggle-off.svg' %}" 
-  style=" width: 35px; height: 35px; cursor: pointer;" 
-   >
-</img>
+      src="{% static 'midia/icons/toggle-off.svg' %}" 
+      style=" width: 35px; height: 35px; cursor: pointer;" >
+    </img>
+    <span>
   </button>
   {% endif %}
 

@@ -83,14 +83,17 @@ Detalhes {{comanda.name}}
     {%  for item in consumo%}
 
     <tr>
-      <td>
+      <td >
         {{item.product.name}}
         {% if item.product.cuisine == True %}
-        <img
-        onclick="openModalObs({{item.id}})"
-        src="{% static 'midia/icons/note.svg' %}"
-        style="width: 25px; height: 35px; cursor: pointer;">
-      </img>
+        <span data-tooltip="Observações para preparo." data-flow="top">
+
+          <img
+          onclick="openModalObs({{item.id}})"
+          src="{% static 'midia/icons/note.svg' %}"
+          style="width: 25px; height: 35px; cursor: pointer;">
+        </img>
+      </span>
         {% endif %}
 
       </td>
@@ -145,17 +148,16 @@ Detalhes {{comanda.name}}
 
     <dialog id="modal-obs" style="display: none;">
       <article>
-
         <h2>Observação do Pedido</h2>
-        <textarea style="height: 200px;" name="obs" id="obs"></textarea>
+        <p>Observações do pedido que serão enviadas para o preparo na cozinha.</p>
+        <textarea placeholder="Ex.: pedido sem cebola. para viagem." name="obs" id="obs"></textarea>
         <div>
-
-          <button onclick="addOrder()" >OK</button>
-          <button onclick="closeModalObs()" >Cancela</button>
+          <div style="display: flex;gap: 10px;">
+          <button type="submit" onclick="addOrder()" >OK</button>
+          <button type="button" onclick="closeModalObs()" style="background-color:red;">Cancela</button>
         </div>
-      </div>
-      </dialog>
     </article>
+      </dialog>
 
 
 
@@ -168,13 +170,14 @@ Detalhes {{comanda.name}}
       <h4 id="troco">Troco: </h4>
     </div>
     <footer>
-      <button class="secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()" style="background-color:green;">
-        Receber
-      </button>
-      <button class="secondary"  onclick=" modal_conta_client()">
-        Conta Cliente
-      </button>
-      <button onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
+      <div style="display: flex;gap: 10px;">
+
+        <button type="submit" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">Receber</button>
+        <button type="button" class="secondary"  onclick=" modal_conta_client()">
+          Conta
+        </button>
+        <button type="button" onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
+      </div>
     </footer>
   </article>
 </dialog>
@@ -195,9 +198,11 @@ Detalhes {{comanda.name}}
               {% endfor %}
 
           </select>
+          <div style="display: flex;gap: 10px;">
           <button type="submit">Alterar</button>
           <button type="button" onclick="closeModalAlter()" style="background-color:red;">Cancelar</button>
-      </form>
+        </div>
+        </form>
   </article>
 </dialog >
 
@@ -223,10 +228,11 @@ Detalhes {{comanda.name}}
        </select>
     </div>
     <footer>
-      <button type="submit" class="secondary" style="background-color:green;" >
-        Adicionar a conta
-      </button>
-      <button onclick="close_modal_conta_client()" style="background-color:red;">Cancelar</button>
+      <div style="display: flex;gap: 10px;">
+        <button type="submit" >
+          Adicionar a conta</button>
+        <button type="button" onclick="close_modal_conta_client()" style="background-color:red;">Cancelar</button>
+      </div>
     </form>
     </footer>
   </article>

@@ -56,20 +56,22 @@ Produtos
             <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
           {% if product.active == True %}
-          <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;">
-            <img 
-          src="{% static 'midia/icons/toggle-on.svg' %}" 
-          style=" width: 35px; height: 35px; cursor: pointer;" 
-           >
-        </img>
+          <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;border: 0px;">
+            <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
+              <img 
+              src="{% static 'midia/icons/toggle-on.svg' %}" 
+              style=" width: 35px; height: 35px; cursor: pointer;" >
+            </img>
+          </span>
           </button>
           {% else %}
-          <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;" >
+          <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;border: 0px;" >
+            <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
             <img 
-          src="{% static 'midia/icons/toggle-off.svg' %}" 
-          style=" width: 35px; height: 35px; cursor: pointer;" 
-           >
-        </img>
+              src="{% static 'midia/icons/toggle-off.svg' %}" 
+              style=" width: 35px; height: 35px; cursor: pointer;" >
+            </img>
+            <span>
           </button>
 
           {% endif %}
@@ -106,10 +108,14 @@ Produtos
 
               </select>
             <textarea id="productDescription" name="description" rows="4" placeholder="Descrição"></textarea>
-            <footer class="grid-buttons">
-              <button id="save" type="submit">Salvar</button>
-              <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editProduct' 1 %}" hx-trigger="click"  hx-target="#product-list" >Alterar</button>
-              <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button>
+            <footer>
+              <div style="display: flex;gap: 10px;">
+
+                
+                <button id="save" type="submit">Salvar</button>
+                <button type="submit" onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editProduct' 1 %}" hx-trigger="click"  hx-target="#product-list" >Alterar</button>
+                <button type="button" onclick="closeModal()" style="background-color:red;">Cancelar</button>
+              </div>
             </footer>
         </form>
 

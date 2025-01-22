@@ -11,11 +11,14 @@
   <td>
     {{item.product.name}}
     {% if item.product.cuisine == True %}
+    <span data-tooltip="Observações para preparo." data-flow="top">
+
     <img
     onclick="openModalObs({{item.id}})"
     src="{% static 'midia/icons/note.svg' %}"
     style="width: 25px; height: 35px; cursor: pointer;">
   </img>
+  <span>
     {% endif %}
 
   </td>
