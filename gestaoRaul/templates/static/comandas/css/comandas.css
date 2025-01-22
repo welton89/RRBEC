@@ -1,24 +1,33 @@
 .grid-container {
+  justify-self: center;
   display: grid;
-  grid-template-columns: repeat(5, 2fr);
+  grid-template-columns: repeat(6, 2fr);
   gap: 10px;
   max-width: 95%; 
-  margin: 40px;
+  margin-top: 15px;
 }
 
 
 .card-comanda {
-  width: 80%;
+  width:200px;
+  max-width: 200px;
   gap: 3px;
   background: var(--main-gradient);
   border-radius: 5px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  line-height: 12px; 
-  font-size: 15px;
+  line-height: 20px; 
+  font-size: 20px;
   font-weight: bold;
-  color: #333;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease-in ;
+}
+
+p {
+  color: rgb(194, 201, 207);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
 .card-comanda:hover {

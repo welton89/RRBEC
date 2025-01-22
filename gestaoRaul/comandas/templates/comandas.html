@@ -22,7 +22,7 @@ Comandas
 
     {% for comanda in comandas %}
     <div class="card-comanda">
-      <a  href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none;">
+      <a  href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}" style="text-decoration: none; ">
         <header 
           {% if comanda.status == 'OPEN' %}
           style="padding: 5px; min-height: 60px;border-radius: 5px 5px 0px 0px; background-color: #036800;"

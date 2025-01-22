@@ -38,36 +38,26 @@
   h4{
     color: black;
   }
-  /*
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-  }
-.m-card:hover {
-    transform: scale(1.05);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-  }*/
 
 
 
 .tab {
+  display: flex;
+  justify-content: space-between;
   overflow: auto;
-  margin-bottom: 0px;
-  /* border: 1px solid #ccc; */
-  /* background-color: #f1f1f1; */
+  width: 100%;
+  border-bottom: 2px solid #cccccc93;
 }
 
 /* Estilo para cada aba */
 .tab button {
-  width: 23%;
-  background-color: inherit;
-  float: left;
+  width: 24%;
+  background-color: #4446d636;
   border: none;
-  outline: none;
   cursor: pointer;
   padding: 10px 10px;
   transition: 0.3s;
+  border-radius: 20px 20px 0px 0px;
 }
 
 /* Estilo para a aba ativa */
