@@ -21,3 +21,9 @@ function openTab(evt, etapa) {
     tabcontent[i].style.display = "none";
   }
   tabcontent[0].style.display = "block";
+
+
+  function delayTab(evt,tab){
+    setTimeout(function() {
+      openTab(evt, tab);}, 200);
+  }

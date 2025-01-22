@@ -19,7 +19,7 @@ def preparing(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
-    return  render(request, 'htmx_components/orders/htmx_list_orders.html',{'orders': orders})
+    return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
 
 
 @group_required(groupName='Cozinha')
@@ -29,7 +29,7 @@ def finished(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
-    return  render(request, 'htmx_components/orders/htmx_list_orders.html',{'orders': orders})
+    return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
 
 @group_required(groupName='Garçom')
 def delivered(request, order_id):
@@ -38,4 +38,4 @@ def delivered(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
-    return  render(request, 'htmx_components/orders/htmx_list_orders.html',{'orders': orders})
+    return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
