@@ -1,5 +1,7 @@
+
+
+
 function openTab(evt, etapa) {
-    // Declarar todas as abas e conteúdos
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -9,10 +11,8 @@ function openTab(evt, etapa) {
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    // Mostrar o conteúdo da aba selecionada e marcar a aba como ativa
     document.getElementById(etapa).style.display = "block";
     evt.currentTarget.className += " active";
-    // console.log(evt.currentTarget.className += " active");
   }
 
   function displayBlock(etapa) {
@@ -43,3 +43,38 @@ function openTab(evt, etapa) {
 
 
   displayBlock('Fila');
+
+
+
+
+
+  function mostrarNotificacao() {
+    if (Notification.permission != 'granted') {
+        Notification.requestPermission().then(function(permission) {
+            if (permission == 'granted') {
+                var notification = new Notification('Nova Mensagem', {
+                    body: 'Você tem uma nova mensagem!',
+                    icon: 'https://example.com/icon.png'
+                });
+            }
+        });
+    } else {
+        var notification = new Notification('Nova Mensagem', {
+            body: 'Você tem uma nova mensagem!',
+            icon: 'https://example.com/icon.png'
+        });
+    }
+}
+
+
+
+let i = 0;
+while (i < 10) {
+  setTimeout(function() {
+    mostrarNotificacao();}, 3000);
+}
+
+
+
+setTimeout(function() {
+  mostrarNotificacao();}, 3000);
