@@ -16,9 +16,7 @@ Produtos
 <body>
     <div class="grid-container">
         <div class="grid-top">
-          <button style="
-          width: 30%; 
-          margin: 5px 10px 20px 10px;"
+          <button class="btn-primary"
            onclick="openModal()" id="openModal">Novo Produto</button>
           <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list">
         </div>
@@ -112,17 +110,15 @@ Produtos
               <div style="display: flex;gap: 10px;">
 
                 
-                <button id="save" type="submit">Salvar</button>
-                <button type="submit" onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editProduct' 1 %}" hx-trigger="click"  hx-target="#product-list" >Alterar</button>
-                <button type="button" onclick="closeModal()" style="background-color:red;">Cancelar</button>
+                <button class="btn-primary" id="save" type="submit">Salvar</button>
+                <button class="btn-primary" type="submit" onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editProduct' 1 %}" hx-trigger="click"  hx-target="#product-list" >Alterar</button>
+                <button class="btn-cancel" type="button" onclick="closeModal()">Cancelar</button>
               </div>
             </footer>
         </form>
 
       </article>
     </dialog>
-
-
 
 
 <script src="{% static 'products/js/products.js' %}"></script>

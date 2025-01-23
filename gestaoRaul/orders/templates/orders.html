@@ -51,7 +51,7 @@
                         <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-                        <button onclick="delayTab('Fila')"
+                        <button class="btn-primary" onclick="delayTab('Fila')"
                         hx-get="{% url 'preparing' order.id %} " hx-trigger="click" hx-target="#etapas"
                         >Preparar</button>
                     </div>
@@ -75,7 +75,7 @@
                         <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-                        <button  onclick="delayTab( 'Preparo')"
+                        <button class="btn-secondary" onclick="delayTab( 'Preparo')"
                         hx-get="{% url 'finished' order.id %} " hx-trigger="click" hx-target="#etapas"
                         >Finalizar</button>
                     </div>
@@ -98,7 +98,7 @@
                         <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
-                        <button onclick="delayTab( 'Finalizado')"
+                        <button class="btn-secondary" onclick="delayTab( 'Finalizado')"
                         hx-get="{% url 'delivered' order.id %} " hx-trigger="click" hx-target="#etapas"
                         >Entregar</button>
                     </div>

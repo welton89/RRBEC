@@ -22,33 +22,33 @@ Detalhes {{comanda.name}}
   <input hidden id="id-temp" type="number">
   <div class="grid-container" >
     <div>
-      <button class="primary" id="openModal" onclick="openModal()"
+      <button class="btn-primary" id="openModal" onclick="openModal()"
       {%  if comanda.status != 'OPEN'%}
        disabled
        {% endif %}
        >Add Produto</button>
 
-      <button  id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
+      <button class="btn-cancel" id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
       {% if comanda.status != 'OPEN' %}
       style="display: none;"
       {% endif %}
       >Fechar Conta</button>
 
       {% if comanda.status == 'PAYING' %}
-      <button  id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
+      <button class="btn-secondary" id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
       {% else %}
 
 
       {% endif %}
   
       {%  if comanda.status != 'OPEN'%}
-      <button class="button" id="imprimirFichas" 
+      <button class="btn-primary" id="imprimirFichas" 
       style="display: none;"
       onclick="imprimirFichas()">Fichas</button>
       {% endif %}
       
       {% if user|groupUser:"Gerente" %}
-      <button class="button" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
+      <button class="btn-primary" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
       {%  if comanda.status == 'OPEN'%}
       style="display: none;"
       {% elif comanda.status == 'CLOSED' %}
@@ -131,7 +131,10 @@ Detalhes {{comanda.name}}
     <dialog id="Modal-add-product" style="display: none;" >
       <article>
         <form id="productForm" >
-            <h2>Adicionar Produto <button type="button" onclick="closeModal()" style="background-color:red;">Fechar</button></h2>
+          <div style="display: flex;justify-content: space-around;">
+            <h2>Adicionar Produto</h2> <button class="btn-cancel" type="button" onclick="closeModal()">Fechar</button>
+          </div>
+          
             <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'listProduct' comanda.id %}" hx-trigger="keyup" hx-target="#product-list"><br>
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
@@ -153,8 +156,8 @@ Detalhes {{comanda.name}}
         <textarea placeholder="Ex.: pedido sem cebola. para viagem." name="obs" id="obs"></textarea>
         <div>
           <div style="display: flex;gap: 10px;">
-          <button type="submit" onclick="addOrder()" >OK</button>
-          <button type="button" onclick="closeModalObs()" style="background-color:red;">Cancela</button>
+          <button type="submit" class="btn-primary" onclick="addOrder()" >OK</button>
+          <button type="button" class="btn-cancel" onclick="closeModalObs()">Cancela</button>
         </div>
     </article>
       </dialog>
@@ -172,11 +175,11 @@ Detalhes {{comanda.name}}
     <footer>
       <div style="display: flex;gap: 10px;">
 
-        <button type="submit" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">Receber</button>
-        <button type="button" class="secondary"  onclick=" modal_conta_client()">
+        <button type="submit" class="btn-secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">Receber</button>
+        <button type="button" class="btn-primary"  onclick=" modal_conta_client()">
           Conta
         </button>
-        <button type="button" onclick="close_modal_payment_comanda()" style="background-color:red;">Cancelar</button>
+        <button type="button" class="btn-cancel" onclick="close_modal_payment_comanda()">Cancelar</button>
       </div>
     </footer>
   </article>
@@ -199,8 +202,8 @@ Detalhes {{comanda.name}}
 
           </select>
           <div style="display: flex;gap: 10px;">
-          <button type="submit">Alterar</button>
-          <button type="button" onclick="closeModalAlter()" style="background-color:red;">Cancelar</button>
+          <button type="submit" class="btn-primary">Alterar</button>
+          <button type="button" class="btn-cancel" onclick="closeModalAlter()">Cancelar</button>
         </div>
         </form>
   </article>
@@ -229,9 +232,8 @@ Detalhes {{comanda.name}}
     </div>
     <footer>
       <div style="display: flex;gap: 10px;">
-        <button type="submit" >
-          Adicionar a conta</button>
-        <button type="button" onclick="close_modal_conta_client()" style="background-color:red;">Cancelar</button>
+        <button type="submit" class="btn-primary"> Adicionar a conta</button>
+        <button type="button" class="btn-cancel" onclick="close_modal_conta_client()">Cancelar</button>
       </div>
     </form>
     </footer>

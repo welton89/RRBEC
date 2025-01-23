@@ -21,12 +21,12 @@
       <input hidden type="text" name="id-comanda-balcao" id="id-comanda-balcao" value="{{comanda.id}}">
       <div>
 
-        <button id="pagarComanda" onclick="modal_payment_comanda()"
+        <button id="pagarComanda" class="btn-secondary" onclick="modal_payment_comanda()"
          {% if total == 0 %} 
          disabled 
          {% endif %}>Receber</button>
 
-        <button class="button" id="imprimirFichas" onclick="imprimirFichas()"
+        <button class="btn-primary" id="imprimirFichas" onclick="imprimirFichas()"
          {% if total == 0 %} 
          disabled 
          {% endif %}
@@ -44,7 +44,7 @@
         <tr>
           <td>{{item.product.name}}</td>
           <td>R$ {{item.product.price}}</td>
-          <td><button onclick="removeProductBalcao({{item.id}})">🗑️ Excluir</button></td>
+          <td><button class="btn-cancel" onclick="removeProductBalcao({{item.id}})">🗑️ Excluir</button></td>
         </tr>
 
         {% endfor %}
@@ -120,12 +120,12 @@
       </div>
 
       <footer>
-        <button class="secondary" hx-get="{% url 'paymentBalcao' comanda.id %} " hx-trigger="click" hx-swap="none"
+        <button class="btn-secondary" hx-get="{% url 'paymentBalcao' comanda.id %} " hx-trigger="click" hx-swap="none"
           onclick="reloadPage()">
           Receber
         </button>
 
-        <button onclick="close_modal_payment_comanda()">Cancelar</button>
+        <button class="btn-cancel" onclick="close_modal_payment_comanda()">Cancelar</button>
       </footer>
     </article>
   </dialog>

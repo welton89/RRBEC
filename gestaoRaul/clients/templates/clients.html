@@ -17,9 +17,8 @@ Clientes
 
 <div class="grid-container">
     <div class="grid-top">
-      <button style="
-      width: 30%; 
-      margin: 5px 10px 20px 10px;"
+      <button class="btn-primary"
+     
        onclick="openModal()" id="openModal">Novo Cliente</button>
     </div>
 
@@ -85,9 +84,9 @@ Clientes
            
           <input type="text" id="clientContact" name="contact"  placeholder="Contato"></input>
           <footer class="grid-buttons">
-            <button id="save" type="submit">Salvar</button>
-            <button onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editClient'  %}" hx-trigger="click"  hx-swap="none" style="width: 100%;">Alterar</button>
-            <button type="button" onclick="closeModal()" style="background-color:red;">Cancelar</button>
+            <button class="btn-primary" id="save" type="submit">Salvar</button>
+            <button class="btn-primary" onclick="closeModal()" type="button" id="edit" hx-post="{% url 'editClient'  %}" hx-trigger="click"  hx-swap="none" style="width: 100%;">Alterar</button>
+            <button class="btn-cancel" type="button" onclick="closeModal()" style="background-color:red;">Cancelar</button>
           </footer>
       </form>
 

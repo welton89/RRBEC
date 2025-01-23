@@ -30,17 +30,3 @@ table td th {
   text-align: center;
   }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; 
-  }
-
-input, textarea {
-    width: 95%;
-    max-width: 95%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }

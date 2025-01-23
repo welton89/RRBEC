@@ -35,21 +35,6 @@ p {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
   }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; 
-}
-
-input, textarea {
-    width: 95%;
-    max-width: 95%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
 
 @media (max-width: 768px) {
   .grid-container {
