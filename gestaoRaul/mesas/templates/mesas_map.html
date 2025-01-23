@@ -74,7 +74,7 @@ RRB&C - Mapa de Mesas
   {% if mesa.active == True %}
   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" style="  background-color: indianred;"  >{{mesa.name}} <input type="text" hidden value="{{mesa.location}}"> </div>
    {% else %}
-   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" >{{mesa.name}} <input type="text" hidden value="{{mesa.location}}"></div>
+   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" > <span data-tooltip=" O id da mesa é:{{mesa.id}}" data-flow="top"> {{mesa.name}} </span><input type="text" hidden value="{{mesa.location}}"></div>
    {% endif %}
   
   {% endfor %}
