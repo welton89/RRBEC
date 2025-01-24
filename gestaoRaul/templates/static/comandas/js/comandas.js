@@ -1,3 +1,8 @@
+
+document.cookie = `pronto=0`; 
+
+
+
 function openModal() {
     document.getElementById('Modal-create-comanda').style.display = 'block';
     // HTMLDialogElement.show()
@@ -21,3 +26,60 @@ document.getElementById('openModal').addEventListener('click', openModal);
 // }
 // );
  
+
+
+function mostrarNotificacao(titulo,corpo,grupo) {
+    if (Notification.permission != 'granted') {
+        Notification.requestPermission().then(function(permission) {
+            if (permission == 'granted') {
+                var notification = new Notification(titulo, {
+                    body: corpo,
+                    icon: 'https://example.com/icon.png'
+                });
+            }
+        });
+    } else {
+        var notification = new Notification(titulo, {
+            body: corpo,
+            icon: 'https://imagecolorpicker.com/imagecolorpicker-preview_b.avif',
+            image: 'https://imagecolorpicker.com/imagecolorpicker-preview_b.avif',
+            
+        });
+    }
+}
+
+function notificacao(){
+ 
+  var resposta =   fetch(`/pedidos/notificacao/`, {method: 'GET',
+    headers: {'Content-Type': 'application/json',
+     },})
+     .then(response => response.json())
+      .then(data => {
+          if (data['notificacao'] == 'true'){
+            console.log('verdadeiro')
+            document.cookie = `pronto=${data['pronto']}`; 
+            // navigator.vibrate(200);
+            // navigator.vibrate([200, 100, 200]);
+            mostrarNotificacao(data['titulo'], data['corpo'],'Cozinha')
+            console.log(data['notificacao'])
+            
+        }else{
+            document.cookie = `pronto=${data['pronto']}`; 
+            console.log('falso')
+            console.log(data['notificacao'])
+            console.log('notificação foi false')
+          }
+        // var produtos_mais_vendidos = data.produtos_mais_vendidos
+
+      })
+   .catch(error => {
+     alert('Erro verificar notificação:', error)
+     console.error('Erro verificar notificação:', error);
+   });
+   
+  }
+
+
+setInterval(()=> {
+  notificacao()
+}, 10000)
