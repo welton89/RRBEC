@@ -50,7 +50,7 @@ function mostrarNotificacao(titulo,corpo,grupo) {
 
 function notificacao(){
  
-  var resposta =   fetch(`/pedidos/notificacao/`, {method: 'GET',
+  var resposta =   fetch(`/comandas/notificacao/`, {method: 'GET',
     headers: {'Content-Type': 'application/json',
      },})
      .then(response => response.json())
@@ -60,17 +60,14 @@ function notificacao(){
             document.cookie = `pronto=${data['pronto']}`; 
             // navigator.vibrate(200);
             // navigator.vibrate([200, 100, 200]);
-            mostrarNotificacao(data['titulo'], data['corpo'],'Cozinha')
+            mostrarNotificacao(data['titulo'], data['corpo'],'Garçom')
             console.log(data['notificacao'])
             
         }else{
             document.cookie = `pronto=${data['pronto']}`; 
             console.log('falso')
             console.log(data['notificacao'])
-            console.log('notificação foi false')
           }
-        // var produtos_mais_vendidos = data.produtos_mais_vendidos
-
       })
    .catch(error => {
      alert('Erro verificar notificação:', error)

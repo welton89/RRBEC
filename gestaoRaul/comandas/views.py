@@ -1,9 +1,13 @@
 from decimal import Decimal
+from django.utils import timezone
+
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db.models import Count, F
 
 from comandas.models import Comanda, ProductComanda
 from clients.models import Client
+from orders.models import Order
 from products.models import Product
 from mesas.models import Mesa
 from gestaoRaul.decorators import group_required
@@ -76,3 +80,39 @@ def addContaCliente(request):
     comanda.save()
     return redirect('comandas')
 
+def notificacao(request):
+    fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
+    ordersPronto = Order.objects.filter(queue__gte=fifteen_hours_ago, finished__isnull=False)
+
+    grupoGarcom = request.user.groups.filter(name='Garçom').exists()
+    grupoGerente = request.user.groups.filter(name='Gerente').exists()
+
+    if grupoGarcom == True and grupoGerente == False:
+        if 'pronto' in request.COOKIES:
+            cookiesPronto = int(request.COOKIES['pronto'])
+            if len(ordersPronto) > cookiesPronto:
+                return JsonResponse({
+                        'notificacao': 'true',
+                         'pronto':len(ordersPronto),
+                        'titulo': ordersPronto[len(ordersPronto)-1].id_comanda.name,
+                        'corpo': ordersPronto[len(ordersPronto)-1].id_product.name,
+                    })
+            else:
+                return JsonResponse({
+                        'notificacao': 'false',
+                        'pronto': len(ordersPronto),
+                    })
+        else:
+            return JsonResponse({
+            'notificacao': 'true',
+            'pronto':len(ordersPronto),
+            'titulo': ordersPronto[len(ordersPronto)-1].id_comanda.name,
+            'corpo': ordersPronto[len(ordersPronto)-1].id_product.name,
+             })
+
+
+    else:
+        return JsonResponse({
+            'notificacao': 'false',
+            'pronto':len(ordersPronto),
+             })

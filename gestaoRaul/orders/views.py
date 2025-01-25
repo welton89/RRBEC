@@ -47,21 +47,17 @@ def notificacao(request):
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     ordersFila = Order.objects.filter(queue__gte=fifteen_hours_ago)
     ordersPronto = Order.objects.filter(queue__gte=fifteen_hours_ago, finished__isnull=False)
-    print(len(ordersFila))
-    print(len(ordersPronto))
 
     grupoCozinha = request.user.groups.filter(name='Cozinha').exists()
-    grupoGarcom = request.user.groups.filter(name='Garçom').exists()
     grupoGerente = request.user.groups.filter(name='Gerente').exists()
 
-    if grupoCozinha == True:
+    if grupoCozinha == True and grupoGerente == False:
         if 'fila' in request.COOKIES:
             cookiesFila = int(request.COOKIES['fila'])
             if len(ordersFila) > cookiesFila:
                 return JsonResponse({
                         'notificacao': 'true',
                         'fila': len(ordersFila),
-                         'pronto':len(ordersPronto),
                         'titulo': 'Pedido para: '+ ordersFila[len(ordersFila)-1].id_comanda.name,
                         'corpo': ordersFila[len(ordersFila)-1].id_product.name,
                     })
@@ -69,51 +65,20 @@ def notificacao(request):
                 return JsonResponse({
                         'notificacao': 'false',
                         'fila': len(ordersFila),
-                         'pronto':len(ordersPronto),
                     })
         else:
             return JsonResponse({
             'notificacao': 'true',
             'fila': len(ordersFila),
-             'pronto':len(ordersPronto),
             'titulo': 'Pedido para: '+ ordersFila[len(ordersFila)-1].id_comanda.name,
             'corpo': ordersFila[len(ordersFila)-1].id_product.name,
         })
 
-    elif grupoGarcom == True and grupoGerente == False:
-
-        if 'pronto' in request.COOKIES:
-            cookiesPronto = int(request.COOKIES['pronto'])
-            if len(ordersPronto) > cookiesPronto:
-                return JsonResponse({
-                        'notificacao': 'true',
-                        'fila': len(ordersPronto),
-                         'pronto':len(ordersPronto),
-                        'titulo': ordersPronto[len(ordersPronto)-1].id_comanda.name,
-                        'corpo': ordersPronto[len(ordersPronto)-1].id_product.name,
-                    })
-            else:
-                return JsonResponse({
-                        'notificacao': 'false',
-                        'fila': len(ordersPronto),
-                    })
-        else:
-            return JsonResponse({
-            'notificacao': 'false',
-            'fila': len(ordersPronto),
-            'pronto':len(ordersPronto),
-            'titulo': ordersPronto[len(ordersPronto)-1].id_comanda.name,
-            'corpo': ordersPronto[len(ordersPronto)-1].id_product.name,
-             })
-
-
+   
     else:
         return JsonResponse({
             'notificacao': 'false',
-            'fila': len(ordersPronto),
-            'pronto':len(ordersPronto),
-            'titulo': ordersPronto[len(ordersPronto)-1].id_comanda.name,
-            'corpo': ordersPronto[len(ordersPronto)-1].id_product.name,
+            'fila': len(ordersFila),
              })
 
     
