@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'balcao',
     'orders',
     'login',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

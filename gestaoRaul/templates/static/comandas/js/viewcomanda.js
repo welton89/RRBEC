@@ -174,11 +174,7 @@ function teclado(event){
       console.log(event.keyCode)
     }
   }else{
-    if (event.keyCode == 13){
-      troco()
-    }else{
-      console.log('')
-    }
+    console.log('')
   }
 
 }

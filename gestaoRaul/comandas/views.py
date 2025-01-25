@@ -13,6 +13,8 @@ from mesas.models import Mesa
 from gestaoRaul.decorators import group_required
 
 
+
+
 @group_required(groupName='Garçom')
 def comandas(request):
     comandas = Comanda.objects.filter(status__in=["OPEN", "PAYING"])
@@ -93,7 +95,7 @@ def notificacao(request):
             if len(ordersPronto) > cookiesPronto:
                 return JsonResponse({
                         'notificacao': 'true',
-                         'pronto':len(ordersPronto),
+                        'pronto':len(ordersPronto),
                         'titulo': ordersPronto[len(ordersPronto)-1].id_comanda.name,
                         'corpo': ordersPronto[len(ordersPronto)-1].id_product.name,
                     })
