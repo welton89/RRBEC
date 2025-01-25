@@ -70,13 +70,13 @@ function notificacao(){
           }
       })
    .catch(error => {
-     alert('Erro verificar notificação:', error)
-     console.error('Erro verificar notificação:', error);
+     alert('Erro verificar notificação:', error,data['notificacao'])
    });
    
   }
 
 
+
 setInterval(()=> {
-  notificacao()
+    notificacao()
 }, 10000)

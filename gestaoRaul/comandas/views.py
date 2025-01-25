@@ -13,8 +13,6 @@ from mesas.models import Mesa
 from gestaoRaul.decorators import group_required
 
 
-
-
 @group_required(groupName='Garçom')
 def comandas(request):
     comandas = Comanda.objects.filter(status__in=["OPEN", "PAYING"])
