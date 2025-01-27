@@ -8,6 +8,18 @@
     }
 }
 
+@keyframes jump {
+  0% {
+    transform: scale(0.0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .loading {
 
   align-items: center;
@@ -31,6 +43,7 @@
     transition: transform 0.2s;
     padding: 15px;
     margin-top: 15px;
+    animation: jump 0.7s  ;
   }
 
   h4{
@@ -40,28 +53,44 @@
 
 .tab {
   display: flex;
+  padding-top: 15px;
   justify-content: space-between;
   overflow: auto;
   width: 100%;
-  border-bottom: 2px solid #cccccc93;
+  border-bottom: 2px solid rgba(86, 187, 255, 0.192);
 }
 
 .tab button {
   width: 24%;
-  background-color: #4446d636;
-  border: none;
-  cursor: pointer;
+  background-color: #999aeb00;
   padding: 10px 10px;
-  transition: 0.3s;
+  transition: 0.6s;
   border-radius: 20px 20px 0px 0px;
+  align-items: center;
+  border-color: rgba(86, 187, 255, 0.192);
+  line-height: 20px; 
 }
 
 .tab button.active {
-  background-color: #4446d6;
+  border-radius: 8px 8px 0px 0px;
+  border-color: rgba(86, 187, 255, 0.192);
+  background: var(--main-gradient);
+  box-shadow: 0px 0px 15px rgba(86, 187, 255, 0.815);
 }
 
 .tabcontent {
   display: none;
   padding: 6px 12px;
 
+}
+
+#list-orders{
+  justify-self: center;
+  width: 30%;
+}
+
+@media (max-width: 768px) {
+#list-orders{
+  width: 100%;
+}
 }
