@@ -61,6 +61,8 @@ function notificacao(){
             // navigator.vibrate(200);
             // navigator.vibrate([200, 100, 200]);
             mostrarNotificacao(data['titulo'], data['corpo'],'Garçom')
+            texto = new SpeechSynthesisUtterance(data['corpo']+', para '+data['titulo']);
+            window.speechSynthesis.speak(texto);
             console.log(data['notificacao'])
             
         }else{
