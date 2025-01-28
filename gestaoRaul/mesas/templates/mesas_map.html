@@ -74,7 +74,16 @@ RRB&C - Mapa de Mesas
   {% if mesa.active == True %}
   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" style="  background-color: indianred;"  >{{mesa.name}} <input type="text" hidden value="{{mesa.location}}"> </div>
    {% else %}
-   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" > <span data-tooltip=" O id da mesa é:{{mesa.id}}" data-flow="top"> {{mesa.name}} </span><input type="text" hidden value="{{mesa.location}}"></div>
+   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" > <button style="border: none;background-color: rgba(240, 248, 255, 0);padding: 0px; font-size: 12px;color: black;" popovertarget="my-pop-{{mesa.id}}"> {{mesa.name}} </ style="border: none;background-color: aliceblue;padding: 0px;"><input type="text" hidden value="{{mesa.location}}"></div>
+   
+   <div id="my-pop-{{mesa.id}}" popover
+    style="width: 200px;
+    height: 200px;">
+    {{mesa.id}}
+    {{mesa.name}}
+    {{mesa.name}}
+    </div>
+
    {% endif %}
   
   {% endfor %}
