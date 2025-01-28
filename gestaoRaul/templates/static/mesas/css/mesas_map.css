@@ -1,0 +1,137 @@
+@keyframes jump {
+  0% {
+    transform: scale(0.0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.m-card {
+    width: 50px;
+    height: 50px;
+    background-color: #ff9797;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 50px; 
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+    transition: transform 0.2s;
+    cursor: move;
+  }
+
+
+.m-card:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+
+
+
+.elemento {
+    position: absolute;
+}
+
+.espaco {
+  border: 0.3px solid #cccccc56;
+  padding: 0px;
+  background-color: rgba(0, 0, 255, 0); 
+  width: 50px; 
+  height: 50px; 
+  position: absolute
+}
+
+.popover{
+  width: 300px;
+  height: 400px;
+  top: 20%;
+  left: 25%;
+  padding: 20px;
+  background-color: #f2f2f29d;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  text-align: justify;
+  line-height: 50px; 
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  transition: transform 0.2s;
+  animation: jump 0.7s;
+}
+
+.popover div {
+  display: flex;
+  color: #333;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.popover > h4  {
+  color: #333;
+  justify-self: center;
+}
+.popover a {
+  text-decoration: none;
+  color: #333;
+  justify-self: center;
+}
+.popover::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  /* animation: jump 0.2s; */
+}
+
+.button-popover {
+  border: none;
+  background-color: rgba(240, 248, 255, 0);
+  padding: 0px;
+  font-size: 12px;
+  color: black;
+}
+  
+
+
+#drop {
+  display: flex;
+  background-color: rgb(75, 75, 75);
+  border-radius: 15px;
+  padding: 15px;
+  min-height: 300px;
+  max-width: 1400px;
+}
+
+
+
+
+#scroll {
+display: grid;
+position: relative;
+  scrollbar-width: thin;
+}
+
+@media screen and (max-width: 730px) {
+#scroll {
+  margin: 10px;
+
+  overflow: scroll;
+}
+
+#mapa {
+margin: 0px;
+
+}
+
+.popover {
+  left: 15%;
+  width: 70%;
+}
+
+  }

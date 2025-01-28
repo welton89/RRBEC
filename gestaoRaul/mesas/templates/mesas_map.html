@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filter_tag %}
 
 
 {% block 'head' %}
-<link rel="stylesheet" href="{% static 'mesas/css/mesas.css' %}">
+<link rel="stylesheet" href="{% static 'mesas/css/mesas_map.css' %}">
 <script src="{% static 'mesas/js/mesas_map.js' %}"></script>
 
 {% endblock %}
@@ -16,7 +17,7 @@ RRB&C - Mapa de Mesas
 {% csrf_token %}
 
 <style>
-    #mapa {
+  #mapa {
     width: 1400px;
     height: 800px;
     border-radius: 15px;
@@ -24,29 +25,7 @@ RRB&C - Mapa de Mesas
     background-image: url("{% static 'midia/mapMesa.webp' %}" );
     background-size: cover;
     position: relative;
-
-}
-
-#scroll {
-  display: grid;
-  position: relative;
-    scrollbar-width: thin;
-}
-
-@media screen and (max-width: 730px) {
-  #scroll {
-    margin: 10px;
-
-    overflow: scroll;
-}
-
-#mapa {
-  margin: 0px;
-
-}
-
-    }
-
+  }
 </style>
 
 <h1>Mapa de Mesas</h1>
@@ -54,15 +33,14 @@ RRB&C - Mapa de Mesas
 <div id="mapa" >
 
   {% for eixo in eixosXY %}
-        <div 
-        id="{{eixo.x}}-{{eixo.y}}" 
-        class="espaco"
-        style="background-color: rgba(0, 0, 255, 0); 
-        width: 50px; 
-        height: 50px; 
+    <div 
+      id="{{eixo.x}}-{{eixo.y}}" 
+      class="espaco"
+      style="
         left: {{eixo.y}}px;
-        top: {{eixo.x}}px;position: absolute" >
-      </div>
+        top: {{eixo.x}}px;
+        ">
+    </div>
   {% endfor %}
 </div>
 
@@ -71,20 +49,46 @@ RRB&C - Mapa de Mesas
 <div id="drop" >
   {% for mesa in mesas %}
 
-  {% if mesa.active == True %}
-  <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" style="  background-color: indianred;"  >{{mesa.name}} <input type="text" hidden value="{{mesa.location}}"> </div>
-   {% else %}
-   <div id="{{mesa.id}}" class="m-card" ondragend="saveLocal()" draggable="true" > <button style="border: none;background-color: rgba(240, 248, 255, 0);padding: 0px; font-size: 12px;color: black;" popovertarget="my-pop-{{mesa.id}}"> {{mesa.name}} </ style="border: none;background-color: aliceblue;padding: 0px;"><input type="text" hidden value="{{mesa.location}}"></div>
-   
-   <div id="my-pop-{{mesa.id}}" popover
-    style="width: 200px;
-    height: 200px;">
-    {{mesa.id}}
-    {{mesa.name}}
-    {{mesa.name}}
-    </div>
+    {% if mesa.active == True %}
 
-   {% endif %}
+      <div
+        id="{{mesa.id}}" 
+        class="m-card" 
+        ondragend="saveLocal()" 
+        draggable="true">
+          <button 
+            class="button-popover"
+            popovertarget="my-pop-{{mesa.id}}">
+            {{mesa.name}} 
+          </button>
+        <input type="text" hidden value="{{mesa.location}}">
+      </div>
+
+      <div id="my-pop-{{mesa.id}}" popover class="popover">
+        <h4>{{mesa.name}}</h4>
+        {% for comanda in comandas %}
+          {% if comanda.mesa.id == mesa.id %}
+            <div >
+              <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">
+                {{comanda.name}}🔗
+              </a>
+              {{ comanda.id | total }}
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+
+    {% else %}
+        <div
+          style="background-color: rgb(148, 255, 127);"
+          id="{{mesa.id}}" 
+          class="m-card" 
+          ondragend="saveLocal()" 
+          draggable="true" >
+          {{mesa.name}} 
+          <input type="text" hidden value="{{mesa.location}}">
+        </div>
+    {% endif %}
   
   {% endfor %}
 
