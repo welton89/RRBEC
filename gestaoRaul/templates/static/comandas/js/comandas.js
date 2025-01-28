@@ -58,10 +58,8 @@ function notificacao(){
           if (data['notificacao'] == 'true'){
             console.log('verdadeiro')
             document.cookie = `pronto=${data['pronto']}`; 
-            // navigator.vibrate(200);
-            // navigator.vibrate([200, 100, 200]);
             mostrarNotificacao(data['titulo'], data['corpo'],'Garçom')
-            texto = new SpeechSynthesisUtterance(data['corpo']+', para '+data['titulo']);
+            texto = new SpeechSynthesisUtterance(data['corpo']+', para '+data['titulo']+' tá pronto.');
             window.speechSynthesis.speak(texto);
             console.log(data['notificacao'])
             
@@ -76,7 +74,6 @@ function notificacao(){
    });
    
   }
-
 
 
 setInterval(()=> {

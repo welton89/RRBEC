@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filter_tag %}
+
 
 
 <!DOCTYPE html>
@@ -51,9 +53,11 @@
                         <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                        {% if user|groupUser:"Cozinha" %}
                         <button class="btn-primary" onclick="delayTab('Fila')"
                         hx-get="{% url 'preparing' order.id %} " hx-trigger="click" hx-target="#etapas"
                         >Preparar</button>
+                        {% endif %}
                     </div>
                     {% endif %}
                 {% endfor %}
@@ -75,9 +79,11 @@
                         <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                        {% if user|groupUser:"Cozinha" %}
                         <button class="btn-secondary" onclick="delayTab( 'Preparo')"
                         hx-get="{% url 'finished' order.id %} " hx-trigger="click" hx-target="#etapas"
                         >Finalizar</button>
+                        {% endif %}
                     </div>
                     {% endif %}
                 {% endfor %}
@@ -98,9 +104,11 @@
                         <h4>{{order.id_comanda.name}} - {{order.id_comanda.mesa.name}} </h4>
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
+                        {% if user|groupUser:"Garçom" %}
                         <button class="btn-secondary" onclick="delayTab( 'Finalizado')"
                         hx-get="{% url 'delivered' order.id %} " hx-trigger="click" hx-target="#etapas"
                         >Entregar</button>
+                        {% endif %}
                     </div>
                     {% endif %}
                 {% endfor %}

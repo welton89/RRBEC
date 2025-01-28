@@ -77,16 +77,14 @@ function notificacao(){
       .then(data => {
           if (data['notificacao'] == 'true'){
             document.cookie = `fila=${data['fila']}`; 
-            // navigator.vibrate(200);
-            // navigator.vibrate([200, 100, 200]);
             mostrarNotificacao(data['titulo'], data['corpo'],'Cozinha')
+            texto = new SpeechSynthesisUtterance(data['corpo']+', '+data['titulo']+'.');
+            window.speechSynthesis.speak(texto);
 
           }else{
             console.log(data['notificacao'])
             console.log('notificação foi false')
           }
-        // var produtos_mais_vendidos = data.produtos_mais_vendidos
-
       })
    .catch(error => {
      alert('Erro verificar notificação:', error)

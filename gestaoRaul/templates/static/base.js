@@ -12,3 +12,13 @@ function menuShow() {
 function entrar(){
     alert('Onde tu pensa que vai entrar?🤨');
 }
+var elem = document.getElementById("all");
+function openFullscreen() {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }
