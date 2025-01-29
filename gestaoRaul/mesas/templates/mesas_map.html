@@ -18,10 +18,11 @@ RRB&C - Mapa de Mesas
 
 <style>
   #mapa {
+    justify-self: center;
     width: 1400px;
     height: 800px;
     border-radius: 15px;
-    margin-left: 30px;
+    margin-bottom: 20px;
     background-image: url("{% static 'midia/mapMesa.webp' %}" );
     background-size: cover;
     position: relative;
@@ -45,7 +46,7 @@ RRB&C - Mapa de Mesas
 </div>
 
 </div>
-<h2>Depósito</h2>
+<h2 style="justify-self: center;" >Depósito</h2>
 <div id="drop" >
   {% for mesa in mesas %}
 
@@ -54,6 +55,7 @@ RRB&C - Mapa de Mesas
       <div
         id="{{mesa.id}}" 
         class="m-card" 
+        
         ondragend="saveLocal()" 
         draggable="true">
           <button 

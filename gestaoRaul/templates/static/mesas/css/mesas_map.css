@@ -2,9 +2,9 @@
   0% {
     transform: scale(0.0);
   }
-  70% {
+  /* 70% {
     transform: scale(1.2);
-  }
+  } */
   100% {
     transform: scale(1);
   }
@@ -64,7 +64,7 @@
   font-weight: bold;
   color: #333;
   transition: transform 0.2s;
-  animation: jump 0.7s;
+  animation: jump 0.5s;
 }
 
 .popover div {
@@ -101,11 +101,16 @@
 
 #drop {
   display: flex;
-  background-color: rgb(75, 75, 75);
+  gap: 15px;
+  justify-self: center;
+  background: var(--main-gradient);
+  /* background-color: rgb(75, 75, 75); */
   border-radius: 15px;
   padding: 15px;
-  min-height: 300px;
+  margin-bottom: 20px;
+  width: 80%;
   max-width: 1400px;
+  min-height: 300px;
 }
 
 
