@@ -9,9 +9,7 @@ function menuShow() {
     }
 }
 
-function entrar(){
-    alert('Onde tu pensa que vai entrar?🤨');
-}
+
 var elem = document.getElementById("all");
 function openFullscreen() {
     if (elem.requestFullscreen) {
@@ -22,4 +20,3 @@ function openFullscreen() {
       elem.msRequestFullscreen();
     }
   }
-  // openFullscreen()
