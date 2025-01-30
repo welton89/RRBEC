@@ -29,6 +29,7 @@ urlpatterns = [
     path('categories/', include('categories.urls')),
     path('balcao/', include('balcao.urls')),
     path('pedidos/', include('orders.urls')),
+    path('', include('pwa.urls')),
 
 
 ]

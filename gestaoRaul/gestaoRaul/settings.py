@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'orders',
     'login',
     'django_extensions',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,31 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# pwa.py
+# from django.conf import settings
+
+PWA_APP_NAME = "Gestão Raul"
+PWA_APP_SHORT_NAME = "PWA"
+PWA_APP_DESCRIPTION = "Descrição do Gestão Raul"
+PWA_APP_THEME_COLOR = "#000000"
+PWA_APP_BACKGROUND_COLOR = "#ffffff"
+PWA_APP_DISPLAY = "standalone"
+PWA_APP_ORIENTATION = "any"
+PWA_APP_START_URL = "/"
+PWA_APP_ICONS = [
+    {
+        "src": "/static/midia/logo.png",
+        "sizes": "160x160",
+        "type": "image/png"
+    },
+    # ... adicione outros tamanhos de ícones
+]
+PWA_APP_SPLASH_SCREEN = {
+    "src": "/static/midia/logo.png",
+    "media": "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+}
+PWA_APP_DIR = "ltr"
+PWA_APP_LANG = "pt-BR"
