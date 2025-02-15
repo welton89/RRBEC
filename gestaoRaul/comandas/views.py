@@ -7,6 +7,7 @@ from django.db.models import Count, F
 
 from comandas.models import Comanda, ProductComanda
 from clients.models import Client
+from payments.models import Payments
 from orders.models import Order
 from products.models import Product
 from mesas.models import Mesa
@@ -20,12 +21,23 @@ def comandas(request):
     return render(request, 'comandas.html', {'comandas': comandas, 'mesas': mesas})
 
 
+def somar(consumo:ProductComanda, comanda:Comanda):
+    parcial = Payments.objects.filter(comanda=comanda)
+    totalParcial = Decimal(0)
+    total:Decimal = Decimal(0)
+    for p in parcial:
+        totalParcial += p.value
+    for produto in consumo:
+        total += Decimal(produto.product.price)
+    return total - totalParcial
+
 @group_required(groupName='Garçom')
 def viewComanda(request):
     id = request.GET.get('parametro')
     comanda_id = int(id)
     comanda = Comanda.objects.get(id=comanda_id)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
+    parcial = Payments.objects.filter(comanda=comanda_id)
     mesas = Mesa.objects.all()
     clients = Client.objects.filter(active=True)
 
@@ -39,11 +51,8 @@ def viewComanda(request):
         for p in products:
             if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
-    total = 0
-    for produto in consumo:
-        total += produto.product.price
-  
-    return render(request, 'viewcomanda.html', {'clients':clients,'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
+    total = somar(consumo,comanda)
+    return render(request, 'viewcomanda.html', {'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
 
 
 @group_required(groupName='Garçom')

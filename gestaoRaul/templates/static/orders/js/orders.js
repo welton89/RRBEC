@@ -1,5 +1,9 @@
-document.cookie = `fila=0`; 
+// document.cookie = `fila=0`; 
 
+function reloadPage(){
+  setTimeout(function() {
+    location.reload();}, 4000);
+}
 
 function openTab(evt, etapa) {
     var i, tabcontent, tablinks;
@@ -80,6 +84,7 @@ function notificacao(){
             mostrarNotificacao(data['titulo'], data['corpo'],'Cozinha')
             texto = new SpeechSynthesisUtterance(data['corpo']+', '+data['titulo']+'.');
             window.speechSynthesis.speak(texto);
+            reloadPage();
 
           }else{
             console.log(data['notificacao'])

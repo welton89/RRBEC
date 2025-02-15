@@ -33,6 +33,11 @@ function modal_payment_comanda() {
     recebido = document.getElementById('recebido')
     recebido.focus()
 }
+function modal_payment_parcial() {
+    document.getElementById('payment-parcial').style.display = 'block';
+    // recebido = document.getElementById('recebido')
+    // recebido.focus()
+}
 
 
 function modal_conta_client() {

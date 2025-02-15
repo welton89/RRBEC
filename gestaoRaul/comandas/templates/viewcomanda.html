@@ -117,14 +117,24 @@ Detalhes {{comanda.name}}
         {% endif %}
       </tr>
         {% endfor %}
+        {% for parcial in parcials %}
+        <tr>
+          <td  style="text-align: left; color: chartreuse;">{{parcial.datetime}}</td>
+          <td  style="text-align: left; color: chartreuse;">R$ -{{parcial.value}}</td>
+          <td  style="text-align: left; color: chartreuse;">{{parcial.description}}</td>
+        </tr>
+        {% endfor %}
+
+
+
+
     <tfoot>
       <tr>
         <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
       </tr>
     </tfoot>
   </table>
-
-
+<button class="btn-secondary" onclick="modal_payment_parcial()">Pagamento Parcial</button>
   </div>
 
 
@@ -182,6 +192,24 @@ Detalhes {{comanda.name}}
         <button type="button" class="btn-cancel" onclick="close_modal_payment_comanda()">Cancelar</button>
       </div>
     </footer>
+  </article>
+</dialog>
+
+
+<dialog id="payment-parcial" style="display: none;" >
+  <article>
+    <h2>Pagamento Parcial</h2>
+    <form method="post" action="{% url 'paymentParcial' comanda.id %} ">
+      {% csrf_token %}
+      <input id="value-parcial" name="value-parcial" type="number" step="0.01" placeholder="Valor">
+      <input id="name-parcial" name="name-parcial" type="text" placeholder="Nome" >
+    <footer>
+      <div style="display: flex;gap: 10px;">
+        <button type="submit" class="btn-secondary" onclick="backPage()">Receber</button>
+        <button type="button" class="btn-cancel" onclick="close_modal_payment_parcial()">Cancelar</button>
+      </div>
+    </footer>
+  </form>
   </article>
 </dialog>
 

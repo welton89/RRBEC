@@ -26,6 +26,7 @@ htmx_urlpatterns = [
     path('closeComanda<int:comanda_id>/', htmx_views.closeComanda, name='closeComanda'),
     path('reopenComanda<int:comanda_id>/', htmx_views.reopenComanda, name='reopenComanda'),
     path('paymentComanda<int:comanda_id>/', htmx_views.paymentComanda, name='paymentComanda'),
+    path('paymentParcial<int:comanda_id>/', htmx_views.paymentParcial, name='paymentParcial'),
 ]
 
 urlpatterns += htmx_urlpatterns

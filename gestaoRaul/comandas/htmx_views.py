@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -8,6 +9,16 @@ from payments.models import Payments
 from typePay.models import TypePay
 from gestaoRaul.decorators import group_required
 
+
+def somar(consumo:ProductComanda, comanda:Comanda):
+    parcial = Payments.objects.filter(comanda=comanda)
+    totalParcial = Decimal(0)
+    total:Decimal = Decimal(0)
+    for p in parcial:
+        totalParcial += p.value
+    for produto in consumo:
+        total += Decimal(produto.product.price)
+    return total - totalParcial
 
 def listProduct(request, comanda_id):
     product = request.GET.get("search-product")
@@ -25,21 +36,16 @@ def addProduct(request, product_id, comanda_id):
     product_comanda.save()
     product = Product.objects.get(id=product_id)
     comanda = Comanda.objects.get(id=comanda_id)
-    print(product.cuisine)
-
     if product.cuisine == True:
         order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
         order.save()
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
-    total = 0
-    for produto in consumo:
-        total += produto.product.price
+    total = somar(consumo,comanda)
     return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total, 'comanda':comanda})
 
 @group_required(groupName='Garçom')
 def editOrders(request, productComanda_id, obs):
     order = Order.objects.get(productComanda=productComanda_id)
-    print(obs)
     order.obs = obs
     order.save()
     return JsonResponse({'status': 'ok'})
@@ -50,11 +56,8 @@ def removeProductComanda(request, productComanda_id):
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
     comanda = Comanda.objects.get(id= product_comanda.comanda.id)
     consumo = ProductComanda.objects.filter(comanda=comanda)
-
     product_comanda.delete()
-    total = 0
-    for produto in consumo:
-        total += produto.product.price
+    total = somar(consumo, comanda)
     return render(request, "htmx_components/htmx_list_products_in_comanda.html",{'consumo': consumo, 'total': total, 'comanda':comanda})
 
 @group_required(groupName='Garçom')
@@ -78,11 +81,20 @@ def paymentComanda(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     comanda = Comanda.objects.get(id=comanda_id)
-    total = 0
-    for produto in consumo:
-        total += produto.product.price
+    total = somar(consumo, comanda)
     pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description='tipo de pagamento mokado')
     pagamento.save()
     comanda.status = 'CLOSED'
     comanda.save()
+    return redirect('/comandas')
+
+@group_required(groupName='Gerente')
+def paymentParcial(request, comanda_id):
+    typePayment = TypePay.objects.get(id=1)
+    comanda = Comanda.objects.get(id=comanda_id)
+    value = Decimal(request.POST.get('value-parcial'))
+    print(value)
+    description = request.POST.get('name-parcial')
+    pagamento = Payments(value=value, comanda=comanda, type_pay=typePayment,description=description)
+    pagamento.save()
     return redirect('/comandas')
