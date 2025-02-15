@@ -36,15 +36,15 @@
 
       <table id="list-products-balcao">
         <tr>
-          <th style="text-align: left;">Produto</th>
-          <th style="text-align: left;">Preço</th>
+          <th style="text-align: left;"><b>Produto</b></th>
+          <th style="text-align: left;"><b>Preço</b></th>
         </tr>
         {% for item in consumo%}
 
         <tr>
           <td>{{item.product.name}}</td>
           <td>R$ {{item.product.price}}    </td>
-          <td><button class="btn-cancel" onclick="removeProductBalcao({{item.id}})">🗑️ Excluir</button></td>
+          <td><button class="btn-cancel" onclick="removeProductBalcao({{item.id}})">Excluir</button></td>
         </tr>
 
         {% endfor %}

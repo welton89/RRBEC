@@ -76,8 +76,8 @@ Detalhes {{comanda.name}}
 <img hidden src="{% static 'midia/logo.png' %}" style="width: 240px; height: 200px;">
     <table id="list-products-comanda">
       <tr>
-        <th style="text-align: left;">Produto</th>
-        <th style="text-align: left;">Preço</th>
+        <th style="text-align: left;"><b>Produto</b></th>
+        <th style="text-align: left;"><b>Preço</b></th>
       </tr>
 
     {%  for item in consumo%}
@@ -117,11 +117,13 @@ Detalhes {{comanda.name}}
         {% endif %}
       </tr>
         {% endfor %}
+        {% if parcials%}
+        <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
+        {% endif %}
         {% for parcial in parcials %}
         <tr>
-          <td  style="text-align: left; color: chartreuse;">{{parcial.datetime}}</td>
-          <td  style="text-align: left; color: chartreuse;">R$ -{{parcial.value}}</td>
-          <td  style="text-align: left; color: chartreuse;">{{parcial.description}}</td>
+          <td>{{parcial.description}} ás {{parcial.datetime|date:"H:i"}}</td>
+          <td>R$ -{{parcial.value}}</td>
         </tr>
         {% endfor %}
 
@@ -130,7 +132,7 @@ Detalhes {{comanda.name}}
 
     <tfoot>
       <tr>
-        <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
+        <td colspan="2" style="text-align: center;"><b>Total R$ {{total}}</b></td>
       </tr>
     </tfoot>
   </table>
@@ -201,7 +203,7 @@ Detalhes {{comanda.name}}
     <h2>Pagamento Parcial</h2>
     <form method="post" action="{% url 'paymentParcial' comanda.id %} ">
       {% csrf_token %}
-      <input id="value-parcial" name="value-parcial" type="number" step="0.01" placeholder="Valor">
+      <input id="value-parcial" name="value-parcial" type="number" step="0.01" max="{{total}}" placeholder="Valor">
       <input id="name-parcial" name="name-parcial" type="text" placeholder="Nome" >
     <footer>
       <div style="display: flex;gap: 10px;">

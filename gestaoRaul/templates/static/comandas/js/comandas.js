@@ -5,8 +5,9 @@ document.cookie = `pronto=0`;
 
 function openModal() {
     document.getElementById('Modal-create-comanda').style.display = 'block';
-    // HTMLDialogElement.show()
-    // HTMLDialogElement.showModal()
+    textField = document.getElementById('name-comanda')
+    textField.focus()
+
 }
 
 function closeModal() {

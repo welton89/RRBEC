@@ -2,6 +2,9 @@
 
 function openModal() {
     document.getElementById('Modal-add-product').style.display = 'block';
+    textField = document.getElementById('search-product')
+    textField.value = '';
+    textField.focus()
 }
 function openModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'block';
@@ -23,8 +26,9 @@ function openModalObs(id) {
     document.getElementById('modal-obs').style.display = 'block';
     idd = document.getElementById('id-temp').value = id;
     obs = document.getElementById('obs').value;
-    console.log(id);
-    console.log(obs);
+    textField = document.getElementById('obs')
+    textField.focus()
+
 }
 
 
@@ -35,15 +39,15 @@ function modal_payment_comanda() {
 }
 function modal_payment_parcial() {
     document.getElementById('payment-parcial').style.display = 'block';
-    // recebido = document.getElementById('recebido')
-    // recebido.focus()
+    value = document.getElementById('value-parcial')
+    value.focus()
+
 }
 
 
 function modal_conta_client() {
     document.getElementById('conta-cliente').style.display = 'block';
-    // recebido = document.getElementById('recebido')
-    // recebido.focus()
+
 }
 
 function close_modal_conta_client() {
@@ -51,6 +55,9 @@ function close_modal_conta_client() {
 }
 
 
+function close_modal_payment_parcial() {
+    document.getElementById('payment-parcial').style.display = 'none';
+}
 function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
 }
@@ -136,7 +143,7 @@ function imprimirConta() {
          
     
       var printWindow = window.open('', '_blank');
-      printWindow.document.write('<table>'+content+'</table><b>Volte Sempre!😁😊</b>'+style);
+      printWindow.document.write('<table>'+content+'</table><br><b>Volte Sempre!😁😊</b><br>'+style);
       printWindow.document.close();
       printWindow.print();
       printWindow.close();

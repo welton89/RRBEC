@@ -1,8 +1,8 @@
 {% load static %}
 
 <tr>
-    <th style="text-align: left;">Produto</th>
-    <th style="text-align: left;">Preço</th>
+    <th style="text-align: left;"><b>Produto</b></th>
+    <th style="text-align: left;"><b>Preço</b></th>
   </tr>
 
 {%  for item in consumo%}
@@ -39,6 +39,15 @@
   </img>
   </td>
   {% endif %}
+</tr>
+{% endfor %}
+{% if parcials%}
+<td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
+{% endif %}
+{% for parcial in parcials %}
+<tr>
+  <td>{{parcial.description}} ás {{parcial.datetime|date:"H:i"}}</td>
+  <td>R$ -{{parcial.value}}</td>
 </tr>
 {% endfor %}
 <tfoot>
