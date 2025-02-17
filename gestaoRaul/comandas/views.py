@@ -29,7 +29,12 @@ def somar(consumo:ProductComanda, comanda:Comanda):
         totalParcial += p.value
     for produto in consumo:
         total += Decimal(produto.product.price)
-    return total - totalParcial
+    valores = {
+        'total':total,
+        'parcial':totalParcial,
+        'taxaTotal': round(total * Decimal(0.1), 2)
+    }
+    return valores
 
 @group_required(groupName='Garçom')
 def viewComanda(request):
@@ -51,8 +56,9 @@ def viewComanda(request):
         for p in products:
             if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
-    total = somar(consumo,comanda)
-    return render(request, 'viewcomanda.html', {'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
+    valores = somar(consumo,comanda)
+    total = valores['total'] - valores['parcial']
+    return render(request, 'viewcomanda.html', {'taxa': valores['taxaTotal'],'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
 
 
 @group_required(groupName='Garçom')

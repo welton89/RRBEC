@@ -18,7 +18,12 @@ def somar(consumo:ProductComanda, comanda:Comanda):
         totalParcial += p.value
     for produto in consumo:
         total += Decimal(produto.product.price)
-    return total - totalParcial
+    valores = {
+        'total':total,
+        'parcial':totalParcial,
+        'taxaTotal': round(total * Decimal(0.1), 2)
+    }
+    return valores
 
 def listProduct(request, comanda_id):
     product = request.GET.get("search-product")
@@ -41,7 +46,8 @@ def addProduct(request, product_id, comanda_id):
         order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
         order.save()
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
-    total = somar(consumo,comanda)
+    valores = somar(consumo,comanda)
+    total = valores['total'] - valores['parcial']
     return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'parcials':parcial,'consumo': consumo, 'total': total, 'comanda':comanda})
 
 @group_required(groupName='Garçom')
@@ -59,7 +65,8 @@ def removeProductComanda(request, productComanda_id):
     parcial = Payments.objects.filter(comanda=comanda)
     consumo = ProductComanda.objects.filter(comanda=comanda)
     product_comanda.delete()
-    total = somar(consumo, comanda)
+    valores = somar(consumo,comanda)
+    total = valores['total'] - valores['parcial']
     return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'parcials':parcial,'consumo': consumo, 'total': total, 'comanda':comanda})
 
 @group_required(groupName='Garçom')
@@ -83,7 +90,8 @@ def paymentComanda(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     comanda = Comanda.objects.get(id=comanda_id)
-    total = somar(consumo, comanda)
+    valores = somar(consumo,comanda)
+    total = valores['total'] - valores['parcial']
     pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description='tipo de pagamento mokado')
     pagamento.save()
     comanda.status = 'CLOSED'
