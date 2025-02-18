@@ -1,58 +1,71 @@
 {% load static %}
 
 <tr>
-    <th style="text-align: left;"><b>Produto</b></th>
-    <th style="text-align: left;"><b>Preço</b></th>
-  </tr>
+  <th style="text-align: left;"><b>Produto</b></th>
+  <th style="text-align: left;"><b>Preço</b></th>
+</tr>
 
 {%  for item in consumo%}
 
 <tr>
-  <td>
-    {{item.product.name}}
-    {% if item.product.cuisine == True %}
-    <span data-tooltip="Observações para preparo." data-flow="top">
+<td >
+  {{item.product.name}}
+  {% if item.product.cuisine == True %}
+  <span data-tooltip="Observações para preparo." data-flow="top">
 
     <img
     onclick="openModalObs({{item.id}})"
     src="{% static 'midia/icons/note.svg' %}"
     style="width: 25px; height: 35px; cursor: pointer;">
   </img>
-  <span>
-    {% endif %}
+</span>
+  {% endif %}
 
-  </td>
-  <td>R$ {{item.product.price}}</td>
+</td>
+<td>R$ {{item.product.price}}</td>
 
 
 
-  {%  if comanda.status != 'OPEN'%}
-  {% else %}
-  <td>
-    <img
-    src="{% static 'midia/icons/delete.svg' %}"
-    style="width: 35px; height: 35px; cursor: pointer;"
-    hx-get="{% url 'removeProductComanda' item.id  %} " 
-    hx-trigger="click" 
-    hx-target="#list-products-comanda" 
-    hx-confirm="Tem certeza que deseja excluir o produto {{item.product.name}}?" >
-  </img>
-  </td>
+
+{%  if comanda.status != 'OPEN'%}
+{% else %}
+<td>
+  <img
+  src="{% static 'midia/icons/delete.svg' %}"
+  style="width: 35px; height: 35px; cursor: pointer;"
+  hx-get="{% url 'removeProductComanda' item.id  %} " 
+  hx-trigger="click" 
+  hx-target="#list-products-comanda" 
+  hx-confirm="Tem certeza que deseja excluir o produto {{item.product.name}}?" >
+</img>
+</td>
   {% endif %}
 </tr>
-{% endfor %}
-{% if parcials%}
-<td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
-{% endif %}
-{% for parcial in parcials %}
-<tr>
-  <td>{{parcial.description}} ás {{parcial.datetime|date:"H:i"}}</td>
-  <td>R$ -{{parcial.value}}</td>
-</tr>
-{% endfor %}
+  {% endfor %}
+  <tr>
+    <td>
+      Taxa de serviço 10%
+    </td>
+    <td>
+      R$ {{valores.taxa}}
+    </td>
+  </tr>
+  {% if parcials%}
+  <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
+  {% endif %}
+  {% for parcial in parcials %}
+  <tr>
+    <td>{{parcial.description}} ás {{parcial.datetime|date:"H:i"}}</td>
+    <td>R$ -{{parcial.value}}</td>
+  </tr>
+  {% endfor %}
+
+
+
+
 <tfoot>
-    <tr>
-      <td colspan="2" style="text-align: center;">Total R$ {{total}}</td>
-    </tr>
-  </tfoot>
-</table>
+<tr>
+  <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
+</tr>
+</tfoot>
+

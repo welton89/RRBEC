@@ -32,7 +32,9 @@ def somar(consumo:ProductComanda, comanda:Comanda):
     valores = {
         'total':total,
         'parcial':totalParcial,
-        'taxaTotal': round(total * Decimal(0.1), 2)
+        'taxa': round(total * Decimal(0.1), 2),
+        'totalSemTaxa':total - totalParcial,
+        'totalComTaxa': round((total - totalParcial)+(total * Decimal(0.1)),2)
     }
     return valores
 
@@ -57,8 +59,7 @@ def viewComanda(request):
             if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
     valores = somar(consumo,comanda)
-    total = valores['total'] - valores['parcial']
-    return render(request, 'viewcomanda.html', {'taxa': valores['taxaTotal'],'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'total': total, 'products': products_ordenados,'mesas':mesas})
+    return render(request, 'viewcomanda.html', {'valores':valores,'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'products': products_ordenados,'mesas':mesas})
 
 
 @group_required(groupName='Garçom')
@@ -96,7 +97,7 @@ def addContaCliente(request):
     return redirect('comandas')
 
 def notificacao(request):
-    fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
+    fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=12)
     ordersPronto = Order.objects.filter(queue__gte=fifteen_hours_ago, finished__isnull=False)
 
     grupoGarcom = request.user.groups.filter(name='Garçom').exists()

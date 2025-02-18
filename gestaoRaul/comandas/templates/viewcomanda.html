@@ -117,6 +117,14 @@ Detalhes {{comanda.name}}
         {% endif %}
       </tr>
         {% endfor %}
+        <tr>
+          <td>
+            Taxa de serviço 10%
+          </td>
+          <td>
+            R$ {{valores.taxa}}
+          </td>
+        </tr>
         {% if parcials%}
         <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
         {% endif %}
@@ -132,7 +140,7 @@ Detalhes {{comanda.name}}
 
     <tfoot>
       <tr>
-        <td colspan="2" style="text-align: center;"><b>Total R$ {{total}} - Taxa de serviso {{taxa}}</b></td>
+        <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
       </tr>
     </tfoot>
   </table>
@@ -178,8 +186,19 @@ Detalhes {{comanda.name}}
 
 <dialog id="payment-comanda" style="display: none;" >
   <article>
+    <form action="{% url 'paymentComanda' comanda.id %}" method="post">
+      {% csrf_token %}
     <h2>Pagamento</h2>
-    <h1 id="first-total">R$ {{ total }}</h1>
+    <div style="display: flex; align-content: space-around; align-items: center; justify-self: center;gap: 50px;">
+
+      <h1 id="first-total">R$ {{ valores.totalComTaxa }}</h1>
+      <h1 hidden id="totalComTaxa">R$ {{ valores.totalComTaxa }}</h1>
+      <h1 hidden id="totalSemTaxa">R$ {{ valores.totalSemTaxa }}</h1>
+      <div>
+
+        <input id="taxa" name="taxa" type="checkbox" value="True" label="Taxa de serviço" checked >Taxa de serviço
+      </div>
+    </div>
     <div>
       <p>Recebido:</p> <input id="recebido" type="number">
       <h4 id="troco">Troco: </h4>
@@ -187,13 +206,14 @@ Detalhes {{comanda.name}}
     <footer>
       <div style="display: flex;gap: 10px;">
 
-        <button type="submit" class="btn-secondary" hx-get="{% url 'paymentComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="backPage()">Receber</button>
+        <button type="submit" class="btn-secondary"  onclick="backPage()">Receber</button>
         <button type="button" class="btn-primary"  onclick=" modal_conta_client()">
           Conta
         </button>
         <button type="button" class="btn-cancel" onclick="close_modal_payment_comanda()">Cancelar</button>
       </div>
     </footer>
+  </form>
   </article>
 </dialog>
 

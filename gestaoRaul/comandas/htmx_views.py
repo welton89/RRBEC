@@ -21,7 +21,9 @@ def somar(consumo:ProductComanda, comanda:Comanda):
     valores = {
         'total':total,
         'parcial':totalParcial,
-        'taxaTotal': round(total * Decimal(0.1), 2)
+        'taxa': round(total * Decimal(0.1), 2),
+        'totalSemTaxa':total - totalParcial,
+        'totalComTaxa': round((total - totalParcial)+(total * Decimal(0.1)),2)
     }
     return valores
 
@@ -47,8 +49,8 @@ def addProduct(request, product_id, comanda_id):
         order.save()
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     valores = somar(consumo,comanda)
-    total = valores['total'] - valores['parcial']
-    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'parcials':parcial,'consumo': consumo, 'total': total, 'comanda':comanda})
+    
+    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'valores':valores,'parcials':parcial,'consumo': consumo,'comanda':comanda})
 
 @group_required(groupName='Garçom')
 def editOrders(request, productComanda_id, obs):
@@ -66,8 +68,7 @@ def removeProductComanda(request, productComanda_id):
     consumo = ProductComanda.objects.filter(comanda=comanda)
     product_comanda.delete()
     valores = somar(consumo,comanda)
-    total = valores['total'] - valores['parcial']
-    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'parcials':parcial,'consumo': consumo, 'total': total, 'comanda':comanda})
+    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
 
 @group_required(groupName='Garçom')
 def closeComanda(request, comanda_id):
@@ -87,13 +88,18 @@ def reopenComanda(request, comanda_id):
 
 @group_required(groupName='Gerente')
 def paymentComanda(request, comanda_id):
+    taxa = request.POST.get('taxa',False)
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     comanda = Comanda.objects.get(id=comanda_id)
     valores = somar(consumo,comanda)
-    total = valores['total'] - valores['parcial']
-    pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description='tipo de pagamento mokado')
-    pagamento.save()
+    if taxa == 'True':
+        pagamento = Payments(value=valores['totalComTaxa'], comanda=comanda, type_pay=typePayment,description='tipo de pagamento mokado')
+        pagamento.save()
+    else:
+        pagamento = Payments(value=valores['totalSemTaxa'], comanda=comanda, type_pay=typePayment,description='tipo de pagamento mokado')
+        pagamento.save()
+
     comanda.status = 'CLOSED'
     comanda.save()
     return redirect('/comandas')
@@ -103,7 +109,6 @@ def paymentParcial(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     comanda = Comanda.objects.get(id=comanda_id)
     value = Decimal(request.POST.get('value-parcial'))
-    print(value)
     description = request.POST.get('name-parcial')
     pagamento = Payments(value=value, comanda=comanda, type_pay=typePayment,description=description)
     pagamento.save()

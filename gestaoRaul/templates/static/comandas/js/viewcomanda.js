@@ -247,9 +247,20 @@ function addProductComanda(productId,comandaId, cuisine) {
 
 }
 
+function taxa(){
+  var taxa = document.getElementById('taxa')
+  var total = document.getElementById('first-total')
+  var totalComTaxa = document.getElementById('totalComTaxa').innerHTML
+  var totalSemTaxa = document.getElementById('totalSemTaxa').innerHTML
 
+  if (taxa.checked){
+    total.innerHTML = totalComTaxa
+  }else{
+    total.innerHTML = totalSemTaxa
+  }
+}
 
-// document.getElementById('openModal').addEventListener('click', openModal);
+document.getElementById('taxa').addEventListener("change", taxa);
 
 // document.getElementById('productForm').addEventListener('submit', function(event) {
 //     event.preventDefault(); 
