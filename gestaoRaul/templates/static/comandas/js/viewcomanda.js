@@ -176,20 +176,20 @@ function troco(){
 }
 
 
-document.onkeydown = teclado
+// document.onkeydown = teclado
 
-function teclado(event){
-  if (document.getElementById('payment-comanda').style.display == 'block'){
-    if (event.keyCode == 13){
-      troco()
-    }else{
-      console.log(event.keyCode)
-    }
-  }else{
-    console.log('')
-  }
+// function teclado(event){
+//   if (document.getElementById('payment-comanda').style.display == 'block'){
+//     if (event.keyCode == 13){
+//       troco()
+//     }else{
+//       console.log(event.keyCode)
+//     }
+//   }else{
+//     console.log('')
+//   }
 
-}
+// }
 function addOrder(){
   obs = document.getElementById('obs').value
   var id = document.getElementById('id-temp').value

@@ -1,4 +1,5 @@
 from decimal import Decimal
+from django.urls import reverse
 from django.utils import timezone
 
 from django.http import JsonResponse
@@ -69,7 +70,7 @@ def createComanda(request):
     mesa = Mesa.objects.get(id=mesa_id)
     comanda = Comanda(name=name, mesa=mesa, user=request.user)
     comanda.save()
-    return redirect('comandas')
+    return redirect(reverse('viewcomanda') + f'?parametro={comanda.id}')
 
 @group_required(groupName='Garçom')
 def editComanda(request):

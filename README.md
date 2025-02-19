@@ -7,14 +7,14 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 
 
-## Módulo Dashboard
+## Dashboard
 ![dashboard](readme/dashboard.gif)
 * [x] Cards com faturamento vendas, e ticket médio.
 * [x] Graficos - Produtos mais vendidos e tempos de preparo de petiscos.
 * [x] Grafico de faturamento mês a mês do ano anterio, atual, e projeção.
 * [x] Filtro por data (padrão últimos 30 dias).
 
-## Módulo Produtos
+## Produtos
 ![dashboard](readme/produtos.gif)
 * [x] Cadastrar e editar produtos.
 * [x] Ativar/Desativar produtos direto da tela de lista de produtos com um só click.
@@ -22,7 +22,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [x] Pesquisa reativa.
 * [ ] Gerenciar o estoque de produto.
 
-### Módulo Comandas
+### Comandas
 * [x] Abrir nova comanda(inserindo nome, associando ou não a mesa).
 * [x] Editar informações da comanda.
 * [x] Adicionar produtos na comanda.
@@ -30,23 +30,25 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [x] Remover produtos da comanda.
 * [x] Imprimir cupom de pagamento.
 * [x] Imprimir fichas dos produtos.
+* [x] Receber pagamento parcial.
+* [x] Taxa de serviço opcional.
 * [x] Fechamento da comanda.
-* [x] Receber pagamento.
+* [x] Receber pagamento ou adicionar valor na conta do cliente.
 * [x] Adicionar valor na conta do cliente.
 * [x] Responsivo para mobile.
 
-### Módulo Mesa
+### Mesa
 * [ ] Gerenciar mesas (ocupação, reserva).
 * [x] Associar pedidos e comandas a mesas.
 * [ ] Dividir contas.
 
-### Módulo Clientes
+### Clientes
 * [x] Cadastrar novos clientes (nome, endereço, telefone, email).
 * [x] Editar informações de clientes existentes.
 * [ ] Excluir clientes.
 * [ ] Consultar o histórico de pedidos de um cliente.
 
-### Módulo Guarita
+### Guarita
 * [x] Adicionar produtos, quantidade.
 * [x] Pesquisa produto reativa.
 * [x] Exibição de produtos em ordem de maior saida.
@@ -55,30 +57,30 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [x] Atalhos do teclado para maior agilidade.
 * [x] Calculo de troco do pagamento.
 
-### Módulo Funcionários
+### Funcionários
 * [X] Cadastrar novos funcionários.
 * [x] Editar informações de funcionários existentes.
 * [x] Excluir funcionários.
-* [X] Gerenciar as permissões de cada funcionário (acesso a módulos, funções).
+* [X] Gerenciar permissões de acesso.
 
-### Módulo Relatórios
+### Relatórios
 * [ ] Gerar relatório de vendas por período (diário, semanal, mensal).
 * [ ] Gerar relatório de estoque (produtos em falta, produtos com alta rotatividade).
 * [ ] Gerar relatório de clientes (mais ativos, menos ativos).
 * [ ] Gerar relatório de funcionários (horas trabalhadas, faltas).
 
-### Módulo de Pagamentos
+### Pagamentos
 * [ ] Integrar com gateways de pagamento (cartão de crédito, débito, PIX).
 * [x] Gerenciar formas de pagamento.
 * [ ] Emitir notas fiscais eletrônicas.
 
 
-### Módulo de Delivery
+### Delivery
 * [ ] Cadastrar entregadores.
 * [ ] Gerenciar rotas de entrega.
 * [ ] Acompanhar pedidos em tempo real.
 
-### Módulo de Sistema
+### Sistema
 * [x] Gerenciar usuários do sistema (login, senha, permissões).
 * [ ] Realizar backups do sistema.
 
