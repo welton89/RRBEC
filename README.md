@@ -38,7 +38,8 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [x] Responsivo para mobile.
 
 ### Mesa
-* [ ] Gerenciar mesas (ocupação, reserva).
+* [ ] Reserva de mesas.
+* [x] Mapa de mesas.
 * [x] Associar pedidos e comandas a mesas.
 * [ ] Dividir contas.
 
@@ -88,9 +89,9 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * **Django:** Framework Python para desenvolvimento web.
 * **Python:** Linguagem de programação principal do projeto.
 * **HTML:** Linguagem de marcação para disponibilizar os elementos na pagina.
-* **HTMX:** Biblioteca para deixar a pagina mais dinâmica, reduzindo a necessidade do js.
+* **HTMX:** Biblioteca para deixar a pagina mais dinâmica, reduzindo a necessidade do js puro.
 * **CSS:** Linguagem para estilizar a interface do usuário.
-* **JavaScript:** Linguagem que executa a lógica da pagina.
+* **JavaScript:** Linguagem que executa a lógica da pagina do lado do cliente.
 
 ## Como Executar o Projeto
 1. **Clonar o repositório:**
