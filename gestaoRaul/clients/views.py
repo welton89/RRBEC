@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
+from comandas.models import Comanda
 from gestaoRaul.decorators import group_required
 from clients.models import Client
 
@@ -10,6 +11,13 @@ from clients.models import Client
 def clients(request):
     clients = Client.objects.all()
     return render(request, 'clients.html', {'clients': clients})
+
+def viewClient(request,clientId):
+    id = int(clientId)
+    print(id)
+    client = Client.objects.get(id=id)
+    comandas = Comanda.objects.filter(client = client).filter(status = 'FIADO')
+    return render(request, 'viewclient.html', {'client': client, 'comandas': comandas})
 
 
 @group_required(groupName='Gerente')

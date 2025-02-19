@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filter_tag %}
+
+
+{% block 'title' %}
+Comandas
+{% endblock %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'comandas/css/comandas.css' %}">
+{% endblock %}
+
+{% block 'body' %}
+
+<body>
+  <div style="justify-self: center;">
+   <h4>{{client.name}}</h4>
+  </div>
+  
+    <div class=" ">
+<table>
+    <tr>
+        <th style="text-align: left;"><b>Nome</b></th>
+        <th style="text-align: left;"><b>Atendente</b></th>
+        <th style="text-align: left;"><b>Data abertura</b></th>
+        <th style="text-align: left;"><b>Data fechamento</b></th>
+        <th style="text-align: left;"><b>Detalhes</b></th>
+        <th style="text-align: left;"><b>Valor</b></th>
+      </tr>
+    {% for comanda in comandas %}
+    <tr>
+        <td>{{comanda.name}}</td>
+        <td>{{comanda.user.first_name}} {{comanda.user.last_name}}</td>
+        <td>{{comanda.dt_open}}</td>
+        <td>{{comanda.dt_close}}</td>
+        <td>
+            <span data-tooltip="Visualizar Comanda" data-flow="top">
+                <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">
+                    <img
+                        src="{% static 'midia/icons/view.svg' %}"
+                        style="height: 35px; cursor: pointer;">
+                    </img>
+                </a>
+            </span>
+        </td>
+        <td>
+            {{ comanda.id | total }}
+        </td>
+        </tr>
+
+    {% endfor %} 
+
+</table>
+  </div>
+
+</body>
+<script src="{% static 'comandas/js/comandas.js' %}"></script>
+
+
+{% endblock %}

@@ -33,7 +33,7 @@ Clientes
   {% for client in clients %}
 
   <tr>
-      <td id="name-{{client.id}}" >{{client.name}}</td>
+      <td ><a id="name-{{client.id}}" href="{% url 'viewClient' client.id %}">{{client.name}}</a></td>
       <td id="debt-{{client.id}}" >R$ {{client.debt}}</td>
       <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
       <td hidden  id="active-{{client.id}}" >{{client.active}}</td>

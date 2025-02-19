@@ -34,7 +34,7 @@ Detalhes {{comanda.name}}
       {% endif %}
       >Fechar Conta</button>
 
-      {% if comanda.status == 'PAYING' %}
+      {% if comanda.status == 'PAYING' or comanda.status == 'FIADO'%}
       <button class="btn-secondary" id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
       {% else %}
 
@@ -207,9 +207,11 @@ Detalhes {{comanda.name}}
       <div style="display: flex;gap: 10px;">
 
         <button type="submit" class="btn-secondary"  onclick="backPage()">Receber</button>
+        {% if comanda.status != 'FIADO' %}
         <button type="button" class="btn-primary"  onclick=" modal_conta_client()">
           Conta
         </button>
+        {% endif %}
         <button type="button" class="btn-cancel" onclick="close_modal_payment_comanda()">Cancelar</button>
       </div>
     </footer>

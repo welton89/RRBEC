@@ -87,12 +87,12 @@ def addContaCliente(request):
    
     comandaId = int(request.POST.get('idComanda'))
     clientId = int(request.POST.get('select-client'))
-    valor = float(request.POST.get('valor-conta').replace(',','.'))
     comanda = Comanda.objects.get(id=comandaId)
     client = Client.objects.get(id=clientId)
-    client.debt = client.debt + Decimal(valor)
+    # client.debt = Decimal(0)
     comanda.client = client
-    comanda.status = 'CLOSED'
+    comanda.dt_close = timezone.now()
+    comanda.status = 'FIADO'
     client.save()
     comanda.save()
     return redirect('comandas')
