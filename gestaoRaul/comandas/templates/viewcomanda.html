@@ -117,6 +117,7 @@ Detalhes {{comanda.name}}
         {% endif %}
       </tr>
         {% endfor %}
+        {% if config.taxa %}
         <tr>
           <td>
             Taxa de serviço 10%
@@ -125,6 +126,8 @@ Detalhes {{comanda.name}}
             R$ {{valores.taxa}}
           </td>
         </tr>
+        {% endif %}
+
         {% if parcials%}
         <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
         {% endif %}
@@ -140,7 +143,11 @@ Detalhes {{comanda.name}}
 
     <tfoot>
       <tr>
+        {% if config.taxa %}
         <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
+        {% else %}
+        <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalSemTaxa}}</b></td>
+        {% endif %}
       </tr>
     </tfoot>
   </table>
@@ -191,12 +198,16 @@ Detalhes {{comanda.name}}
     <h2>Pagamento</h2>
     <div style="display: flex; align-content: space-around; align-items: center; justify-self: center;gap: 50px;">
 
+      {% if config.taxa %}
       <h1 id="first-total">R$ {{ valores.totalComTaxa }}</h1>
       <h1 hidden id="totalComTaxa">R$ {{ valores.totalComTaxa }}</h1>
       <h1 hidden id="totalSemTaxa">R$ {{ valores.totalSemTaxa }}</h1>
       <div>
-
         <input id="taxa" name="taxa" type="checkbox" value="True" label="Taxa de serviço" checked >Taxa de serviço
+        {% else %}
+        <h1 id="first-total">R$ {{ valores.totalSemTaxa }}</h1>
+        
+        {% endif %}
       </div>
     </div>
     <div>
@@ -268,7 +279,7 @@ Detalhes {{comanda.name}}
     <form id="form-comanda" method="post" action="{% url 'addContaCliente' %}">
       {% csrf_token %}
     <h2>Adicionar na Conta</h2>
-    <h1>R$ {{ total }}</h1>
+    <h1>R$ {{ valores.totalSemTaxa }}</h1>
     <div>
       <input hidden type="text" name="valor-conta" value="{{ total }}">
       <input hidden type="text" name="idComanda" value="{{ comanda.id }}">

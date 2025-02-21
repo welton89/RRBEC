@@ -41,6 +41,9 @@ def somar(consumo:ProductComanda, comanda:Comanda):
 
 @group_required(groupName='Garçom')
 def viewComanda(request):
+    config = {
+        'taxa': False
+        }
     id = request.GET.get('parametro')
     comanda_id = int(id)
     comanda = Comanda.objects.get(id=comanda_id)
@@ -60,7 +63,7 @@ def viewComanda(request):
             if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
     valores = somar(consumo,comanda)
-    return render(request, 'viewcomanda.html', {'valores':valores,'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'products': products_ordenados,'mesas':mesas})
+    return render(request, 'viewcomanda.html', {'config':config, 'valores':valores,'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'products': products_ordenados,'mesas':mesas})
 
 
 @group_required(groupName='Garçom')

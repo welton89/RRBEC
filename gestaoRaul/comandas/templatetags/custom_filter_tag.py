@@ -2,12 +2,16 @@ from decimal import Decimal
 from django import template
 
 from comandas.models import Comanda, ProductComanda
+from clients.models import Client
 from payments.models import Payments
 
 register = template.Library()
 
 @register.filter(name='total')
 def filter_total(value):
+    config = {
+        'taxa': False
+    }
     id = value
     comanda_id = int(id)
     totalParcial = Decimal(0)
@@ -21,8 +25,30 @@ def filter_total(value):
     for produto in consumo:
         total += produto.product.price
     taxa = round(total * Decimal(0.1), 2)
-    total = (total + taxa) - totalParcial
+    total = (total + taxa) - totalParcial if config['taxa'] else total - totalParcial
     return f'R$ {total}'
+
+@register.filter(name='totalFiado')
+def viewClient(clientId):
+    config = {
+        'taxa': False
+    }
+    client = Client.objects.get(id=int(clientId))
+    comandas = Comanda.objects.filter(client = client).filter(status = 'FIADO')
+    total = Decimal(0)
+    for comanda in comandas:
+        totalConsumo = 0
+        totalParcial = 0
+        consumo = ProductComanda.objects.filter(comanda=comanda)
+        parcial = Payments.objects.filter(comanda=comanda)
+        for p in parcial:
+            totalParcial += p.value
+        for produto in consumo:
+            totalConsumo += produto.product.price
+        total+= (totalConsumo - totalParcial)
+    total = total + round(total * Decimal(0.1), 2) if config['taxa'] else total
+    return total
+
 
 
 @register.filter(name='groupUser')

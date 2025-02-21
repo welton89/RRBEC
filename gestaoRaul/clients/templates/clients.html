@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filter_tag %}
+
 
 
 
@@ -34,7 +36,7 @@ Clientes
 
   <tr>
       <td ><a id="name-{{client.id}}" href="{% url 'viewClient' client.id %}">{{client.name}}</a></td>
-      <td id="debt-{{client.id}}" >R$ {{client.debt}}</td>
+      <td id="debt-{{client.id}}" >R$ {{client.id | totalFiado}}</td>
       <td class="hide-on-mobile" id="contact-{{client.id}}" >{{client.contact}}</td>
       <td hidden  id="active-{{client.id}}" >{{client.active}}</td>
       <td>

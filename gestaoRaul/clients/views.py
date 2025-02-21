@@ -15,21 +15,24 @@ def clients(request):
     return render(request, 'clients.html', {'clients': clients})
 
 def viewClient(request,clientId):
+    # config = {
+    #     'taxa': False
+    # }
     client = Client.objects.get(id=int(clientId))
     comandas = Comanda.objects.filter(client = client).filter(status = 'FIADO')
     total = Decimal(0)
-    for comanda in comandas:
-        totalConsumo = 0
-        totalParcial = 0
-        consumo = ProductComanda.objects.filter(comanda=comanda)
-        parcial = Payments.objects.filter(comanda=comanda)
-        for p in parcial:
-            totalParcial += p.value
-        for produto in consumo:
-            totalConsumo += produto.product.price
-        total+= (totalConsumo - totalParcial)
-    total+= round(total * Decimal(0.1), 2)
-    return render(request, 'viewclient.html', {'total': total, 'client': client, 'comandas': comandas})
+    # for comanda in comandas:
+    #     totalConsumo = 0
+    #     totalParcial = 0
+    #     consumo = ProductComanda.objects.filter(comanda=comanda)
+    #     parcial = Payments.objects.filter(comanda=comanda)
+    #     for p in parcial:
+    #         totalParcial += p.value
+    #     for produto in consumo:
+    #         totalConsumo += produto.product.price
+    #     total+= (totalConsumo - totalParcial)
+    # total = total + round(total * Decimal(0.1), 2) if config['taxa'] else total
+    return render(request, 'viewclient.html', {'client': client, 'comandas': comandas})
 
 
 @group_required(groupName='Gerente')
