@@ -42,6 +42,7 @@
   {% endif %}
 </tr>
   {% endfor %}
+  {% if config.taxa %}
   <tr>
     <td>
       Taxa de serviço 10%
@@ -50,6 +51,8 @@
       R$ {{valores.taxa}}
     </td>
   </tr>
+  {% endif %}
+  
   {% if parcials%}
   <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
   {% endif %}
@@ -64,8 +67,12 @@
 
 
 <tfoot>
-<tr>
-  <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
-</tr>
+  <tr>
+    {% if config.taxa %}
+    <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
+    {% else %}
+    <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalSemTaxa}}</b></td>
+    {% endif %}
+  </tr>
 </tfoot>
 

@@ -22,7 +22,7 @@ Detalhes {{comanda.name}}
   <input hidden id="id-temp" type="number">
   <div class="grid-container" >
     <div>
-      <button class="btn-primary" id="openModal" onclick="openModal()"
+      <button class="btn-primary" id="openModal" onclick="openModal()" popovertarget="addProduct"
       {%  if comanda.status != 'OPEN'%}
        disabled
        {% endif %}
@@ -155,8 +155,10 @@ Detalhes {{comanda.name}}
   </div>
 
 
-    <dialog id="Modal-add-product" style="display: none;" >
-      <article>
+    <!-- <dialog id="Modal-add-product" style="display: none;" >
+      <article> -->
+
+        <div id="addProduct" popover class="popover">
         <form id="productForm" >
           <div style="display: flex;justify-content: space-around;">
             <h2>Adicionar Produto</h2> <button class="btn-cancel" type="button" onclick="closeModal()">Fechar</button>
@@ -166,15 +168,18 @@ Detalhes {{comanda.name}}
               <div id="product-list" class="grid-list-products">
                 {% for product in products %}
 
-                <article class="card-product" onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
+                <div class="card-product" onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
                   {{product.name}} <br>
                   R$ {{product.price}}
-                </article >
+                </div >
                 {% endfor %}
               </div>
         </form>
-      </article>
-    </dialog>
+      </div>
+
+
+      <!-- </article>
+    </dialog> -->
 
     <dialog id="modal-obs" style="display: none;">
       <article>

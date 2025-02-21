@@ -38,6 +38,9 @@ def listProduct(request, comanda_id):
 
 @group_required(groupName='Garçom')
 def addProduct(request, product_id, comanda_id):
+    config = {
+        'taxa': False
+        }
     obs = request.GET.get("obs")
     product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
     product_comanda.save()
@@ -50,7 +53,7 @@ def addProduct(request, product_id, comanda_id):
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     valores = somar(consumo,comanda)
     
-    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'valores':valores,'parcials':parcial,'consumo': consumo,'comanda':comanda})
+    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores':valores,'parcials':parcial,'consumo': consumo,'comanda':comanda})
 
 @group_required(groupName='Garçom')
 def editOrders(request, productComanda_id, obs):
@@ -62,13 +65,16 @@ def editOrders(request, productComanda_id, obs):
 
 @group_required(groupName='Garçom')
 def removeProductComanda(request, productComanda_id):
+    config = {
+        'taxa': False
+        }
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
     comanda = Comanda.objects.get(id= product_comanda.comanda.id)
     parcial = Payments.objects.filter(comanda=comanda)
     consumo = ProductComanda.objects.filter(comanda=comanda)
     product_comanda.delete()
     valores = somar(consumo,comanda)
-    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
+    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
 
 @group_required(groupName='Garçom')
 def closeComanda(request, comanda_id):

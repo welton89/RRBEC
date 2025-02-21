@@ -2,7 +2,7 @@
 
 {% for product in products %}
 
-<article 
+<div 
         onclick="addProductComanda({{product.id}})" 
         class="card-product"
         hx-get="{% url 'addProduct' product.id comanda_id %} " 
@@ -10,7 +10,7 @@
         hx-target="#list-products-comanda">
         {{product.name}} <br>
         R$ {{product.price}}
-</article>
+</div>
 
 {% endfor %}
 

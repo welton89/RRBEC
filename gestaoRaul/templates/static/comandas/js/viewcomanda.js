@@ -1,11 +1,18 @@
 
 
 function openModal() {
-    document.getElementById('Modal-add-product').style.display = 'block';
-    textField = document.getElementById('search-product')
-    textField.value = '';
-    textField.focus()
+  textField = document.getElementById('search-product')
+  textField.value = '';
+  textField.focus()
 }
+
+
+function closeModal() {
+   var popover = document.getElementById('addProduct');
+   popover.hidePopover()
+}
+
+
 function openModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'block';
     var name = document.getElementById('name-comanda').innerText.replace('Nome: ','').replace(' | ', '')
@@ -62,9 +69,6 @@ function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
 }
 
-function closeModal() {
-    document.getElementById('Modal-add-product').style.display = 'none';
-}
 function closeModalObs() {
     document.getElementById('modal-obs').style.display = 'none';
 }
