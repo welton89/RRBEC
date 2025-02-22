@@ -91,7 +91,6 @@ function imprimirFichas() {
 
     if (element) {
       var content = element.innerHTML;
-    //   console.log(content);
       content = content.replace( /<img[^>]*>/gi,'');
       content = content.replace(/<tfoot[^>]*>(?:(?!<\/tfoot>)[\s\S])*<\/tfoot>/gi,'');
 
@@ -128,7 +127,6 @@ function imprimirConta() {
 
     if (element) {
       var content = element.innerHTML;
-    //   console.log(content);
       content = content.replace(/<img[^>]*>/gi,'');
       content = content.replace(/<th[^>]*>(?:(?!<\/th>)[\s\S])*<\/th>/gi,'');
       // content = content.replace('icons','');
@@ -180,20 +178,6 @@ function troco(){
 }
 
 
-// document.onkeydown = teclado
-
-// function teclado(event){
-//   if (document.getElementById('payment-comanda').style.display == 'block'){
-//     if (event.keyCode == 13){
-//       troco()
-//     }else{
-//       console.log(event.keyCode)
-//     }
-//   }else{
-//     console.log('')
-//   }
-
-// }
 function addOrder(){
   obs = document.getElementById('obs').value
   var id = document.getElementById('id-temp').value
@@ -206,9 +190,9 @@ function addOrder(){
     .then(function(response) {
       if(response.status == 200){
         closeModalObs()
-        alert('Pedido atualizado com sucesso!')
+        showToast('✅Pedido atualizado com sucesso!😁','success')
       }else{
-        alert('Erro ao atualizar pedido!')
+        showToast('❌Ocorreu um erro!😢','error')
       }
       
   })
@@ -232,22 +216,12 @@ function addProductComanda(productId,comandaId, cuisine) {
   .then(function(response) {
     return response.text();
   }).then(function(text) {
-    console.log(text);
     var listProductsBalcaoElement = document.getElementById("list-products-comanda");
     listProductsBalcaoElement.innerHTML = text;
   })
-  
-  // const receber = document.getElementById('pagarComanda')
-  // const imprimir = document.getElementById('imprimirFichas')
-  // var search = document.getElementById('search-product')
-
-  // setTimeout(function() {
-  //   updateTotal();}, 100);
-    
-  alert('Produto adicionado com sucesso!');
+      
+  showToast('Produto adicionado com sucesso!😁','success');
   }
-
-
 
 }
 

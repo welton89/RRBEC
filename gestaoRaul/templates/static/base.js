@@ -14,9 +14,31 @@ var elem = document.getElementById("all");
 function openFullscreen() {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
+    } else if (elem.webkitRequestFullscreen) { 
       elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
+    } else if (elem.msRequestFullscreen) { 
       elem.msRequestFullscreen();
     }
+  }
+
+  function showToast(message, type ,duration = 3000) {
+    const toast = document.getElementById('toast');
+  
+    if (type === 'success') {
+      toast.style.backgroundColor = '#28a745';
+    } else if (type === 'error') {
+      toast.style.backgroundColor = '#dc3545';
+    } else if (type === 'info') {
+      toast.style.backgroundColor = '#ffc107';
+    }
+  
+  
+    const toastMessage = document.getElementById('toast-message');
+  
+    toastMessage.textContent = message;
+    toast.classList.add('show');
+  
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, duration);
   }
