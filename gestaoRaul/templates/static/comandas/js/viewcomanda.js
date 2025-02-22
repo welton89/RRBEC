@@ -197,7 +197,27 @@ function addOrder(){
       
   })
 }
+function showToastAdd(message, type ,duration = 3000) {
+  const toast = document.getElementById('toast-add');
 
+  if (type === 'success') {
+    toast.style.backgroundColor = '#28a745';
+  } else if (type === 'error') {
+    toast.style.backgroundColor = '#dc3545';
+  } else if (type === 'info') {
+    toast.style.backgroundColor = '#ffc107';
+  }
+
+
+  const toastMessage = document.getElementById('toast-message-add');
+
+  toastMessage.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, duration);
+}
 function addProductComanda(productId,comandaId, cuisine) {
   obs = document.getElementById('obs');
   console.log(obs.value);
@@ -220,7 +240,7 @@ function addProductComanda(productId,comandaId, cuisine) {
     listProductsBalcaoElement.innerHTML = text;
   })
       
-  showToast('Produto adicionado com sucesso!😁','success');
+  showToastAdd('Produto adicionado com sucesso!😁','success');
   }
 
 }
