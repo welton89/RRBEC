@@ -183,7 +183,7 @@ input, textarea, select {
     display: inline-block;
     color: #fff;
     cursor: pointer;
-    transition: display 0.9s ;
+    transition: display 0.9s, animation 0.9s;
   }
   
   .dropdown-content {
@@ -297,19 +297,27 @@ input, textarea, select {
 .toast {
   position: fixed;
   top: 40px;
+  width: 30%;
   left: 50%;
+  justify-items: center;
+  align-items: center;
   transform: translateX(-50%);
   background-color: #599100;
   color: #000000;
   font-weight: bold;
-  padding: 15px;
+  padding: 20px 1px 1px 1px;
   border-radius: 10px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
   z-index: 999 ;
 }
-
+@media screen and (max-width: 730px) {
+  .toast-add {
+    width: 90%;
+    
+  }
+}
 .toast p {
   color: #000000;
 }
