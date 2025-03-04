@@ -2,11 +2,25 @@
 from django.utils import timezone
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
+import asyncio
+import websockets
 
 
 from orders.models import Order
 from django.db.models import Q
 from gestaoRaul.decorators import group_required
+
+
+async def enviar_mensagem(message):
+    uri = "ws://localhost:8765"  # Substitua pela URI do seu servidor WebSocket
+    async with websockets.connect(uri) as websocket:
+        await websocket.send(message)
+        print(f"> Enviado: {message}")
+
+        resposta = await websocket.recv()
+        print(f"< Recebido: {resposta}")
+
+
 
 
 def viewsOrders(request):
@@ -31,6 +45,7 @@ def finished(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
+    asyncio.run(enviar_mensagem())
     return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
 
 @group_required(groupName='Garçom')

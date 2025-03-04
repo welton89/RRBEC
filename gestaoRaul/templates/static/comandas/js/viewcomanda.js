@@ -1,5 +1,6 @@
 
 
+
 function openModal() {
   textField = document.getElementById('search-product')
   textField.value = '';
@@ -220,8 +221,8 @@ function showToastAdd(message, type ,duration = 3000) {
 }
 function addProductComanda(productId,comandaId, cuisine) {
   obs = document.getElementById('obs');
-  console.log(obs.value);
-  console.log(cuisine);
+  // console.log(obs.value);
+  // console.log(cuisine);
   if(cuisine == 'ggg'){
     var obs = openModalObs();
     
@@ -239,7 +240,9 @@ function addProductComanda(productId,comandaId, cuisine) {
     var listProductsBalcaoElement = document.getElementById("list-products-comanda");
     listProductsBalcaoElement.innerHTML = text;
   })
-      
+  // websocket.send(JSON.stringify({ type: 'broadcast', message: '<div class="m-card" style="background-color: rgb(253, 69, 69);"><h4>Tapioca de ovo</h4><h4>sem ovo </h4><h4>Joao - mesa 07</h4><h4> Atendente: Lucas </h4><h4> 25/02/2025 20:03</h4><button class="btn-primary" >Preparar</button></div>'
+   //}));
+
   showToastAdd('Produto adicionado com sucesso!😁','success');
   }
 
@@ -258,11 +261,21 @@ function taxa(){
   }
 }
 
-document.getElementById('taxa').addEventListener("change", taxa);
+// document.getElementById('taxa').addEventListener("change", taxa);
 
 // document.getElementById('productForm').addEventListener('submit', function(event) {
 //     event.preventDefault(); 
 // });
 
 
-//  hx-get="{% url 'addProduct' product.id comanda.id %} " hx-trigger="click" hx-target="#list-products-comanda"
+
+
+
+// Enviar uma mensagem (exemplo - broadcast):
+// websocket.send(JSON.stringify({ type: 'broadcast', message: 'Olá do cliente!' }));
+
+//enviar uma mensagem (exemplo - echo):
+// websocket.send(JSON.stringify({"type": "echo", "message": "Olá Mundo!"}))
+
+//enviar uma mensagem (exemplo - test):
+// websocket.send(JSON.stringify({"type": "test"}))

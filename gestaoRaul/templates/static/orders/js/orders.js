@@ -1,4 +1,3 @@
-// document.cookie = `fila=0`; 
 
 function reloadPage(){
   setTimeout(function() {
@@ -99,9 +98,9 @@ function notificacao(){
   }
 
 
-setInterval(()=> {
-  notificacao()
-}, 10000)
+// setInterval(()=> {
+//   notificacao()
+// }, 10000)
 
 
 

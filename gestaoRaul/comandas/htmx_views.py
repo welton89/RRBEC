@@ -9,6 +9,20 @@ from payments.models import Payments
 from typePay.models import TypePay
 from gestaoRaul.decorators import group_required
 
+import asyncio
+import websockets
+
+async def enviar_mensagem(msg):
+    uri = "ws://localhost:8765"  # Substitua pela URI do seu servidor WebSocket
+    async with websockets.connect(uri) as websocket:
+        await websocket.send(msg)
+        print(f"> Enviado: {msg}")
+
+        resposta = await websocket.recv()
+        print(f"< Recebido: {resposta}")
+
+
+
 
 def somar(consumo:ProductComanda, comanda:Comanda):
     parcial = Payments.objects.filter(comanda=comanda)
@@ -50,6 +64,15 @@ def addProduct(request, product_id, comanda_id):
     if product.cuisine == True:
         order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
         order.save()
+        msg = JsonResponse({
+            'type': 'broadcast',
+              'message': f'<div class="m-card"><h4>{product.name}</h4><h4>{obs}</h4><h4>{comanda.name} - {comanda.mesa.name}</h4><h4> Atendente: {comanda.user.first_name} </h4><h4> {order.queue} </h4><button class="btn-primary" >Preparar</button></div>', 
+              'local':'cozinha',
+                'tipo':'add',
+                  'id':order.id,
+                  'speak': f'Novo pedido!  {product.name}, para {comanda.name}.'
+                  }) 
+        asyncio.run(enviar_mensagem(msg))
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     valores = somar(consumo,comanda)
     

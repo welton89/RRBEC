@@ -1,3 +1,38 @@
+
+const websocket = new WebSocket('ws://localhost:8765');
+
+websocket.addEventListener('open', (event) => {
+  console.log('Conectado ao servidor WebSocket');
+});
+
+websocket.addEventListener('message', (event) => {
+  const data = JSON.parse(event.data);
+  if (data.local === 'cozinha' && data.tipo === 'add'){
+    const novoElemento = document.createElement('div');
+    novoElemento.innerHTML = data.message;
+    var fila = document.getElementById('Fila').appendChild(novoElemento); 
+    texto = new SpeechSynthesisUtterance(data.speak);
+    window.speechSynthesis.speak(texto);
+    console.log('Mensagem recebida:', data.local);
+  }
+  else if (data.local === 'cozinha' && data.tipo === 'edit'){
+    var card = document.getElementById('obs-'+data.id).innerHTML = data.message
+    console.log('Mensagem recebida:', data.local);
+  }
+});
+
+websocket.addEventListener('error', (event) => {
+  console.error('Erro no WebSocket:', event);
+});
+
+websocket.addEventListener('close', (event) => {
+    console.log("conexão fechada");
+});
+
+
+
+
+
 function menuShow() {
     let menuMobile = document.querySelector('.mobile-menu');
     if (menuMobile.classList.contains('open')) {
