@@ -1,14 +1,39 @@
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (navToggle) {
+    navToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+    });
+  }
+  document.addEventListener('click', function(event) {
+    if (navLinks.classList.contains('active') && !navLinks.contains(event.target) && !navToggle.contains(event.target)) {
+      navLinks.classList.remove('active');
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
 function verificarCookieNotificacao() {
-  console.log('cookie notificacao verificado');
+  var iconNotify = document.getElementById('icon-notify');
   if (document.cookie.indexOf('notificacao=') === -1) {
     document.cookie = 'notificacao=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
-    var iconNotify = document.getElementById('icon-notify');
     iconNotify.style.backgroundColor = 'green';
-    console.log('cookie notificacao criado');
+    iconNotify.textContent = '🔊';
   }else{
     let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    var iconNotify = document.getElementById('icon-notify');
     iconNotify.style.backgroundColor = valorAtual === 'true' ? 'green' : 'red';
+    iconNotify.textContent = valorAtual === 'true' ? '🔊' : '🔇';
   }
 }
 verificarCookieNotificacao();
@@ -20,8 +45,10 @@ function cookieNotificacao() {
     let novoValor = valorAtual === 'true' ? 'false' : 'true';
     if (novoValor === 'true') {
       iconNotify.style.backgroundColor = 'green';
+      iconNotify.textContent = '🔊';
     }else{
       iconNotify.style.backgroundColor = 'red';
+      iconNotify.textContent = '🔇';
     }
     document.cookie = 'notificacao=' + novoValor + '; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
   } else {
@@ -47,11 +74,9 @@ websocket.addEventListener('message', (event) => {
         var fila = document.getElementById('Fila').appendChild(novoElemento); 
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         if (valorAtual === 'true') {
-          
           texto = new SpeechSynthesisUtterance(data.speak);
           window.speechSynthesis.speak(texto);
         }
-        console.log('Mensagem recebida:', data.local);
       }
       else if (document.getElementById('obs-'+data.id) !== null && data.tipo === 'edit'){
         const obs = document.getElementById('obs-'+data.id)
@@ -64,51 +89,38 @@ websocket.addEventListener('message', (event) => {
         texto = new SpeechSynthesisUtterance(data.speak);
         window.speechSynthesis.speak(texto);
         }
-        console.log('Mensagem recebida:', data.local);
       }
       else if (document.getElementById('m-card-'+data.id) !== null && data.tipo === 'delete'){
         const card = document.getElementById('m-card-'+data.id)
         card.style.backgroundColor = 'rgb(253, 69, 69)';
-        // obs.innerHTML = data.message;
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
         if (valorAtual === 'true') {
         texto = new SpeechSynthesisUtterance(data.speak);
         window.speechSynthesis.speak(texto);
         }
-        console.log('Mensagem recebida:', data.local);
       }
       
       break;
     case 'praca':
-      console.log('Código a ser executado se expressao === valor2')
+      console.log('Mensagem para a praca:', data);
       break;
-    case 'guarita':
-      // Código a ser executado se expressao === valor3
-      break;
-    case 'balcao':
-      // Código a ser executado se expressao === valor3
+      case 'guarita':
+        console.log('Mensagem para a guarita:', data);
+        break;
+        case 'balcao':
+      console.log('Mensagem para a balcao:', data);
       break;
     default:
       console.log('Local desconhecido:', data);
   }
 
-
-
-
-
-
 });
-
 websocket.addEventListener('error', (event) => {
   console.error('Erro no WebSocket:', event);
 });
-
 websocket.addEventListener('close', (event) => {
     console.log("conexão fechada");
 });
-
-
 
 
 
