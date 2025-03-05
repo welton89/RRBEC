@@ -26,6 +26,7 @@
                 <h1>
                      <img src="{% static 'midia/logo.png'  %}" width="60">
                 </h1>
+                <button id="icon-notify" style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" onclick="cookieNotificacao()" >🔔</button>
             </div>
             <div class="nav-list">
                 <ul>
@@ -52,7 +53,7 @@
             </div>
             
             <div class="logout-button">
-                {{ user.first_name }} {{ user.last_name }}
+                <div id="user-info">{{user.first_name}} {{user.last_name}}</div>
                 <a href="{% url 'logout' %}" style="width: 50px;"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
             </div>
 

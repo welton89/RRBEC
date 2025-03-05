@@ -13,7 +13,7 @@ import asyncio
 import websockets
 
 async def enviar_mensagem(msg):
-    uri = "ws://localhost:8765"  # Substitua pela URI do seu servidor WebSocket
+    uri = "ws://192.168.1.150:8765"
     async with websockets.connect(uri) as websocket:
         await websocket.send(msg)
         print(f"> Enviado: {msg}")
@@ -66,7 +66,17 @@ def addProduct(request, product_id, comanda_id):
         order.save()
         msg = JsonResponse({
             'type': 'broadcast',
-              'message': f'<div class="m-card"><h4>{product.name}</h4><h4>{obs}</h4><h4>{comanda.name} - {comanda.mesa.name}</h4><h4> Atendente: {comanda.user.first_name} </h4><h4> {order.queue} </h4><button class="btn-primary" >Preparar</button></div>', 
+              'message': f"""
+                                <div class="m-card" id="m-card-{order.id}">
+                                <h4>{product.name}</h4>
+                                
+                                <h4>{comanda.name} - {comanda.mesa.name}</h4>
+                                <h4> Atendente: {comanda.user.first_name}</h4>
+                                <h4> {order.queue}</h4>
+                                <button class="btn-primary" onclick="delayTab('Fila')"
+                                hx-get="/pedidos/preparing/{order.id}/" hx-trigger="click" hx-target="#etapas"
+                                >Preparar</button></div>
+                                """, 
               'local':'cozinha',
                 'tipo':'add',
                   'id':order.id,
@@ -83,6 +93,15 @@ def editOrders(request, productComanda_id, obs):
     order = Order.objects.get(productComanda=productComanda_id)
     order.obs = obs
     order.save()
+    msg = JsonResponse({
+            'type': 'broadcast',
+              'message': obs, 
+              'local':'cozinha',
+                'tipo':'edit',
+                  'id':order.id,
+                  'speak': f'Pedido alterado!  {order.id_product.name}, é {obs}.'
+                  }) 
+    asyncio.run(enviar_mensagem(msg))
     return JsonResponse({'status': 'ok'})
 
 
@@ -95,8 +114,23 @@ def removeProductComanda(request, productComanda_id):
     comanda = Comanda.objects.get(id= product_comanda.comanda.id)
     parcial = Payments.objects.filter(comanda=comanda)
     consumo = ProductComanda.objects.filter(comanda=comanda)
-    product_comanda.delete()
     valores = somar(consumo,comanda)
+    if product_comanda.product.cuisine == True:
+        order = Order.objects.get(productComanda=product_comanda)
+        product_comanda.delete()
+        msg = JsonResponse({
+            'type': 'broadcast',
+              'message': 'Atenção! Pedido cancelado', 
+              'local':'cozinha',
+                'tipo':'delete',
+                  'id':order.id,
+                  'speak': f'Pedido cancelado!  {order.id_product.name}.'
+                  }) 
+        asyncio.run(enviar_mensagem(msg))
+        # order.delete()
+    else:
+        product_comanda.delete()
+
     return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
 
 @group_required(groupName='Garçom')

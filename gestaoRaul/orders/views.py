@@ -12,7 +12,7 @@ from gestaoRaul.decorators import group_required
 
 
 async def enviar_mensagem(message):
-    uri = "ws://localhost:8765"  # Substitua pela URI do seu servidor WebSocket
+    uri = "ws://192.168.1.150:8765"
     async with websockets.connect(uri) as websocket:
         await websocket.send(message)
         print(f"> Enviado: {message}")

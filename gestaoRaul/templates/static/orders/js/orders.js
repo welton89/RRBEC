@@ -1,7 +1,7 @@
 
 function reloadPage(){
   setTimeout(function() {
-    location.reload();}, 4000);
+    location.reload();}, 3000);
 }
 
 function openTab(evt, etapa) {
@@ -42,13 +42,11 @@ function openTab(evt, etapa) {
     
         setTimeout(function() {
       displayBlock(tab);}, 1000);
+      // reloadPage();
   }
 
 
   displayBlock('Fila');
-
-
-
 
 
   function mostrarNotificacao(titulo,corpo,grupo) {
@@ -71,31 +69,31 @@ function openTab(evt, etapa) {
     }
 }
 
-function notificacao(){
+// function notificacao(){
  
-  var resposta =   fetch(`/pedidos/notificacao/`, {method: 'GET',
-    headers: {'Content-Type': 'application/json',
-     },})
-     .then(response => response.json())
-      .then(data => {
-          if (data['notificacao'] == 'true'){
-            document.cookie = `fila=${data['fila']}`; 
-            mostrarNotificacao(data['titulo'], data['corpo'],'Cozinha')
-            texto = new SpeechSynthesisUtterance(data['corpo']+', '+data['titulo']+'.');
-            window.speechSynthesis.speak(texto);
-            reloadPage();
+//   var resposta =   fetch(`/pedidos/notificacao/`, {method: 'GET',
+//     headers: {'Content-Type': 'application/json',
+//      },})
+//      .then(response => response.json())
+//       .then(data => {
+//           if (data['notificacao'] == 'true'){
+//             document.cookie = `fila=${data['fila']}`; 
+//             mostrarNotificacao(data['titulo'], data['corpo'],'Cozinha')
+//             texto = new SpeechSynthesisUtterance(data['corpo']+', '+data['titulo']+'.');
+//             window.speechSynthesis.speak(texto);
+//             reloadPage();
 
-          }else{
-            console.log(data['notificacao'])
-            console.log('notificação foi false')
-          }
-      })
-   .catch(error => {
-     alert('Erro verificar notificação:', error)
-     console.error('Erro verificar notificação:', error);
-   });
+//           }else{
+//             console.log(data['notificacao'])
+//             console.log('notificação foi false')
+//           }
+//       })
+//    .catch(error => {
+//      alert('Erro verificar notificação:', error)
+//      console.error('Erro verificar notificação:', error);
+//    });
    
-  }
+//   }
 
 
 // setInterval(()=> {

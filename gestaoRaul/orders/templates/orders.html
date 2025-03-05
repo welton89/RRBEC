@@ -41,7 +41,7 @@
         <div id="Fila" class="tabcontent">
             {% for order in orders %}
             {% if order.preparing == None and order.productComanda != Null %}
-            <div class="m-card"
+            <div class="m-card" id="m-card-{{order.id}}"
             {% if order.productComanda == Null %}
             style="background-color: rgb(253, 69, 69);"
             {% elif order.obs != '' %}
@@ -61,14 +61,13 @@
             </div>
             {% endif %}
             {% endfor %}
-            <!-- <output id="fila"></output> -->
         </div>
 
 
         <div id="Preparo" class="tabcontent">
             {% for order in orders %}
                 {% if order.finished == None and order.preparing != None %}
-                    <div class="m-card"
+                    <div class="m-card" id="m-card-{{order.id}}"
                         {% if order.productComanda == Null %}
                         style="background-color: rgb(253, 69, 69);"
                         {% elif order.obs != '' %}
@@ -93,7 +92,7 @@
         <div id="Finalizado" class="tabcontent">
             {% for order in orders %}
                 {% if order.delivered == None and order.finished != None %}
-                    <div class="m-card"
+                    <div class="m-card" id="m-card-{{order.id}}"
                         {% if order.productComanda == Null %}
                         style="background-color: rgb(253, 69, 69);"
                         {% elif order.obs != '' %}
@@ -118,7 +117,7 @@
         <div id="Entregue" class="tabcontent">
             {% for order in orders %}
                 {% if order.delivered != None %}
-                    <div class="m-card"
+                    <div class="m-card" id="m-card-{{order.id}}"
                         {% if order.productComanda == Null %}
                         style="background-color: rgb(253, 69, 69);"
                         {% elif order.obs != '' %}

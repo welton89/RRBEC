@@ -1,5 +1,36 @@
+function verificarCookieNotificacao() {
+  console.log('cookie notificacao verificado');
+  if (document.cookie.indexOf('notificacao=') === -1) {
+    document.cookie = 'notificacao=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+    var iconNotify = document.getElementById('icon-notify');
+    iconNotify.style.backgroundColor = 'green';
+    console.log('cookie notificacao criado');
+  }else{
+    let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    var iconNotify = document.getElementById('icon-notify');
+    iconNotify.style.backgroundColor = valorAtual === 'true' ? 'green' : 'red';
+  }
+}
+verificarCookieNotificacao();
 
-const websocket = new WebSocket('ws://localhost:8765');
+function cookieNotificacao() {
+  if (document.cookie.indexOf('notificacao=') !== -1) {
+    let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    var iconNotify = document.getElementById('icon-notify');
+    let novoValor = valorAtual === 'true' ? 'false' : 'true';
+    if (novoValor === 'true') {
+      iconNotify.style.backgroundColor = 'green';
+    }else{
+      iconNotify.style.backgroundColor = 'red';
+    }
+    document.cookie = 'notificacao=' + novoValor + '; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+  } else {
+    document.cookie = 'notificacao=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+  }
+}
+
+const websocket = new WebSocket('ws://192.168.1.150:8765');
+const nomeUsuario = document.getElementById('user-info').textContent;
 
 websocket.addEventListener('open', (event) => {
   console.log('Conectado ao servidor WebSocket');
@@ -7,18 +38,66 @@ websocket.addEventListener('open', (event) => {
 
 websocket.addEventListener('message', (event) => {
   const data = JSON.parse(event.data);
-  if (data.local === 'cozinha' && data.tipo === 'add'){
-    const novoElemento = document.createElement('div');
-    novoElemento.innerHTML = data.message;
-    var fila = document.getElementById('Fila').appendChild(novoElemento); 
-    texto = new SpeechSynthesisUtterance(data.speak);
-    window.speechSynthesis.speak(texto);
-    console.log('Mensagem recebida:', data.local);
+
+  switch (data.local) {
+    case 'cozinha':
+      if (document.getElementById('Fila') !== null && data.tipo === 'add'){
+        const novoElemento = document.createElement('div');
+        novoElemento.innerHTML = data.message;
+        var fila = document.getElementById('Fila').appendChild(novoElemento); 
+        let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (valorAtual === 'true') {
+          
+          texto = new SpeechSynthesisUtterance(data.speak);
+          window.speechSynthesis.speak(texto);
+        }
+        console.log('Mensagem recebida:', data.local);
+      }
+      else if (document.getElementById('obs-'+data.id) !== null && data.tipo === 'edit'){
+        const obs = document.getElementById('obs-'+data.id)
+        const card = obs.parentNode;
+        card.style.backgroundColor = 'rgb(243, 165, 75)';
+        obs.innerHTML = data.message;
+        let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        if (valorAtual === 'true') {
+        texto = new SpeechSynthesisUtterance(data.speak);
+        window.speechSynthesis.speak(texto);
+        }
+        console.log('Mensagem recebida:', data.local);
+      }
+      else if (document.getElementById('m-card-'+data.id) !== null && data.tipo === 'delete'){
+        const card = document.getElementById('m-card-'+data.id)
+        card.style.backgroundColor = 'rgb(253, 69, 69)';
+        // obs.innerHTML = data.message;
+        let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        if (valorAtual === 'true') {
+        texto = new SpeechSynthesisUtterance(data.speak);
+        window.speechSynthesis.speak(texto);
+        }
+        console.log('Mensagem recebida:', data.local);
+      }
+      
+      break;
+    case 'praca':
+      console.log('Código a ser executado se expressao === valor2')
+      break;
+    case 'guarita':
+      // Código a ser executado se expressao === valor3
+      break;
+    case 'balcao':
+      // Código a ser executado se expressao === valor3
+      break;
+    default:
+      console.log('Local desconhecido:', data);
   }
-  else if (data.local === 'cozinha' && data.tipo === 'edit'){
-    var card = document.getElementById('obs-'+data.id).innerHTML = data.message
-    console.log('Mensagem recebida:', data.local);
-  }
+
+
+
+
+
+
 });
 
 websocket.addEventListener('error', (event) => {
