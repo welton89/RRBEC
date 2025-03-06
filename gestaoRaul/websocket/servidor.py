@@ -56,7 +56,9 @@ async def process_message(data, websocket):
 async def broadcast_message(data):
     if connected_clients:
         logging.info(f"Enviando mensagem por broadcast: {data}")
-        await asyncio.wait([client.send(json.dumps(data)) for client in connected_clients])
+        # await asyncio.wait([client.send(json.dumps(data)) for client in connected_clients])
+        tasks = [asyncio.create_task(client.send(json.dumps(data))) for client in connected_clients]
+        await asyncio.wait(tasks)
     else:
         logging.info("Nenhum cliente conectado.")
 

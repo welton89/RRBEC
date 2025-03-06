@@ -70,6 +70,7 @@ websocket.addEventListener('message', (event) => {
     case 'cozinha':
       if (document.getElementById('Fila') !== null && data.tipo === 'add'){
         const novoElemento = document.createElement('div');
+        // const novoElemento = document.getElementById('Fila');
         novoElemento.innerHTML = data.message;
         var fila = document.getElementById('Fila').appendChild(novoElemento); 
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");

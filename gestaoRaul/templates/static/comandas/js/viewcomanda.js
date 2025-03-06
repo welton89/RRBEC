@@ -187,7 +187,6 @@ function addOrder(){
     headers: {
       'Content-Type': 'application/json'}
     })
-    
     .then(function(response) {
       if(response.status == 200){
         closeModalObs()
@@ -195,7 +194,6 @@ function addOrder(){
       }else{
         showToast('❌Ocorreu um erro!😢','error')
       }
-      
   })
 }
 function showToastAdd(message, type ,duration = 3000) {
@@ -208,10 +206,7 @@ function showToastAdd(message, type ,duration = 3000) {
   } else if (type === 'info') {
     toast.style.backgroundColor = '#ffc107';
   }
-
-
   const toastMessage = document.getElementById('toast-message-add');
-
   toastMessage.textContent = message;
   toast.classList.add('show');
 
@@ -221,28 +216,20 @@ function showToastAdd(message, type ,duration = 3000) {
 }
 function addProductComanda(productId,comandaId, cuisine) {
   obs = document.getElementById('obs');
-  // console.log(obs.value);
-  // console.log(cuisine);
   if(cuisine == 'ggg'){
     var obs = openModalObs();
-    
   }else{
-
   fetch(`/comandas/addProduct${productId}/${comandaId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'}
     })
-    
   .then(function(response) {
     return response.text();
   }).then(function(text) {
     var listProductsBalcaoElement = document.getElementById("list-products-comanda");
     listProductsBalcaoElement.innerHTML = text;
   })
-  // websocket.send(JSON.stringify({ type: 'broadcast', message: '<div class="m-card" style="background-color: rgb(253, 69, 69);"><h4>Tapioca de ovo</h4><h4>sem ovo </h4><h4>Joao - mesa 07</h4><h4> Atendente: Lucas </h4><h4> 25/02/2025 20:03</h4><button class="btn-primary" >Preparar</button></div>'
-   //}));
-
   showToastAdd('Produto adicionado com sucesso!😁','success');
   }
 
@@ -267,15 +254,3 @@ function taxa(){
 //     event.preventDefault(); 
 // });
 
-
-
-
-
-// Enviar uma mensagem (exemplo - broadcast):
-// websocket.send(JSON.stringify({ type: 'broadcast', message: 'Olá do cliente!' }));
-
-//enviar uma mensagem (exemplo - echo):
-// websocket.send(JSON.stringify({"type": "echo", "message": "Olá Mundo!"}))
-
-//enviar uma mensagem (exemplo - test):
-// websocket.send(JSON.stringify({"type": "test"}))

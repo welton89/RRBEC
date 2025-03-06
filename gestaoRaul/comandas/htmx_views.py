@@ -1,3 +1,4 @@
+from datetime import date
 from decimal import Decimal
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -69,10 +70,10 @@ def addProduct(request, product_id, comanda_id):
               'message': f"""
                                 <div class="m-card" id="m-card-{order.id}">
                                 <h4>{product.name}</h4>
-                                
+                                <h4 id="obs-{order.id}"> {order.obs}</h4>
                                 <h4>{comanda.name} - {comanda.mesa.name}</h4>
+                                <h4> {order.queue.strftime("%d/%m/%Y - %H:%M")}</h4>
                                 <h4> Atendente: {comanda.user.first_name}</h4>
-                                <h4> {order.queue}</h4>
                                 <button class="btn-primary" onclick="delayTab('Fila')"
                                 hx-get="/pedidos/preparing/{order.id}/" hx-trigger="click" hx-target="#etapas"
                                 >Preparar</button></div>

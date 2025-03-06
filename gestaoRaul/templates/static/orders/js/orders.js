@@ -49,25 +49,25 @@ function openTab(evt, etapa) {
   displayBlock('Fila');
 
 
-  function mostrarNotificacao(titulo,corpo,grupo) {
-    if (Notification.permission != 'granted') {
-        Notification.requestPermission().then(function(permission) {
-            if (permission == 'granted') {
-                var notification = new Notification(titulo, {
-                    body: corpo,
-                    icon: 'https://example.com/icon.png'
-                });
-            }
-        });
-    } else {
-        var notification = new Notification(titulo, {
-            body: corpo,
-            icon: 'https://imagecolorpicker.com/imagecolorpicker-preview_b.avif',
-            image: 'https://imagecolorpicker.com/imagecolorpicker-preview_b.avif',
+//   function mostrarNotificacao(titulo,corpo,grupo) {
+//     if (Notification.permission != 'granted') {
+//         Notification.requestPermission().then(function(permission) {
+//             if (permission == 'granted') {
+//                 var notification = new Notification(titulo, {
+//                     body: corpo,
+//                     icon: 'https://example.com/icon.png'
+//                 });
+//             }
+//         });
+//     } else {
+//         var notification = new Notification(titulo, {
+//             body: corpo,
+//             icon: 'https://imagecolorpicker.com/imagecolorpicker-preview_b.avif',
+//             image: 'https://imagecolorpicker.com/imagecolorpicker-preview_b.avif',
             
-        });
-    }
-}
+//         });
+//     }
+// }
 
 // function notificacao(){
  
@@ -95,17 +95,3 @@ function openTab(evt, etapa) {
    
 //   }
 
-
-// setInterval(()=> {
-//   notificacao()
-// }, 10000)
-
-
-
-
-// setTimeout(function() {
-//   mostrarNotificacao();}, 2000);
-
-
-  // mostrarNotificacao()
-  // notificacao()

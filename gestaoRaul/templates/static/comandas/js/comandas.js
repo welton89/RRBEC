@@ -1,7 +1,4 @@
 
-document.cookie = `pronto=0`; 
-
-
 
 function openModal() {
     document.getElementById('Modal-create-comanda').style.display = 'block';
@@ -48,37 +45,4 @@ function mostrarNotificacao(titulo,corpo,grupo) {
         });
     }
 }
-
-function notificacao(){
- 
-  var resposta =   fetch(`/comandas/notificacao/`, {method: 'GET',
-    headers: {'Content-Type': 'application/json',
-     },})
-     .then(response => response.json())
-      .then(data => {
-          if (data['notificacao'] == 'true'){
-            console.log('verdadeiro')
-            document.cookie = `pronto=${data['pronto']}`; 
-            mostrarNotificacao(data['titulo'], data['corpo'],'Garçom')
-            texto = new SpeechSynthesisUtterance(data['corpo']+', para '+data['titulo']+' tá pronto.');
-            window.speechSynthesis.speak(texto);
-            console.log(data['notificacao'])
-            
-        }else{
-            document.cookie = `pronto=${data['pronto']}`; 
-            console.log('falso')
-            console.log(data['notificacao'])
-          }
-      })
-   .catch(error => {
-     alert('Erro verificar notificação:', error,data['notificacao'])
-   });
-   
-  }
-
-
-setInterval(()=> {
-    notificacao()
-}, 10000)
-
 
