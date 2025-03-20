@@ -8,7 +8,7 @@
 {%  for item in consumo%}
 
 <tr>
-<td >
+  <td id="id-for-print-{{item.id}}">
   {{item.product.name}}
   {% if item.product.cuisine == True %}
   <span data-tooltip="Observações para preparo." data-flow="top">
@@ -19,6 +19,12 @@
     style="width: 25px; height: 35px; cursor: pointer;">
   </img>
 </span>
+
+<img
+onclick="printOrder({{item.id}})"
+src="{% static 'midia/icons/print.svg' %}"
+style="width: 35px; height: 35px; cursor: pointer;">
+</img>
   {% endif %}
 
 </td>

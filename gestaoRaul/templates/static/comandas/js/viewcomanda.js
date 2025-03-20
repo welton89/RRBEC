@@ -110,6 +110,38 @@ function imprimirFichas() {
       console.error(`Element with ID not found`);
     }
   }
+function printOrder(id) {
+  var item = document.getElementById('id-for-print-'+id).innerText
+  var cliente = document.getElementById('name-comanda').innerText
+  var local = document.getElementById('mesa-comanda').innerText
+  const agora = new Date();
+  var dateString = agora.getDate() + '/' + (agora.getMonth()+1) + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes();
+  console.log(item)
+  console.log(cliente)
+  console.log(local)
+    const body = `<style>
+                    td, th {
+                                      
+                    border-collapse: collapse; 
+                    padding-top: 35px;
+                    margin: 20px;
+                    text-align: center;
+                    font-size: 20px;}
+                    </style>
+                   <tr><td>${item}</td></tr>
+                   <tr><td>${cliente}</td></tr>
+                   <tr><td>${local}</td></tr>
+                   <tr><td>${dateString}</td></tr>
+                    `;
+
+          var printWindow = window.open('', '_blank');
+            // printWindow.body.appendChild(body);
+              printWindow.document.write('<table>'+body+'</table>');
+              printWindow.document.close();
+              printWindow.print();
+              printWindow.close();
+
+  }
 
 
 function imprimirConta() {
