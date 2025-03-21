@@ -48,6 +48,7 @@ def viewComanda(request):
     comanda_id = int(id)
     comanda = Comanda.objects.get(id=comanda_id)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
+    # consumo[0].product.
     parcial = Payments.objects.filter(comanda=comanda_id)
     mesas = Mesa.objects.all()
     clients = Client.objects.filter(active=True)
@@ -63,6 +64,7 @@ def viewComanda(request):
             if p.name == produto['nome'] and p.active == True:
                 products_ordenados.append(p)
     valores = somar(consumo,comanda)
+    
     return render(request, 'viewcomanda.html', {'config':config, 'valores':valores,'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'products': products_ordenados,'mesas':mesas})
 
 

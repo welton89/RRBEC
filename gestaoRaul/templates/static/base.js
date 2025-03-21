@@ -68,36 +68,50 @@ websocket.addEventListener('message', (event) => {
 
   switch (data.local) {
     case 'cozinha':
+
+
+
+
       if (document.getElementById('Fila') !== null && data.tipo === 'add'){
-        const novoElemento = document.createElement('div');
-        // const novoElemento = document.getElementById('Fila');
-        novoElemento.innerHTML = data.message;
-        var fila = document.getElementById('Fila').appendChild(novoElemento); 
+
+
+        // const novoElemento = document.createElement('div');
+        // novoElemento.innerHTML = data.message;
+        // var fila = document.getElementById('Fila').appendChild(novoElemento); 
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         if (valorAtual === 'true') {
           texto = new SpeechSynthesisUtterance(data.speak);
           window.speechSynthesis.speak(texto);
+          setTimeout(function() {
+            location.reload();
+          }, 6000);
         }
       }
       else if (document.getElementById('obs-'+data.id) !== null && data.tipo === 'edit'){
         const obs = document.getElementById('obs-'+data.id)
-        const card = obs.parentNode;
-        card.style.backgroundColor = 'rgb(243, 165, 75)';
-        obs.innerHTML = data.message;
+        // const card = obs.parentNode;
+        // card.style.backgroundColor = 'rgb(243, 165, 75)';
+        // obs.innerHTML = data.message;
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
         if (valorAtual === 'true') {
         texto = new SpeechSynthesisUtterance(data.speak);
         window.speechSynthesis.speak(texto);
+        setTimeout(function() {
+          location.reload();
+        }, 6000);
         }
       }
       else if (document.getElementById('m-card-'+data.id) !== null && data.tipo === 'delete'){
-        const card = document.getElementById('m-card-'+data.id)
-        card.style.backgroundColor = 'rgb(253, 69, 69)';
+        // const card = document.getElementById('m-card-'+data.id)
+        // card.style.backgroundColor = 'rgb(253, 69, 69)';
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         if (valorAtual === 'true') {
         texto = new SpeechSynthesisUtterance(data.speak);
         window.speechSynthesis.speak(texto);
+        setTimeout(function() {
+          location.reload();
+        }, 6000);
         }
       }
       

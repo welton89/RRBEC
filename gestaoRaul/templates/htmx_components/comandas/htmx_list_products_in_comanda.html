@@ -11,7 +11,8 @@
   <td id="id-for-print-{{item.id}}">
   {{item.product.name}}
   {% if item.product.cuisine == True %}
-  <span data-tooltip="Observações para preparo." data-flow="top">
+  <input hidden id="{{item.id}}-obsOrder" type="order" value="{{item.id | obsOrder}}">
+  <span data-tooltip="{{item.id | obsOrder}}" data-flow="top">
 
     <img
     onclick="openModalObs({{item.id}})"

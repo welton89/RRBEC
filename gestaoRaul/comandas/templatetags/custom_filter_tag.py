@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django import template
+from orders.models import  Order
 
 from comandas.models import Comanda, ProductComanda
 from clients.models import Client
@@ -54,3 +55,15 @@ def viewClient(clientId):
 @register.filter(name='groupUser')
 def has_group(user, group_name):
     return user.groups.filter(name=group_name).exists()
+
+
+@register.filter(name='obsOrder')
+def obsOrder(id):
+    product_comanda_obj = ProductComanda.objects.get(pk=id) # Supondo que você tenha o ID do ProductComanda
+
+    produto_associado = product_comanda_obj.product
+
+    pedidos_relacionados = Order.objects.filter(id_product=produto_associado)
+    pedido = pedidos_relacionados[0]
+
+    return pedido.obs

@@ -114,6 +114,7 @@ function printOrder(id) {
   var item = document.getElementById('id-for-print-'+id).innerText
   var cliente = document.getElementById('name-comanda').innerText
   var local = document.getElementById('mesa-comanda').innerText
+  var obs = document.getElementById(id+'-obsOrder').value
   const agora = new Date();
   var dateString = agora.getDate() + '/' + (agora.getMonth()+1) + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes();
   console.log(item)
@@ -123,14 +124,14 @@ function printOrder(id) {
                     td, th {
                                       
                     border-collapse: collapse; 
-                    padding-top: 35px;
+                    padding-top: 20px;
                     margin: 20px;
                     text-align: center;
                     font-size: 20px;}
                     </style>
                    <tr><td>${item}</td></tr>
-                   <tr><td>${cliente}</td></tr>
-                   <tr><td>${local}</td></tr>
+                   <tr><td>${obs}</td></tr>
+                   <tr><td>${cliente}${local}</td></tr>
                    <tr><td>${dateString}</td></tr>
                     `;
 
