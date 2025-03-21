@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, F
+from django.contrib.auth.models import User
+
 
 
 
@@ -70,19 +72,20 @@ def removeProductBalcao(request, productComanda_id):
 def paymentBalcao(request, comanda_id):
     typePayment = TypePay.objects.get(id=1)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
+    user = User.objects.get(id=request.user.id)
     try:
         vendasBalcao = Comanda.objects.get(name='VENDAS BALCAO')
     except:
         mesa = Mesa.objects.get(id=1)
         vendasBalcao = Comanda(name='VENDAS BALCAO', mesa=mesa, user=request.user, status='CLOSED')
         vendasBalcao.save()
-    comanda = Comanda.objects.get(name='VENDA BALCÃO')
+    comanda = Comanda.objects.get(name=f'{user.id} - BALCÃO - {user.first_name}')
     total = 0
     for produto in consumo:
         total += produto.product.price
         produto.comanda = vendasBalcao
         produto.save()
-    pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description='VENDA BALCÃO')
+    pagamento = Payments(value=total, comanda=comanda, type_pay=typePayment,description=f'{user.id} - BALCÃO - {user.first_name}')
     pagamento.save()
     return redirect('viewBalcao')
 

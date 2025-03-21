@@ -12,11 +12,11 @@ from gestaoRaul.decorators import group_required
 @group_required(groupName='Garçom')
 def viewBalcao(request):
     try:
-        comanda = Comanda.objects.get(name='VENDA BALCÃO')
+        comanda = Comanda.objects.get(name=f'{user.id} - BALCÃO - {user.first_name}')
     except:
         user = User.objects.get(id=request.user.id)
         mesa = Mesa.objects.get(id=1)
-        comanda = Comanda(name='VENDA BALCÃO', mesa=mesa, user=user,status='CLOSED')
+        comanda = Comanda(name=f'{user.id} - BALCÃO - {user.first_name}', mesa=mesa, user=user,status='CLOSED')
         comanda.save()
 
     consumo = ProductComanda.objects.filter(comanda=comanda.id)
