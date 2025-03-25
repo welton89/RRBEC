@@ -59,11 +59,8 @@ def has_group(user, group_name):
 
 @register.filter(name='obsOrder')
 def obsOrder(id):
-    product_comanda_obj = ProductComanda.objects.get(pk=id) # Supondo que você tenha o ID do ProductComanda
-
-    produto_associado = product_comanda_obj.product
-
-    pedidos_relacionados = Order.objects.filter(id_product=produto_associado)
-    pedido = pedidos_relacionados[0]
-
-    return pedido.obs
+    productComanda_obj = ProductComanda.objects.get(pk=id)    
+    order = Order.objects.get(productComanda=productComanda_obj)
+    return order.obs
+    
+   

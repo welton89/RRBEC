@@ -14,13 +14,16 @@ import asyncio
 import websockets
 
 async def enviar_mensagem(msg):
-    uri = "ws://192.168.1.150:8765"
-    async with websockets.connect(uri) as websocket:
-        await websocket.send(msg)
-        print(f"> Enviado: {msg}")
+    try:
+        uri = "ws://192.168.1.150:8765"
+        async with websockets.connect(uri) as websocket:
+            await websocket.send(msg)
+            print(f"> Enviado: {msg}")
 
-        resposta = await websocket.recv()
-        print(f"< Recebido: {resposta}")
+            resposta = await websocket.recv()
+            print(f"< Recebido: {resposta}")
+    except Exception as e:
+        print(f"Erro ao enviar mensagem: {e}")
 
 
 
