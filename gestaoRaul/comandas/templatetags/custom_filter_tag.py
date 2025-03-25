@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django import template
-from orders.models import  Order
 
+from orders.models import  Order
 from comandas.models import Comanda, ProductComanda
 from clients.models import Client
 from payments.models import Payments
@@ -12,7 +12,7 @@ register = template.Library()
 def filter_total(value):
     config = {
         'taxa': False
-    }
+    }    
     id = value
     comanda_id = int(id)
     totalParcial = Decimal(0)
