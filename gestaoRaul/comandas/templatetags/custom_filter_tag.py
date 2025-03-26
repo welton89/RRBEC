@@ -59,8 +59,11 @@ def has_group(user, group_name):
 
 @register.filter(name='obsOrder')
 def obsOrder(id):
-    productComanda_obj = ProductComanda.objects.get(pk=id)    
-    order = Order.objects.get(productComanda=productComanda_obj)
-    return order.obs
+    try:
+        productComanda_obj = ProductComanda.objects.get(pk=id)    
+        order = Order.objects.get(productComanda=productComanda_obj)
+        return order.obs
+    except:
+        return ''
     
    

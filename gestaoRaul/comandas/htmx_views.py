@@ -86,7 +86,8 @@ def addProduct(request, product_id, comanda_id):
                   'id':order.id,
                   'speak': f'Novo pedido!  {product.name}, para {comanda.name}.'
                   }) 
-        asyncio.run(enviar_mensagem(msg))
+        
+        # asyncio.run(enviar_mensagem(msg))
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     valores = somar(consumo,comanda)
     
