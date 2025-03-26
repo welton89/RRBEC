@@ -249,11 +249,11 @@ Detalhes {{comanda.name}}
     <h2>Pagamento Parcial</h2>
     <form method="post" action="{% url 'paymentParcial' comanda.id %} ">
       {% csrf_token %}
-      <input id="value-parcial" name="value-parcial" type="number" step="0.01" max="{{total}}" placeholder="Valor">
+      <input required id="value-parcial" name="value-parcial" type="number" step="0.01" max="{{total}}" placeholder="Valor">
       <input id="name-parcial" name="name-parcial" type="text" placeholder="Nome" >
       <footer>
         <div style="display: flex;gap: 10px;">
-          <button type="submit" class="btn-secondary" onclick="backPage()">Receber</button>
+          <button type="submit" class="btn-secondary" >Receber</button>
           <button type="button" class="btn-cancel" onclick="close_modal_payment_parcial()">Cancelar</button>
         </div>
       </footer>
