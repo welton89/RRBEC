@@ -21,7 +21,7 @@ Detalhes {{comanda.name}}
 <body>
   <input hidden id="id-temp" type="number">
   <div class="grid-container" >
-    <div>
+    <div style="display: flex;padding: 5px;gap:8px">
       <button class="btn-primary" id="openModal" onclick="openModal()" popovertarget="addProduct"
       {%  if comanda.status != 'OPEN'%}
        disabled
@@ -38,6 +38,11 @@ Detalhes {{comanda.name}}
       <button class="btn-secondary" id="pagarComanda"
        onclick="modal_payment_comanda()"
        >Receber</button>
+
+       <button class="btn-primary" id="printComanda" 
+       style="display: flex;"
+       onclick="imprimirConta()"
+       >Imprimir Conta</button>
        {% else %}
 
        <button class="btn-secondary" id="pagarComanda"
@@ -45,12 +50,12 @@ Detalhes {{comanda.name}}
         style="display: none;"
         >Receber</button>
 
-
+        <button class="btn-primary" id="printComanda" 
+        style="display: none;"
+        onclick="imprimirConta()"
+        >Imprimir Conta</button>
       {% endif %}
   
-      <button class="btn-primary" id="printComanda" 
-      style="display: none;"
-      onclick="imprimirConta()">Imprimir Conta</button>
       
       {% if user|groupUser:"Gerente" %}
       <button class="btn-primary" id="reOpenComanda" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"

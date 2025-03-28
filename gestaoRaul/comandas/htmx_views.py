@@ -102,27 +102,29 @@ def removeProductComanda(request, productComanda_id):
         }
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
     comanda = Comanda.objects.get(id= product_comanda.comanda.id)
-    parcial = Payments.objects.filter(comanda=comanda)
-    consumo = ProductComanda.objects.filter(comanda=comanda)
-    valores = somar(consumo,comanda)
-    if product_comanda.product.cuisine == True:
-        order = Order.objects.get(productComanda=product_comanda)
-        product_comanda.delete()
-        msg = JsonResponse({
-            'type': 'broadcast',
-              'message': 'Atenção! Pedido cancelado', 
-              'local':'cozinha',
-                'tipo':'delete',
-                  'id':order.id,
-                  'speak': f'Pedido cancelado!  {order.id_product.name}.'
-                  }) 
-        asyncio.run(enviar_mensagem(msg))
-        # order.delete()
+    if comanda.status == 'OPEN':
+        parcial = Payments.objects.filter(comanda=comanda)
+        consumo = ProductComanda.objects.filter(comanda=comanda)
+        valores = somar(consumo,comanda)
+        if product_comanda.product.cuisine == True:
+            order = Order.objects.get(productComanda=product_comanda)
+            product_comanda.delete()
+            msg = JsonResponse({
+                'type': 'broadcast',
+                'message': 'Atenção! Pedido cancelado', 
+                'local':'cozinha',
+                    'tipo':'delete',
+                    'id':order.id,
+                    'speak': f'Pedido cancelado!  {order.id_product.name}.'
+                    }) 
+            asyncio.run(enviar_mensagem(msg))
+            # order.delete()
+        else:
+            product_comanda.delete()
+
+        return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
     else:
-        product_comanda.delete()
-
-    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
-
+        pass
 
 
 

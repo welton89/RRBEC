@@ -208,11 +208,11 @@ function closeConta(id){
     .then(response => response.json())
     .then(data => {
       if(data.status == 'ok'){
-        buttonPrintComanda.style.display = 'block'
+        buttonPrintComanda.style.display = 'flex'
         buttonClose.style.display = 'none'
         buttonAdd.style.display = 'none'
-        buttonreOpenComanda.style.display = 'block'
-        buttonPayment.style.display = 'block'
+        buttonreOpenComanda.style.display = 'flex'
+        buttonPayment.style.display = 'flex'
         showToast('✅Comanda encerrada!😁','success')
         imprimirConta()
     }
