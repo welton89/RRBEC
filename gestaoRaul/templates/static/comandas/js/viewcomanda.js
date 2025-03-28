@@ -188,6 +188,43 @@ function imprimirConta() {
     }
   }
 
+
+function closeConta(id){
+
+  const resultadoConfirmacao = confirm("Encerrar comanda?");
+  const buttonAdd = document.getElementById('openModal')
+  const buttonClose = document.getElementById('closeComanda')
+  const buttonreOpenComanda = document.getElementById('reOpenComanda')
+  const buttonPrintComanda = document.getElementById('printComanda')
+  const buttonPayment = document.getElementById('pagarComanda')
+  if (resultadoConfirmacao){
+
+  fetch(`/comandas/closeComanda/${id}/`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value}
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.status == 'ok'){
+        buttonPrintComanda.style.display = 'block'
+        buttonClose.style.display = 'none'
+        buttonAdd.style.display = 'none'
+        buttonreOpenComanda.style.display = 'block'
+        buttonPayment.style.display = 'block'
+        showToast('✅Comanda encerrada!😁','success')
+        imprimirConta()
+    }
+  })
+  .catch(error => {
+    showToast('❌Ocorreu um erro!😢','error')
+  });
+}
+
+}
+
+
 function reloadPage(){
   setTimeout(function() {
     location.reload();}, 100);
@@ -237,16 +274,6 @@ function addOrder(){
     showToast('❌Ocorreu um erro!😢','error')
   });
 
-
-  //   .then(function(response) {
-  //     if(response.status == 200){
-  //       closeModalObs()
-  //       showToast('✅Pedido atualizado com sucesso!😁','success')
-  //       tooltipObs.dataset.tooltip = response.data
-  //     }else{
-  //       showToast('❌Ocorreu um erro!😢','error')
-  //     }
-  // })
 }
 
 

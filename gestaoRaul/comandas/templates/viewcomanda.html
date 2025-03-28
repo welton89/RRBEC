@@ -28,27 +28,32 @@ Detalhes {{comanda.name}}
        {% endif %}
        >Add Produto</button>
 
-      <button class="btn-cancel" id="pagarComanda" hx-get="{% url 'closeComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="imprimirConta()"
+      <button class="btn-cancel" id="closeComanda" onclick="closeConta({{comanda.id}})"
       {% if comanda.status != 'OPEN' %}
       style="display: none;"
       {% endif %}
       >Fechar Conta</button>
 
       {% if comanda.status == 'PAYING' or comanda.status == 'FIADO'%}
-      <button class="btn-secondary" id="pagarComanda" onclick="modal_payment_comanda()">Receber</button>
-      {% else %}
+      <button class="btn-secondary" id="pagarComanda"
+       onclick="modal_payment_comanda()"
+       >Receber</button>
+       {% else %}
+
+       <button class="btn-secondary" id="pagarComanda"
+        onclick="modal_payment_comanda()"
+        style="display: none;"
+        >Receber</button>
 
 
       {% endif %}
   
-      {%  if comanda.status != 'OPEN'%}
-      <button class="btn-primary" id="imprimirFichas" 
+      <button class="btn-primary" id="printComanda" 
       style="display: none;"
-      onclick="imprimirFichas()">Fichas</button>
-      {% endif %}
+      onclick="imprimirConta()">Imprimir Conta</button>
       
       {% if user|groupUser:"Gerente" %}
-      <button class="btn-primary" id="imprimirFichas" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
+      <button class="btn-primary" id="reOpenComanda" hx-get="{% url 'reopenComanda' comanda.id %} " hx-trigger="click" hx-swap="none"  onclick="reloadPage()"
       {%  if comanda.status == 'OPEN'%}
       style="display: none;"
       {% elif comanda.status == 'CLOSED' %}

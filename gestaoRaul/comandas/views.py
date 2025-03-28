@@ -156,3 +156,11 @@ def editOrders(request, productComanda_id, obs):
                   }) 
     # asyncio.run(enviar_mensagem(msg))
     return JsonResponse({'status': 'ok', 'obs':order.obs})
+
+
+@group_required(groupName='Garçom')
+def closeComanda(request, comanda_id):
+    comanda = Comanda.objects.get(id=comanda_id)
+    comanda.status = "PAYING"
+    comanda.save()
+    return JsonResponse({'status': 'ok', 'obs':'order.obs'})

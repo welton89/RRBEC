@@ -93,21 +93,6 @@ def addProduct(request, product_id, comanda_id):
     
     return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores':valores,'parcials':parcial,'consumo': consumo,'comanda':comanda})
 
-# @group_required(groupName='Garçom')
-# def editOrders(request, productComanda_id, obs):
-#     order = Order.objects.get(productComanda=productComanda_id)
-#     order.obs = obs
-#     order.save()
-#     msg = JsonResponse({
-#             'type': 'broadcast',
-#               'message': obs, 
-#               'local':'cozinha',
-#                 'tipo':'edit',
-#                   'id':order.id,
-#                   'speak': f'Pedido alterado!  {order.id_product.name}, é {obs}.'
-#                   }) 
-#     # asyncio.run(enviar_mensagem(msg))
-#     return JsonResponse({'status': 'ok'})
 
 
 @group_required(groupName='Garçom')
@@ -138,11 +123,7 @@ def removeProductComanda(request, productComanda_id):
 
     return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
 
-@group_required(groupName='Garçom')
-def closeComanda(request, comanda_id):
-    comanda = Comanda.objects.get(id=comanda_id)
-    comanda.status = "PAYING"
-    comanda.save()
+
 
 
 @group_required(groupName='Gerente')
