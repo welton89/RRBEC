@@ -53,11 +53,13 @@ if (parentNodeClass == 'espaco' || targetId == 'drop'){
 
 const url = `/mesas/locationMesa/${mesaId}/${targetId}/`;
 var resposta =   fetch(url, {method: 'POST',
-   headers: {'Content-Type': 'application/json',
+   headers: {
+    'Content-Type': 'application/json',
     'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value
-    },}).then(response => response.json())
-  .then(data => {
-    if(data.status != 'ok'){
+    },})
+    .then(response => response.json())
+    .then(data => {
+      if(data.status != 'ok'){
       alert('Erro ao salvar local:', error)
     }
   })

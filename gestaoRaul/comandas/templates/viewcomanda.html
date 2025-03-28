@@ -87,7 +87,7 @@ Detalhes {{comanda.name}}
         {{item.product.name}}
         {% if item.product.cuisine == True %}
         <input hidden id="{{item.id}}-obsOrder" type="order" value="{{item.id | obsOrder}}">
-        <span data-tooltip="{{item.id | obsOrder}}" data-flow="top">
+        <span id="tooltip-id-{{item.id}}" data-tooltip="{{item.id | obsOrder}}" data-flow="top">
 
           <img
           onclick="openModalObs({{item.id}})"
@@ -106,9 +106,6 @@ Detalhes {{comanda.name}}
       </td>
       <td>R$ {{item.product.price}}</td>
 
-
-
-      
       {%  if comanda.status != 'OPEN'%}
       {% else %}
       <td>

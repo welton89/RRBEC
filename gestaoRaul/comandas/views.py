@@ -138,3 +138,21 @@ def notificacao(request):
             'notificacao': 'false',
             'pronto':len(ordersPronto),
              })
+
+
+
+@group_required(groupName='Garçom')
+def editOrders(request, productComanda_id, obs):
+    order = Order.objects.get(productComanda=productComanda_id)
+    order.obs = obs
+    order.save()
+    msg = JsonResponse({
+            'type': 'broadcast',
+              'message': obs, 
+              'local':'cozinha',
+                'tipo':'edit',
+                  'id':order.id,
+                  'speak': f'Pedido alterado!  {order.id_product.name}, é {obs}.'
+                  }) 
+    # asyncio.run(enviar_mensagem(msg))
+    return JsonResponse({'status': 'ok', 'obs':order.obs})

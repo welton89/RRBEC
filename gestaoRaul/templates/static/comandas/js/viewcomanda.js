@@ -213,22 +213,43 @@ function troco(){
 
 
 function addOrder(){
-  obs = document.getElementById('obs').value
-  var id = document.getElementById('id-temp').value
-  fetch(`/comandas/editOrders/${id}/${obs}`, {
-    method: 'GET',
+  obs = document.getElementById('obs')
+  id = document.getElementById('id-temp').value
+  tooltipObs = document.getElementById('tooltip-id-'+id)
+
+  fetch(`/comandas/editOrders/${id}/${obs.value}`, {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json'}
+      'Content-Type': 'application/json',
+      'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value}
     })
-    .then(function(response) {
-      if(response.status == 200){
-        closeModalObs()
+    .then(response => response.json())
+    .then(data => {
+      if(data.status == 'ok'){
         showToast('✅Pedido atualizado com sucesso!😁','success')
-      }else{
-        showToast('❌Ocorreu um erro!😢','error')
-      }
+        tooltipObs.dataset.tooltip = data.obs
+        obs.value = ''
+        document.getElementById('modal-obs').style.display = 'none';
+      
+    }
   })
+  .catch(error => {
+    showToast('❌Ocorreu um erro!😢','error')
+  });
+
+
+  //   .then(function(response) {
+  //     if(response.status == 200){
+  //       closeModalObs()
+  //       showToast('✅Pedido atualizado com sucesso!😁','success')
+  //       tooltipObs.dataset.tooltip = response.data
+  //     }else{
+  //       showToast('❌Ocorreu um erro!😢','error')
+  //     }
+  // })
 }
+
+
 function showToastAdd(message, type ,duration = 3000) {
   const toast = document.getElementById('toast-add');
 
@@ -281,9 +302,4 @@ function taxa(){
   }
 }
 
-// document.getElementById('taxa').addEventListener("change", taxa);
-
-// document.getElementById('productForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); 
-// });
 
