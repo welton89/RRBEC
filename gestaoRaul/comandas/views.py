@@ -2,7 +2,8 @@ from decimal import Decimal
 from django.urls import reverse
 from django.utils import timezone
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
+
 from django.shortcuts import render, redirect
 from django.db.models import Count, F
 
@@ -71,11 +72,14 @@ def viewComanda(request):
 @group_required(groupName='Garçom')
 def createComanda(request):
     name = request.POST.get('name-comanda')
+    if name == '' or name == None or request.POST.get('select-mesa') == '' or request.POST.get('select-mesa') == None:
+        return HttpResponseRedirect(reverse('comandas'), status=400)
     mesa_id = int(request.POST.get('select-mesa'))
     mesa = Mesa.objects.get(id=mesa_id)
     comanda = Comanda(name=name, mesa=mesa, user=request.user)
     comanda.save()
     return redirect(reverse('viewcomanda') + f'?parametro={comanda.id}')
+
 
 @group_required(groupName='Garçom')
 def editComanda(request):

@@ -1,0 +1,1 @@
+default_app_config = 'comandas.apps.ComandasConfig' # Se você tiver um AppConfig
