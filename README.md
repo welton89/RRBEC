@@ -23,6 +23,8 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Gerenciar o estoque de produto.
 
 ### Comandas
+![dashboard](readme/comanda1.jpeg)
+![dashboard](readme/comanda2.jpeg)
 * [x] Abrir nova comanda(inserindo nome, associando ou não a mesa).
 * [x] Editar informações da comanda.
 * [x] Adicionar produtos na comanda.
@@ -38,18 +40,30 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [x] Responsivo para mobile.
 
 ### Mesa
+![dashboard](readme/mesa1.jpeg)
+![dashboard](readme/mesa2.jpeg)
 * [ ] Reserva de mesas.
-* [x] Mapa de mesas.
+* [x] Mapa de mesas interativo (pode reposicionar as mesas e cores alteram altomático).
 * [x] Associar pedidos e comandas a mesas.
 * [ ] Dividir contas.
 
+### Pedidos Cozinha
+![dashboard](readme/cozinha.jpeg)
+* [x] Criar pedido automático (se no cadastro do produto tiver marcado cozinha).
+* [x] Aviso na cozinha via tablet.
+* [x] Cards da cozinha com cores diferentes para pedidos com observação, exluido, ou na fila.
+* [ ] Comunicação de pedidos via websocket.
+
 ### Clientes
+![dashboard](readme/cliente1.jpeg)
+![dashboard](readme/cliente2.jpeg)
 * [x] Cadastrar novos clientes (nome, endereço, telefone, email).
 * [x] Editar informações de clientes existentes.
 * [ ] Excluir clientes.
 * [ ] Consultar o histórico de pedidos de um cliente.
 
 ### Guarita
+![dashboard](readme/guarida.jpeg)
 * [x] Adicionar produtos, quantidade.
 * [x] Pesquisa produto reativa.
 * [x] Exibição de produtos em ordem de maior saida.
@@ -71,8 +85,10 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Gerar relatório de funcionários (horas trabalhadas, faltas).
 
 ### Pagamentos
+![dashboard](readme/comanda2.jpeg)
 * [ ] Integrar com gateways de pagamento (cartão de crédito, débito, PIX).
 * [x] Gerenciar formas de pagamento.
+* [x] Adicionar valor na conta do cliente(vincula a comanda).
 * [ ] Emitir notas fiscais eletrônicas.
 
 
@@ -82,6 +98,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Acompanhar pedidos em tempo real.
 
 ### Sistema
+![dashboard](readme/login.jpeg)
 * [x] Gerenciar usuários do sistema (login, senha, permissões).
 * [ ] Realizar backups do sistema.
 
