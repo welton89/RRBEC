@@ -43,7 +43,9 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 ![dashboard](readme/mesa1.jpeg)
 ![dashboard](readme/mesa2.jpeg)
 * [ ] Reserva de mesas.
-* [x] Mapa de mesas interativo (pode reposicionar as mesas e cores alteram altomático).
+* [x] Mesas podem ser reposicionadas no mapa.
+* [x] Cores das mesas alteram automático se ocupadas.
+* [x] Visualiza comandas abertas na mesa com o valor de consumo.
 * [x] Associar pedidos e comandas a mesas.
 * [ ] Dividir contas.
 
@@ -85,7 +87,6 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 * [ ] Gerar relatório de funcionários (horas trabalhadas, faltas).
 
 ### Pagamentos
-![dashboard](readme/comanda2.jpeg)
 * [ ] Integrar com gateways de pagamento (cartão de crédito, débito, PIX).
 * [x] Gerenciar formas de pagamento.
 * [x] Adicionar valor na conta do cliente(vincula a comanda).
