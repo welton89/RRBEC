@@ -74,7 +74,7 @@ class CreateComandaViewTest(TestCase):
         wrapped_view = group_required(groupName='Garçom')(createComanda)
         response = wrapped_view(request)
 
-        self.assertEqual(response.status_code, 302)  # Deve redirecionar para a página de login (padrão do Django)
+        self.assertEqual(response.status_code, 302)  # Deve redirecionar para a página de login 
         self.assertTrue(response.url.startswith(reverse('login')))  # Verifica se redireciona para a página de login
         self.assertFalse(Comanda.objects.filter(name='Comanda Teste').exists())
 
@@ -95,7 +95,6 @@ class CreateComandaViewTest(TestCase):
 
     def test_create_comanda_missing_data(self):
         """Testa o comportamento ao tentar criar uma comanda com dados faltando."""
-        # Sem 'name-comanda'
         request_sem_nome = self.factory.post(
             reverse('createComanda'),
             {'select-mesa': self.mesa.id}
