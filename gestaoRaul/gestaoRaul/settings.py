@@ -33,6 +33,9 @@ ALLOWED_HOSTS = [
         '10.72.150.166',
         'localhost',
         '127.0.0.1',
+        'rrbec.local.com',
+        'django_app',
+        '0.0.0.0*'
         ]
 
 

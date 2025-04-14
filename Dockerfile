@@ -7,4 +7,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [ "python", "gestaoRaul/manage.py", "runserver", "0.0.0.0:8000" ]
+RUN python gestaoRaul/manage.py collectstatic --noinput
+
+WORKDIR /app/gestaoRaul
+
+
+
+CMD [ "gunicorn", "gestaoRaul.wsgi:application", "--bind", "0.0.0.0:8000" ]
+  

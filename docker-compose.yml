@@ -1,0 +1,39 @@
+#version: '3.8'
+
+services:
+  django_app:
+    build:
+      context: ./ #django_app # Caminho para o Dockerfile da sua aplicação Django
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - static_volume:/app/gestaoRaul/static # Volume para persistir os arquivos estáticos (opcional)
+    environment:
+      # Suas variáveis de ambiente do Django
+      DEBUG: "False"
+      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, django_app*" # Adicione seu nome de domínio
+    # depends_on:
+    #   - nginx_server
+    networks:
+      - app_network
+
+  nginx_server:
+    build:
+      context: ./NginxServer # Caminho para a pasta com o Dockerfile do Nginx e nginx.conf
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/app/gestaoRaul/static
+    ports:
+      - "80:80"
+    depends_on:
+      - django_app
+    networks:
+      - app_network
+
+volumes:
+  static_volume: # Define o volume para os arquivos estáticos
+
+networks:
+  app_network:
+    driver: bridge
