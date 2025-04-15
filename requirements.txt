@@ -5,12 +5,15 @@ cryptography==44.0.0
 Django==5.1.4
 django-extensions==3.2.3
 django-pwa==2.0.1
+dotenv==0.9.9
 gunicorn==23.0.0
 MarkupSafe==3.0.2
 packaging==24.2
 pillow==11.1.0
+psycopg==3.2.6
 pycparser==2.22
 pyOpenSSL==24.3.0
+python-dotenv==1.1.0
 sqlparse==0.5.2
 typing_extensions==4.12.2
 tzdata==2024.2

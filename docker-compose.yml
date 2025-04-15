@@ -5,9 +5,9 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data/
     environment:
-      POSTGRES_DB: ${DATABASE_NAME:-gestaoraul_db}
-      POSTGRES_USER: ${DATABASE_USER:-postgres}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     networks:
