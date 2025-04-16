@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 RUN python gestaoRaul/manage.py collectstatic --noinput
-RUN python gestaoRaul/manage.py makemigrations --noinput
+RUN python gestaoRaul/manage.py migrate --noinput
 
 WORKDIR /app/gestaoRaul
 
