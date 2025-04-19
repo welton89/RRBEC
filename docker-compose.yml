@@ -19,6 +19,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:8000/"]
+      interval: 5m
+      timeout: 3s
+      retries: 3
+    restart: on-failure
+
     volumes:
       - static_volume:/app/gestaoRaul/static
     environment:
