@@ -37,7 +37,7 @@ services:
       DB_USER: "${DB_USER}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DEBUG: "False"
-      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, django_app*"
+      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, django_app"
 
     networks:
       - app_network
