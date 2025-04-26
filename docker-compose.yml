@@ -17,14 +17,6 @@ services:
     build:
       context: ./ 
       dockerfile: Dockerfile
-
-    environment:
-      DB_ENGINE: "${DB_ENGINE}"
-      DB_HOST: "${DB_HOST}"
-      DB_PORT: "${DB_PORT}"
-      DB_NAME: "${DB_NAME}"
-      DB_USER: "${DB_USER}"
-      DB_PASSWORD: "${DB_PASSWORD}"
     ports:
       - "8000:8000"
 
@@ -38,6 +30,12 @@ services:
     volumes:
       - static_volume:/app/gestaoRaul/static
     environment:
+      DB_ENGINE: "${DB_ENGINE}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
       DEBUG: "False"
       ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, django_app*"
 
