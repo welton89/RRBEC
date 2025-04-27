@@ -9,21 +9,24 @@ from products.models import Product
 from payments.models import Payments
 from typePay.models import TypePay
 from gestaoRaul.decorators import group_required
+from websocket_client.websocketClient import enviar_mensagem
 
-import asyncio
-import websockets
+from asgiref.sync import async_to_sync
+# import asyncio
 
-async def enviar_mensagem(msg):
-    try:
-        uri = "ws://websocket_server:8765"
-        async with websockets.connect(uri) as websocket:
-            await websocket.send(msg)
-            # print(f"> Enviado: {msg}")
+# import websockets
 
-            # resposta = await websocket.recv()
-            # print(f"< Recebido: {resposta}")
-    except Exception as e:
-        print(f"Erro ao enviar mensagem via websocket: {e}")
+# async def enviar_mensagem(msg):
+#     try:
+#         uri = "ws://websocket_server:8765"
+#         async with websockets.connect(uri) as websocket:
+#             await websocket.send(msg)
+#             # print(f"> Enviado: {msg}")
+
+#             # resposta = await websocket.recv()
+#             # print(f"< Recebido: {resposta}")
+#     except Exception as e:
+#         print(f"Erro ao enviar mensagem via websocket: {e}")
 
 
 def somar(consumo:ProductComanda, comanda:Comanda):
@@ -84,8 +87,16 @@ def addProduct(request, product_id, comanda_id):
                   'id':order.id,
                   'speak': f'Novo pedido!  {product.name}, para {comanda.name}.'
                   }) 
-        
-        asyncio.run(enviar_mensagem(msg))
+        try:
+        # Chama a função async dentro da view normal
+            async_to_sync(enviar_mensagem)(mensagem)
+
+            # return JsonResponse({"status": "Mensagem enviada com sucesso"})
+
+        except Exception as e:
+            print("Erro add product websocket: ",e)
+            # return JsonResponse({"status": "Erro", "erro": str(e)}, status=500)
+        # asyncio.run(enviar_mensagem(msg))
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     valores = somar(consumo,comanda)
     
