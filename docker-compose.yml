@@ -55,6 +55,16 @@ services:
     networks:
       - app_network
 
+  websocket_server:
+    build:
+      context: ./WebSocketServer
+      dockerfile: Dockerfile
+    ports:
+      - "8765:8765"
+    restart: on-failure
+    networks:
+      - app_network
+
 volumes:
   static_volume:
   db_data:

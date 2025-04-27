@@ -15,17 +15,15 @@ import websockets
 
 async def enviar_mensagem(msg):
     try:
-        uri = "ws://192.168.1.150:8765"
+        uri = "ws://websocket_server:8765"
         async with websockets.connect(uri) as websocket:
             await websocket.send(msg)
-            print(f"> Enviado: {msg}")
+            # print(f"> Enviado: {msg}")
 
-            resposta = await websocket.recv()
-            print(f"< Recebido: {resposta}")
+            # resposta = await websocket.recv()
+            # print(f"< Recebido: {resposta}")
     except Exception as e:
-        print(f"Erro ao enviar mensagem: {e}")
-
-
+        print(f"Erro ao enviar mensagem via websocket: {e}")
 
 
 def somar(consumo:ProductComanda, comanda:Comanda):
@@ -87,7 +85,7 @@ def addProduct(request, product_id, comanda_id):
                   'speak': f'Novo pedido!  {product.name}, para {comanda.name}.'
                   }) 
         
-        # asyncio.run(enviar_mensagem(msg))
+        asyncio.run(enviar_mensagem(msg))
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     valores = somar(consumo,comanda)
     

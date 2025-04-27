@@ -19,11 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
 function verificarCookieNotificacao() {
   var iconNotify = document.getElementById('icon-notify');
   if (document.cookie.indexOf('notificacao=') === -1) {
@@ -56,7 +51,7 @@ function cookieNotificacao() {
   }
 }
 
-const websocket = new WebSocket('ws://192.168.1.150:8765');
+const websocket = new WebSocket('ws://0.0.0.0:8765');
 const nomeUsuario = document.getElementById('user-info').textContent;
 
 websocket.addEventListener('open', (event) => {

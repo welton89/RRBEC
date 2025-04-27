@@ -98,7 +98,6 @@ def addContaCliente(request):
     clientId = int(request.POST.get('select-client'))
     comanda = Comanda.objects.get(id=comandaId)
     client = Client.objects.get(id=clientId)
-    # client.debt = Decimal(0)
     comanda.client = client
     comanda.dt_close = timezone.now()
     comanda.status = 'FIADO'
