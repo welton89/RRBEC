@@ -9,7 +9,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ## Dashboard
 <!-- ![dashboard](readme/dashboard.gif) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/dashboard.gif" width="600px" ></img>
+<img style="display:block;margin:0 auto;border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/dashboard.gif" width="600px" ></img>
 
 * [x] Cards com faturamento vendas, e ticket médio.
 * [x] Graficos - Produtos mais vendidos e tempos de preparo de petiscos.
@@ -18,7 +18,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ## Produtos
 <!-- ![dashboard](readme/produtos.gif) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/produtos.gif" width="600px" ></img>
+<img style="display:block;margin:0 auto;border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/produtos.gif" width="600px" ></img>
 * [x] Cadastrar e editar produtos.
 * [x] Ativar/Desativar produtos direto da tela de lista de produtos com um só click.
 * [x] Pesquisar produtos por nome.
@@ -28,9 +28,9 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 ### Comandas
 <!-- ![dashboard](readme/comanda1.jpeg)
 ![dashboard](readme/comanda2.jpeg) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/dashbcomanda1oard.jpeg" width="350px" ></img>
+<img style="border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/comanda1.jpeg" width="340px" ></img>
 
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/comanda2.jpeg" width="350px" ></img>
+<img style="border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/comanda2.jpeg" width="340px" ></img>
 * [x] Abrir nova comanda(inserindo nome, associando ou não a mesa).
 * [x] Editar informações da comanda.
 * [x] Adicionar produtos na comanda.
@@ -48,9 +48,9 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 ### Mesa
 <!-- ![dashboard](readme/mesa1.jpeg)
 ![dashboard](readme/mesa2.jpeg) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/mesa1.jpeg" width="350px" ></img>
+<img style="border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/mesa1.jpeg" width="340px" ></img>
 
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/mesa2.jpeg" width="350px" ></img>
+<img style="border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/mesa2.jpeg" width="340px" ></img>
 * [ ] Reserva de mesas.
 * [x] Mesas podem ser reposicionadas no mapa.
 * [x] Cores das mesas alteram automático se ocupadas.
@@ -60,7 +60,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ### Pedidos Cozinha
 <!-- ![dashboard](readme/cozinha.jpeg) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/cozinha.jpeg" width="600px" ></img>
+<img style="display:block;margin:0 auto;border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/cozinha.jpeg" width="600px" ></img>
 * [x] Criar pedido automático (se no cadastro do produto tiver marcado cozinha).
 * [x] Aviso na cozinha via tablet.
 * [x] Cards da cozinha com cores diferentes para pedidos com observação, exluido, ou na fila.
@@ -69,8 +69,8 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 ### Clientes
 <!-- ![dashboard](readme/cliente1.jpeg)
 ![dashboard](readme/cliente2.jpeg) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/cliente1.jpeg" width="350px" ></img>
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/cliente2.jpeg" width="350px" ></img>
+<img style="border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/cliente1.jpeg" width="340px" ></img>
+<img style="border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/cliente2.jpeg" width="340px" ></img>
 * [x] Cadastrar novos clientes (nome, endereço, telefone, email).
 * [x] Editar informações de clientes existentes.
 * [ ] Excluir clientes.
@@ -78,7 +78,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ### Guarita
 <!-- ![dashboard](readme/guarida.jpeg) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/guarida.jpeg" width="600px" ></img>
+<img style="display:block;margin:0 auto;border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/guarida.jpeg" width="600px" ></img>
 * [x] Adicionar produtos, quantidade.
 * [x] Pesquisa produto reativa.
 * [x] Exibição de produtos em ordem de maior saida.
@@ -113,7 +113,7 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 ### Sistema
 <!-- ![dashboard](readme/login.jpeg) -->
-<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/login.jpeg" width="600px" ></img>
+<img style="display:block;margin:0 auto;border-radius:8px;" src="https://github.com/welton89/RRBEC/raw/master/readme/login.jpeg" width="600px" ></img>
 * [x] Gerenciar usuários do sistema (login, senha, permissões).
 * [ ] Realizar backups do sistema.
 
