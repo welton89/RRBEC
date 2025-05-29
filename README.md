@@ -8,7 +8,8 @@ Este projeto é uma aplicação web desenvolvida em Django com o objetivo de exp
 
 
 ## Dashboard
-![dashboard](readme/dashboard.gif)
+<!-- ![dashboard](readme/dashboard.gif) -->
+<img style="" src="https://github.com/welton89/RRBEC/raw/master/readme/dashboard.gif" width="300px" ></img>
 * [x] Cards com faturamento vendas, e ticket médio.
 * [x] Graficos - Produtos mais vendidos e tempos de preparo de petiscos.
 * [x] Grafico de faturamento mês a mês do ano anterio, atual, e projeção.
