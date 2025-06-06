@@ -32,7 +32,10 @@ A base de dados unificada é o coração do sistema, garantindo a consistência 
 **Documento Detalhado:**
 
 - [[Modelagem de Banco de Dados]]
+- [Modelagem de Banco de Dados](https://raw.githubusercontent.com/welton89/RRBEC/refs/heads/master/doc/Banco%20de%20dados/Modelagem%20de%20Banco%20de%20Dados.md)
     
+
+
 
 ## 4. Conclusão
 
