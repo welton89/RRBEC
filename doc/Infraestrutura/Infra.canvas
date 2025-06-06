@@ -1,0 +1,35 @@
+{
+	"nodes":[
+		{"id":"f070a6042894264f","type":"group","x":-420,"y":440,"width":1560,"height":600,"label":"Rede Local"},
+		{"id":"2e478a5617ee1373","type":"group","x":-200,"y":-400,"width":740,"height":547,"label":"VPS"},
+		{"id":"b361d7f4e687df1a","type":"group","x":330,"y":507,"width":670,"height":493,"label":"SERVER"},
+		{"id":"59d24657234b7fe1","type":"group","x":-280,"y":-1080,"width":400,"height":400,"label":"Gatway de Pagamento"},
+		{"id":"180e2c68c69d47d0","type":"group","x":340,"y":-1080,"width":400,"height":400,"label":"Google Drive"},
+		{"id":"6e48d897c550bf39","type":"group","x":-300,"y":600,"width":305,"height":360,"label":"Dispositivo"},
+		{"id":"a1a5aa8846094293","type":"text","text":"NginX","x":-140,"y":40,"width":640,"height":60},
+		{"id":"4f8a9cfb945675c2","type":"text","text":"Backend","x":-140,"y":-210,"width":140,"height":100},
+		{"id":"0dfaf61f472cda82","type":"text","text":"App de backup db","x":170,"y":-360,"width":160,"height":110},
+		{"id":"78ca5bf8073a03e1","type":"text","text":"TicketBar - App Cliente","x":-820,"y":-190,"width":250,"height":60},
+		{"id":"2a2df4345147f6b7","type":"text","text":"NginX","x":360,"y":540,"width":50,"height":420},
+		{"id":"7cb7b6de3ef0025d","type":"text","text":"App de sync","x":758,"y":600,"width":195,"height":100},
+		{"id":"b384f36edca5d401","type":"text","text":"TicketBar - App Interno","x":-265,"y":650,"width":250,"height":60},
+		{"id":"2aaa0b16e4b1fbae","type":"text","text":"RRBEC - Web Page","x":-265,"y":740,"width":250,"height":60},
+		{"id":"4c2ba60d1183adb8","type":"text","text":"Backend","x":500,"y":800,"width":140,"height":100},
+		{"id":"68713d8d97d055d4","type":"text","text":"Data Base","x":800,"y":810,"width":110,"height":80},
+		{"id":"99ad714c3dc84a33","type":"text","text":"Data Base\n![[Diagrama de relacionamento.canvas|Diagrama de classes]]","x":220,"y":-190,"width":280,"height":190}
+	],
+	"edges":[
+		{"id":"d2ea1046b7e6d5b3","fromNode":"78ca5bf8073a03e1","fromSide":"right","toNode":"a1a5aa8846094293","toSide":"left"},
+		{"id":"9e9b93717d1234ab","fromNode":"4f8a9cfb945675c2","fromSide":"right","toNode":"99ad714c3dc84a33","toSide":"left"},
+		{"id":"852a3f782350a6fe","fromNode":"0dfaf61f472cda82","fromSide":"bottom","toNode":"99ad714c3dc84a33","toSide":"top"},
+		{"id":"42b3f76de8c037a4","fromNode":"6e48d897c550bf39","fromSide":"top","toNode":"a1a5aa8846094293","toSide":"bottom"},
+		{"id":"fba8dc99a3ca9ffc","fromNode":"4c2ba60d1183adb8","fromSide":"right","toNode":"68713d8d97d055d4","toSide":"left"},
+		{"id":"8cad9ad9422360a8","fromNode":"68713d8d97d055d4","fromSide":"top","toNode":"7cb7b6de3ef0025d","toSide":"bottom"},
+		{"id":"743d5cdcb29a1971","fromNode":"7cb7b6de3ef0025d","fromSide":"top","toNode":"99ad714c3dc84a33","toSide":"right"},
+		{"id":"b8e6c407baa7497a","fromNode":"6e48d897c550bf39","fromSide":"right","toNode":"2a2df4345147f6b7","toSide":"left"},
+		{"id":"50e185355d6da817","fromNode":"2a2df4345147f6b7","fromSide":"right","toNode":"4c2ba60d1183adb8","toSide":"left"},
+		{"id":"634bd04bb885c07d","fromNode":"a1a5aa8846094293","fromSide":"top","toNode":"4f8a9cfb945675c2","toSide":"bottom"},
+		{"id":"128e592181b4c28c","fromNode":"4f8a9cfb945675c2","fromSide":"top","toNode":"59d24657234b7fe1","toSide":"bottom"},
+		{"id":"13567ba7893ad3c6","fromNode":"0dfaf61f472cda82","fromSide":"top","toNode":"180e2c68c69d47d0","toSide":"bottom"}
+	]
+}

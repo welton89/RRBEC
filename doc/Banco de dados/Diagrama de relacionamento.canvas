@@ -1,0 +1,26 @@
+{
+	"nodes":[
+		{"id":"51b34003d02babfc","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Product.md","x":-1760,"y":-1800,"width":475,"height":340},
+		{"id":"cfd2916b5847fd87","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/ProductComanda.md","x":-1760,"y":-1220,"width":475,"height":360},
+		{"id":"4d7f06a28a8a7057","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Category.md","x":-2440,"y":-1800,"width":460,"height":340},
+		{"id":"374cb381ea448aa0","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Orders.md","x":-2440,"y":-1220,"width":460,"height":360},
+		{"id":"8fce51b4dd94dcec","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Payments.md","x":-1040,"y":-1800,"width":520,"height":340},
+		{"id":"28728857b04ab577","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/TypePay.md","x":-240,"y":-1800,"width":480,"height":340},
+		{"id":"0921648553d53818","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Client.md","x":-240,"y":-1220,"width":480,"height":360},
+		{"id":"21e9a170de244d60","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Comanda.md","x":-1040,"y":-1220,"width":520,"height":360},
+		{"id":"e91a1fe3b7eb8aae","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Users.md","x":-1040,"y":-640,"width":520,"height":360},
+		{"id":"4c481d9434b816c3","type":"file","file":"Projeto_RRBEC/Banco de dados/Tabelas/Mesas.md","x":-240,"y":-640,"width":480,"height":360}
+	],
+	"edges":[
+		{"id":"a4e5113b603c3e36","fromNode":"21e9a170de244d60","fromSide":"right","toNode":"4c481d9434b816c3","toSide":"left"},
+		{"id":"b5c5875d1d735f4f","fromNode":"8fce51b4dd94dcec","fromSide":"bottom","toNode":"21e9a170de244d60","toSide":"top"},
+		{"id":"85a77721fe0ea358","fromNode":"8fce51b4dd94dcec","fromSide":"right","toNode":"28728857b04ab577","toSide":"left"},
+		{"id":"815b116a7bfc0e10","fromNode":"51b34003d02babfc","fromSide":"left","toNode":"4d7f06a28a8a7057","toSide":"right"},
+		{"id":"70432be0f116ce71","fromNode":"cfd2916b5847fd87","fromSide":"right","toNode":"21e9a170de244d60","toSide":"left"},
+		{"id":"6ef30263dbfc831e","fromNode":"cfd2916b5847fd87","fromSide":"top","toNode":"51b34003d02babfc","toSide":"bottom"},
+		{"id":"0f74530a3a3ed84d","fromNode":"374cb381ea448aa0","fromSide":"right","toNode":"cfd2916b5847fd87","toSide":"left"},
+		{"id":"4bc60b99bf9db9e0","fromNode":"21e9a170de244d60","fromSide":"right","toNode":"0921648553d53818","toSide":"left"},
+		{"id":"d7656439c4fe066a","fromNode":"8fce51b4dd94dcec","fromSide":"right","toNode":"0921648553d53818","toSide":"left"},
+		{"id":"ef9e50c93a92c176","fromNode":"21e9a170de244d60","fromSide":"bottom","toNode":"e91a1fe3b7eb8aae","toSide":"top"}
+	]
+}
