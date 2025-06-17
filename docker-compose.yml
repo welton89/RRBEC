@@ -33,7 +33,7 @@ services:
       - "8000:8000"
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:8000/"]
       interval: 5m
       timeout: 3s
       retries: 3
@@ -49,7 +49,7 @@ services:
       DB_USER: "${DB_USER}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DEBUG: "False"
-      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, 127.0.0.1, 192.168.0.150, django_app"
+      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, django_app"
 
     networks:
       - app_network
