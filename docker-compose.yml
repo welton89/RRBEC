@@ -62,20 +62,20 @@ services:
       - static_volume:/app/gestaoRaul/static
     ports:
       - "80:80"
-    # depends_on:
-    #   - django_app
+    depends_on:
+      - django_app
     networks:
       - app_network
 
-  websocket_server:
-    build:
-      context: ./WebSocketServer
-      dockerfile: Dockerfile
-    ports:
-      - "8765:8765"
-    restart: on-failure
-    networks:
-      - app_network
+  # websocket_server:
+  #   build:
+  #     context: ./WebSocketServer
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8765:8765"
+  #   restart: on-failure
+  #   networks:
+  #     - app_network
 
 volumes:
   static_volume:
