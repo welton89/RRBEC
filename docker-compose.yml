@@ -15,24 +15,18 @@ services:
 
   duplicati:
     image: duplicati/duplicati:latest # Ou uma versão específica, ex: duplicati/duplicati:2.0.7.1
-    restart: unless-stopped
+
     ports:
       - "8200:8200" # Porta para a interface web do Duplicati
-    environment:
-      - PUID=1000 # ID do usuário que o Duplicati irá rodar (normalmente o seu usuário no host)
-      - PGID=1000 # ID do grupo que o Duplicati irá rodar (normalmente o seu grupo no host)
-      - TZ=America/Fortaleza # Ajuste para o seu fuso horário (Juazeiro do Norte)
+    
     volumes:
-      # Volume para persistir as configurações e bancos de dados do Duplicati
+  
       - ./duplicati_config:/config
-      # Volume para armazenar os backups (pode ser um volume nomeado ou um bind mount)
+
       - ./duplicati_backups:/backups
-      # Montar o volume do PostgreSQL para que o Duplicati possa acessá-lo.
-      # Substitua 'seu_volume_postgresql' pelo nome real do seu volume Docker do PostgreSQL.
-      # Se você montou uma pasta local, use o caminho absoluto dela aqui.
-      - db_data:/var/lib/postgresql/data/:ro # 'ro' para somente leitura, por segurança
-      # EX: Se seu PostgreSQL está em uma pasta local:
-      # - /caminho/completo/para/sua/pasta/de/dados/do/postgresql:/source_data:ro
+
+      - db_data:/var/lib/postgresql/data/:ro
+
 
     
   django_app:
