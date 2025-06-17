@@ -14,10 +14,10 @@ services:
       - app_network
 
   duplicati:
-    image: duplicati/duplicati:latest # Ou uma versão específica, ex: duplicati/duplicati:2.0.7.1
+    image: duplicati/duplicati:2.1.0.119
 
     ports:
-      - "8200:8200" # Porta para a interface web do Duplicati
+      - "8200:8200"
     
     volumes:
       - ./duplicati_config:/config
