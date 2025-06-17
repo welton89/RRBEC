@@ -15,8 +15,6 @@ services:
 
   duplicati:
     image: duplicati/duplicati:latest # Ou uma versão específica, ex: duplicati/duplicati:2.0.7.1
-    container_name: duplicati
-    hostname: duplicati
     restart: unless-stopped
     ports:
       - "8200:8200" # Porta para a interface web do Duplicati
