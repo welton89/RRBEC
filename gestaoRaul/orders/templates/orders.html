@@ -20,26 +20,16 @@
     {% endblock %}
 </head>
 
-
 <body>
     {% block 'body' %}
-
-    <h1>Pedidos cozinha</h1>
-
-
-<div id="list-orders">
-
-    <div class="tab">
-        <button class="tablinks active" onclick="openTab(event, 'Fila')">Fila</button>
-        <button class="tablinks" onclick="openTab(event, 'Preparo')">Preparo</button>
-        <button class="tablinks" onclick="openTab(event, 'Finalizado')">Pronto</button>
-        <button class="tablinks" onclick="openTab(event, 'Entregue')">Entregue</button>
-    </div>
-
-    <div id="etapas">
-
-        <div id="Fila" class="tabcontent">
-            {% for order in orders %}
+    <div class="container">
+        <h1>Pedidos cozinha</h1>
+        <div class="kanban-board">
+            {% csrf_token %}
+            <div class="column">
+                <h2>FILA</h2>
+                <div id="fila" class="cards-container">
+                   {% for order in orders %}
             {% if order.preparing == None and order.productComanda != Null %}
             <div class="m-card" id="m-card-{{order.id}}"
             {% if order.productComanda == Null %}
@@ -54,18 +44,21 @@
             <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
             <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
             {% if user|groupUser:"Cozinha" %}
-            <button class="btn-primary" onclick="delayTab('Fila')"
-            hx-get="{% url 'preparing' order.id %} " hx-trigger="click" hx-target="#etapas"
-            >Preparar</button>
+
+            <form method="path" action="{% url 'preparing' order.id %}">
+            
+            <button class="btn-primary" type="submit">Preparar</button>
+            </form>
             {% endif %}
             </div>
             {% endif %}
             {% endfor %}
-        </div>
-
-
-        <div id="Preparo" class="tabcontent">
-            {% for order in orders %}
+                    </div>
+            </div>
+            <div class="column">
+                <h2>PREPARANDO</h2>
+                <div class="cards-container">
+                    {% for order in orders %}
                 {% if order.finished == None and order.preparing != None %}
                     <div class="m-card" id="m-card-{{order.id}}"
                         {% if order.productComanda == Null %}
@@ -80,17 +73,20 @@
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
                         {% if user|groupUser:"Cozinha" %}
-                        <button class="btn-secondary" onclick="delayTab( 'Preparo')"
-                        hx-get="{% url 'finished' order.id %} " hx-trigger="click" hx-target="#etapas"
-                        >Finalizar</button>
+                        <form method="path" action="{% url 'finished' order.id %}">
+                        <button class="btn-primary" type="submit">Finalizar</button>
+                        </form>
+                    
                         {% endif %}
                     </div>
                     {% endif %}
                 {% endfor %}
-        </div>
-
-        <div id="Finalizado" class="tabcontent">
-            {% for order in orders %}
+                    </div>
+            </div>
+            <div class="column">
+                <h2>PRONTO</h2>
+                <div class="cards-container">
+                     {% for order in orders %}
                 {% if order.delivered == None and order.finished != None %}
                     <div class="m-card" id="m-card-{{order.id}}"
                         {% if order.productComanda == Null %}
@@ -105,17 +101,27 @@
                         <h4> Atendente: {{order.id_comanda.user.first_name}} </h4>
                         <h4>{{order.queue|date:"D"}} {{order.queue|date:"d/m/Y - H:i"}}</h4>
                         {% if user|groupUser:"Garçom" %}
-                        <button class="btn-secondary" onclick="delayTab( 'Finalizado')"
-                        hx-get="{% url 'delivered' order.id %} " hx-trigger="click" hx-target="#etapas"
-                        >Entregar</button>
+                        <form method="path" action="{% url 'delivered' order.id %}">
+                        <button class="btn-primary" type="submit">Entregar</button>
+                        </form>
+                
                         {% endif %}
                     </div>
                     {% endif %}
                 {% endfor %}
-        </div>
-
-        <div id="Entregue" class="tabcontent">
-            {% for order in orders %}
+                    </div>
+            </div>
+            <div class="column" 
+                    {% if user|groupUser:"Gerente" %}
+                       style="display:block"
+                       {% else %}
+                       style="display:none"
+                       {% endif %}
+            
+                >
+                <h2>ENTREGUE</h2>
+                <div class="cards-container">
+                      {% for order in orders %}
                 {% if order.delivered != None %}
                     <div class="m-card" id="m-card-{{order.id}}"
                         {% if order.productComanda == Null %}
@@ -132,21 +138,11 @@
                     </div>
                 {% endif %}
             {% endfor %}
+                    </div>
+            </div>
         </div>
     </div>
-</div>
-
-
-<dialog id="loading" >
-    <div >
-        <img class="loading" src="{% static 'midia/icons/loading.svg' %}" alt="">
-    </div>
-    <br><br>
-    <h1>Carregando...</h1>
-</dialog>
-
-    <script src="{% static 'orders/js/orders.js' %}"></script> {% endblock %}
+    <script src="{% static 'orders/js/orders.js' %}"></script>
+    {% endblock %}
 </body>
-
-
 </html>

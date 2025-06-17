@@ -37,7 +37,6 @@ Armazena as informações dos funcionários do bar que utilizam o aplicativo int
 |`ativo`|BOOLEAN|NOT NULL, DEFAULT TRUE|
 
 ### 2.3. `Produtos`
-![[Product]]
 
 Armazena os itens do cardápio do bar.
 

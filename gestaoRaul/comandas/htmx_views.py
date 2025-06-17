@@ -78,9 +78,10 @@ def addProduct(request, product_id, comanda_id):
                                 <h4>{comanda.name} - {comanda.mesa.name}</h4>
                                 <h4> {order.queue.strftime("%d/%m/%Y - %H:%M")}</h4>
                                 <h4> Atendente: {comanda.user.first_name}</h4>
-                                <button class="btn-primary" onclick="delayTab('Fila')"
-                                hx-get="/pedidos/preparing/{order.id}/" hx-trigger="click" hx-target="#etapas"
-                                >Preparar</button></div>
+                                <form method="path" action="/pedidos/preparing/{order.id}/">
+                                <button class="btn-primary" type="submit">Preparar</button>
+                                </form>
+                                </div>
                                 """, 
               'local':'cozinha',
                 'tipo':'add',

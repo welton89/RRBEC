@@ -13,6 +13,30 @@ services:
     networks:
       - app_network
 
+  duplicati:
+    image: duplicati/duplicati:latest # Ou uma versão específica, ex: duplicati/duplicati:2.0.7.1
+    container_name: duplicati
+    hostname: duplicati
+    restart: unless-stopped
+    ports:
+      - "8200:8200" # Porta para a interface web do Duplicati
+    environment:
+      - PUID=1000 # ID do usuário que o Duplicati irá rodar (normalmente o seu usuário no host)
+      - PGID=1000 # ID do grupo que o Duplicati irá rodar (normalmente o seu grupo no host)
+      - TZ=America/Fortaleza # Ajuste para o seu fuso horário (Juazeiro do Norte)
+    volumes:
+      # Volume para persistir as configurações e bancos de dados do Duplicati
+      - ./duplicati_config:/config
+      # Volume para armazenar os backups (pode ser um volume nomeado ou um bind mount)
+      - ./duplicati_backups:/backups
+      # Montar o volume do PostgreSQL para que o Duplicati possa acessá-lo.
+      # Substitua 'seu_volume_postgresql' pelo nome real do seu volume Docker do PostgreSQL.
+      # Se você montou uma pasta local, use o caminho absoluto dela aqui.
+      - db_data:/var/lib/postgresql/data/:ro # 'ro' para somente leitura, por segurança
+      # EX: Se seu PostgreSQL está em uma pasta local:
+      # - /caminho/completo/para/sua/pasta/de/dados/do/postgresql:/source_data:ro
+
+    
   django_app:
     build:
       context: ./ 
@@ -21,7 +45,7 @@ services:
       - "8000:8000"
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://0.0.0.0:8000/"]
+      test: ["CMD", "curl", "-f", "http://192.168.0.150:8000/"]
       interval: 5m
       timeout: 3s
       retries: 3
@@ -37,7 +61,7 @@ services:
       DB_USER: "${DB_USER}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DEBUG: "False"
-      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, django_app"
+      ALLOWED_HOSTS: "rrbec.local.com, 0.0.0.0, 127.0.0.1, 192.168.0.150, django_app"
 
     networks:
       - app_network
@@ -50,8 +74,8 @@ services:
       - static_volume:/app/gestaoRaul/static
     ports:
       - "80:80"
-    depends_on:
-      - django_app
+    # depends_on:
+    #   - django_app
     networks:
       - app_network
 

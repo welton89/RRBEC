@@ -51,7 +51,7 @@ function cookieNotificacao() {
   }
 }
 
-const websocket = new WebSocket('ws://0.0.0.0:8765');
+const websocket = new WebSocket('ws://192.168.0.150:8765');
 const nomeUsuario = document.getElementById('user-info').textContent;
 
 websocket.addEventListener('open', (event) => {
@@ -64,37 +64,34 @@ websocket.addEventListener('message', (event) => {
   switch (data.local) {
     case 'cozinha':
 
-
-
-
       if (document.getElementById('Fila') !== null && data.tipo === 'add'){
 
 
-        // const novoElemento = document.createElement('div');
-        // novoElemento.innerHTML = data.message;
-        // var fila = document.getElementById('Fila').appendChild(novoElemento); 
+        var novoElemento = document.createElement('div');
+        novoElemento.innerHTML = data.message;
+        document.getElementById('Fila').appendChild(novoElemento); 
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         if (valorAtual === 'true') {
           texto = new SpeechSynthesisUtterance(data.speak);
           window.speechSynthesis.speak(texto);
-          setTimeout(function() {
-            location.reload();
-          }, 6000);
+          // setTimeout(function() {
+          //   location.reload();
+          // }, 6000);
         }
       }
       else if (document.getElementById('obs-'+data.id) !== null && data.tipo === 'edit'){
         const obs = document.getElementById('obs-'+data.id)
-        // const card = obs.parentNode;
-        // card.style.backgroundColor = 'rgb(243, 165, 75)';
-        // obs.innerHTML = data.message;
+        const card = obs.parentNode;
+        card.style.backgroundColor = 'rgb(243, 165, 75)';
+        obs.innerHTML = data.message;
         let valorAtual = document.cookie.replace(/(?:(?:^|.*;\s*)notificacao\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
         if (valorAtual === 'true') {
         texto = new SpeechSynthesisUtterance(data.speak);
         window.speechSynthesis.speak(texto);
-        setTimeout(function() {
-          location.reload();
-        }, 6000);
+        // setTimeout(function() {
+        //   location.reload();
+        // }, 6000);
         }
       }
       else if (document.getElementById('m-card-'+data.id) !== null && data.tipo === 'delete'){

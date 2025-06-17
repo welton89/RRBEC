@@ -4,49 +4,49 @@ function reloadPage(){
     location.reload();}, 3000);
 }
 
-function openTab(evt, etapa) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(etapa).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
+// function openTab(evt, etapa) {
+//     var i, tabcontent, tablinks;
+//     tabcontent = document.getElementsByClassName("tabcontent");
+//     for (i = 0; i < tabcontent.length; i++) {
+//       tabcontent[i].style.display = "none";
+//     }
+//     tablinks = document.getElementsByClassName("tablinks");
+//     for (i = 0; i < tablinks.length; i++) {
+//       tablinks[i].className = tablinks[i].className.replace(" active", "");
+//     }
+//     document.getElementById(etapa).style.display = "block";
+//     evt.currentTarget.className += " active";
+//   }
 
-  function displayBlock(etapa) {
+//   function displayBlock(etapa) {
 
-    document.getElementById('loading').style.display = "none";
-    document.getElementById(etapa).style.display = "block";
-  }
-
-
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tabcontent[0].style.display = "block";
+//     document.getElementById('loading').style.display = "none";
+//     document.getElementById(etapa).style.display = "block";
+//   }
 
 
-  function delayTab(tab){
-    document.getElementById('Fila').style.display = "none";
-    document.getElementById('Preparo').style.display = "none";
-    document.getElementById('Finalizado').style.display = "none";
-    document.getElementById('Entregue').style.display = "none";
-    document.getElementById('loading').style.display = "block";
+  // tabcontent = document.getElementsByClassName("tabcontent");
+  // for (i = 0; i < tabcontent.length; i++) {
+  //   tabcontent[i].style.display = "none";
+  // }
+  // tabcontent[0].style.display = "block";
+
+
+  // function delayTab(tab){
+  //   document.getElementById('Fila').style.display = "none";
+  //   document.getElementById('Preparo').style.display = "none";
+  //   document.getElementById('Finalizado').style.display = "none";
+  //   document.getElementById('Entregue').style.display = "none";
+  //   document.getElementById('loading').style.display = "block";
   
     
-        setTimeout(function() {
-      displayBlock(tab);}, 1000);
-      // reloadPage();
-  }
+  //       setTimeout(function() {
+  //     displayBlock(tab);}, 1000);
+  //     // reloadPage();
+  // }
 
 
-  displayBlock('Fila');
+  // displayBlock('Fila');
 
 
 //   function mostrarNotificacao(titulo,corpo,grupo) {

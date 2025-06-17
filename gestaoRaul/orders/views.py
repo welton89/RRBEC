@@ -1,6 +1,6 @@
 # from datetime import timezone
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 import asyncio
 import websockets
@@ -35,7 +35,7 @@ def preparing(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
-    return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 @group_required(groupName='Cozinha')
@@ -45,8 +45,8 @@ def finished(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
-    asyncio.run(enviar_mensagem())
-    return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
+    # asyncio.run(enviar_mensagem())
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 @group_required(groupName='Garçom')
 def delivered(request, order_id):
@@ -55,7 +55,7 @@ def delivered(request, order_id):
     order.save()
     fifteen_hours_ago = timezone.now() - timezone.timedelta(hours=15)
     orders = Order.objects.filter(queue__gte=fifteen_hours_ago )
-    return  render(request, 'htmx_components/orders/htmx_list_orders_fila.html',{'orders': orders})
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def notificacao(request):
