@@ -13,16 +13,20 @@ services:
     networks:
       - app_network
 
-  # duplicati:
-  #   image: duplicati/duplicati:2.1.0.119
+  duplicati:
+    image: duplicati/duplicati:2.1.0.119
 
-  #   ports:
-  #     - "8200:8200"
+    ports:
+      - "8200:8200"
+
+    environment:
+      - DUPLICATI__WEBSERVICE_PASSWORD:"${DUPLICATI_PASSWORD}"
+
     
-  #   volumes:
-  #     - ./duplicati_config:/config
-  #     - ./duplicati_backups:/backups
-  #     - db_data:/source_postgres_data:ro
+    volumes:
+      - ./duplicati_config:/config
+      - ./duplicati_backups:/backups
+      - db_data:/source_postgres_data
 
     
   django_app:
