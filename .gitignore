@@ -5,3 +5,5 @@ dev_home
 gestaoRaul/static
 .env
 gestaoRaul/db.sqlite3
+duplicati_backups
+

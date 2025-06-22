@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
 from clients.models import Client
 from products.models import Product
 from mesas.models import Mesa
 from typePay.models import TypePay
+# from payments.models import Payments
 
 class Comanda(models.Model):
     id = models.AutoField(primary_key=True)
@@ -28,3 +30,5 @@ class ProductComanda(models.Model):
     applicant = models.CharField(max_length=255, null=True, blank=True)
     def __str__(self) -> str:
         return self.comanda.name + " - " + self.product.name
+
+

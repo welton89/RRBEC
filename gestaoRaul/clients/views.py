@@ -1,11 +1,19 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 from comandas.models import Comanda, ProductComanda
 from gestaoRaul.decorators import group_required
 from clients.models import Client
-from payments.models import Payments
+from payments.models import Payments, somar
+from typePay.models import TypePay
+
+# Create your views here.
+
 
 
 
@@ -56,10 +64,48 @@ def editClient(request):
     client.save()
     return redirect('/clients')
 
+
+@csrf_exempt
+@require_POST
 def payDebt(request):
-    # id = request.POST.get('id-client')
-    # client_id = int(id)
-    # client = Client.objects.get(id=client_id)
-    # client.debt = client.debt - 1
-    # client.save()
-    return redirect('/clients')
+    try:
+        # Verifica se é uma requisição AJAX
+        if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'error': 'Requisição inválida'}, status=400)
+        
+        # Obter os IDs do corpo da requisição (não mais da URL)
+        try:
+            data = json.loads(request.body)
+            comanda_ids = data.get('ids', [])
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'JSON inválido'}, status=400)
+        
+        for comanda_id in comanda_ids:
+            try:
+                comanda = Comanda.objects.get(id=comanda_id)
+                comanda.status = 'CLOSED'
+                comanda.save()
+
+                typePayment = TypePay.objects.get(id=1)
+                consumo = ProductComanda.objects.filter(comanda=comanda_id)
+                value = somar(consumo,comanda)
+                print(value["totalSemTaxa"])
+                description = 'PAGAMENTO DE FIADO'
+                pagamento = Payments(value=value["totalSemTaxa"], comanda=comanda, type_pay=typePayment,description=description,client=comanda.client)
+                pagamento.save()
+            except Comanda.DoesNotExist:
+                return JsonResponse({'error': f'Comanda com ID {comanda_id} não encontrada'}, status=404)
+        
+        return redirect(f'/clients/viewClient/{comanda.client.id}')
+        
+        # return JsonResponse({
+        #     'success': True,
+        #     'message': f'{len(comanda_ids)} comandas processadas',
+        #     'ids': comanda_ids
+        # }, status=200)
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)

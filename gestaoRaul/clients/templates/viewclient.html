@@ -16,7 +16,12 @@ Comandas
 <body>
   <div style="justify-self: center;">
    <h4>{{client.name}}</h4>
-   <h4>R$ {{client.id | totalFiado}}</h4>
+   <h4>R$ {{client.id | totalFiado}}</h4><br>
+   <h4 id="total-selecionado">R$</h4>
+   <button id="btn-fechar-comandas" class="btn-fechar" onclick="enviarComandasSelecionadas()">
+        <span class="icon">✓</span>
+        Fechar Comandas Selecionadas
+    </button>
   </div>
   
     <div class=" ">
@@ -26,6 +31,7 @@ Comandas
         <th style="text-align: left;"><b>Atendente</b></th>
         <th style="text-align: left;"><b>Data abertura</b></th>
         <th style="text-align: left;"><b>Data fechamento</b></th>
+        <th style="text-align: left;"><b><input id="selectAll" name="selectAll" type="checkbox"></b></th>
         <th style="text-align: left;"><b>Detalhes</b></th>
         <th style="text-align: left;"><b>Valor</b></th>
       </tr>
@@ -35,6 +41,7 @@ Comandas
         <td>{{comanda.user.first_name}} {{comanda.user.last_name}}</td>
         <td>{{comanda.dt_open}}</td>
         <td>{{comanda.dt_close}}</td>
+        <td><input id="{{comanda.id}}" name="{{comanda.id}}" type="checkbox"></td>
         <td>
             <span data-tooltip="Visualizar Comanda" data-flow="top">
                 <a href="{% url 'viewcomanda' %}?parametro={{ comanda.id }}">
@@ -57,6 +64,7 @@ Comandas
 
 </body>
 <script src="{% static 'comandas/js/comandas.js' %}"></script>
+<script src="{% static 'clients/js/clients.js' %}"></script>
 
 
 {% endblock %}

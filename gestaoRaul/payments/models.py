@@ -1,6 +1,8 @@
 from django.db import models
+from decimal import Decimal
+
 from typePay.models import TypePay
-from comandas.models import Comanda
+from comandas.models import Comanda, ProductComanda
 from clients.models import Client
 
 
@@ -16,3 +18,21 @@ class Payments(models.Model):
 
     def __str__(self):
         return self.comanda.name
+
+
+def somar(consumo:ProductComanda, comanda:Comanda):
+    parcial = Payments.objects.filter(comanda=comanda)
+    totalParcial = Decimal(0)
+    total:Decimal = Decimal(0)
+    for p in parcial:
+        totalParcial += p.value
+    for produto in consumo:
+        total += Decimal(produto.product.price)
+    valores = {
+        'total':total,
+        'parcial':totalParcial,
+        'taxa': round(total * Decimal(0.1), 2),
+        'totalSemTaxa':total - totalParcial,
+        'totalComTaxa': round((total - totalParcial)+(total * Decimal(0.1)),2)
+    }
+    return valores

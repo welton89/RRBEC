@@ -9,7 +9,7 @@ from django.db.models import Count, F
 
 from comandas.models import Comanda, ProductComanda
 from clients.models import Client
-from payments.models import Payments
+from payments.models import Payments, somar
 from orders.models import Order
 from products.models import Product
 from mesas.models import Mesa
@@ -23,22 +23,22 @@ def comandas(request):
     return render(request, 'comandas.html', {'comandas': comandas, 'mesas': mesas})
 
 
-def somar(consumo:ProductComanda, comanda:Comanda):
-    parcial = Payments.objects.filter(comanda=comanda)
-    totalParcial = Decimal(0)
-    total:Decimal = Decimal(0)
-    for p in parcial:
-        totalParcial += p.value
-    for produto in consumo:
-        total += Decimal(produto.product.price)
-    valores = {
-        'total':total,
-        'parcial':totalParcial,
-        'taxa': round(total * Decimal(0.1), 2),
-        'totalSemTaxa':total - totalParcial,
-        'totalComTaxa': round((total - totalParcial)+(total * Decimal(0.1)),2)
-    }
-    return valores
+# def somar(consumo:ProductComanda, comanda:Comanda):
+#     parcial = Payments.objects.filter(comanda=comanda)
+#     totalParcial = Decimal(0)
+#     total:Decimal = Decimal(0)
+#     for p in parcial:
+#         totalParcial += p.value
+#     for produto in consumo:
+#         total += Decimal(produto.product.price)
+#     valores = {
+#         'total':total,
+#         'parcial':totalParcial,
+#         'taxa': round(total * Decimal(0.1), 2),
+#         'totalSemTaxa':total - totalParcial,
+#         'totalComTaxa': round((total - totalParcial)+(total * Decimal(0.1)),2)
+#     }
+#     return valores
 
 @group_required(groupName='Garçom')
 def viewComanda(request):
