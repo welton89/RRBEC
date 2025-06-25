@@ -3,8 +3,12 @@
 
 function openModal() {
   textField = document.getElementById('search-product')
+if (textField) {
+  setTimeout(() => {
+    textField.focus();
+  }, 100); // 50ms de delay (ajuste conforme necessário)
+}
   textField.value = '';
-  textField.focus()
 }
 
 
@@ -251,7 +255,9 @@ function troco(){
 
 function addOrder(){
   obs = document.getElementById('obs')
+  
   id = document.getElementById('id-temp').value
+  var obsPrint = document.getElementById(id+'-obsOrder')
   tooltipObs = document.getElementById('tooltip-id-'+id)
 
   fetch(`/comandas/editOrders/${id}/${obs.value}`, {
@@ -266,11 +272,13 @@ function addOrder(){
         showToast('✅Pedido atualizado com sucesso!😁','success')
         tooltipObs.dataset.tooltip = data.obs
         obs.value = ''
+        obsPrint.value = data.obs
         document.getElementById('modal-obs').style.display = 'none';
       
     }
   })
   .catch(error => {
+    console.log(error)
     showToast('❌Ocorreu um erro!😢','error')
   });
 
