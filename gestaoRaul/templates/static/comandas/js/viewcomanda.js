@@ -6,7 +6,7 @@ function openModal() {
 if (textField) {
   setTimeout(() => {
     textField.focus();
-  }, 100); // 50ms de delay (ajuste conforme necessário)
+  }, 500); // 50ms de delay (ajuste conforme necessário)
 }
   textField.value = '';
 }

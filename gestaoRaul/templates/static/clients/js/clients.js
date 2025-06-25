@@ -164,8 +164,7 @@ async function enviarComandasSelecionadas() {
      
             return;
         }
-
-        const response = await fetch('http://192.168.1.150:8001/clients/payDebt', {
+        const response = await fetch('/clients/payDebt', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
