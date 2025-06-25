@@ -57,6 +57,8 @@ function editclient(id) {
 
 
 function calcularTotalSelecionado() {
+    const btn = document.getElementById('btn-fechar-comandas');
+
     let total = 0;
     // Seleciona todos os checkboxes marcados (exceto o "selectAll")
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked:not(#selectAll)');
@@ -79,12 +81,10 @@ function calcularTotalSelecionado() {
             }
         }
     });
-    console.log(total)
     
-    // Exibe o total na tela (você pode ajustar onde mostrar)
-    const totalElement = document.getElementById('total-selecionado');
-    if (totalElement) {
-        totalElement.textContent = total.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+    // Exibe o total no botão de receber
+    if (btn) {
+        btn.innerHTML = 'Receber '+total.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
     } else {
         // Cria um elemento para mostrar o total se não existir
         const display = document.createElement('div');
@@ -141,9 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
 async function enviarComandasSelecionadas() {
     const btn = document.getElementById('btn-fechar-comandas');
-    const feedback = document.getElementById('api-feedback');
     
     btn.disabled = true;
     btn.innerHTML = '<span class="icon">⏳</span> Processando...';
@@ -160,8 +160,8 @@ async function enviarComandasSelecionadas() {
         });
         
         if (ids.length === 0) {
-            feedback.textContent = 'Nenhuma comanda válida selecionada.';
-            feedback.className = 'feedback-message error';
+            feedback('Nenhuma comanda selecionada.', 'error', 'Selecione uma comanda e tente novamente.');
+     
             return;
         }
 
@@ -188,8 +188,8 @@ async function enviarComandasSelecionadas() {
             throw new Error(data.error || `Erro HTTP: ${response.status}`);
         }
         
-        feedback.textContent = data.message || `${ids.length} comandas processadas com sucesso!`;
-        feedback.className = 'feedback-message success';
+        feedback(`${ids.length} comandas pagas com sucesso!`, 'success');
+        
         
         setTimeout(() => {
             window.location.reload();
@@ -197,15 +197,14 @@ async function enviarComandasSelecionadas() {
         
     } catch (error) {
         console.error('Erro:', error);
-        feedback.textContent = error.message || 'Erro ao processar comandas. Verifique o console para mais detalhes.';
-        feedback.className = 'feedback-message error';
+        feedback('Erro', 'error', error);
+       
     } finally {
         btn.disabled = false;
-        btn.innerHTML = '<span class="icon">✓</span> Fechar Comandas Selecionadas';
+        btn.innerHTML = 'Receber';
     }
 }
 
-// Função auxiliar para pegar o token CSRF
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -221,5 +220,3 @@ function getCookie(name) {
     return cookieValue;
 }
 
-// Exemplo de como chamar a função (pode ser vinculada a um botão)
-// document.getElementById('btn-fechar-comandas').addEventListener('click', enviarComandasSelecionadas);

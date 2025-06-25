@@ -96,13 +96,13 @@ def payDebt(request):
             except Comanda.DoesNotExist:
                 return JsonResponse({'error': f'Comanda com ID {comanda_id} não encontrada'}, status=404)
         
-        return redirect(f'/clients/viewClient/{comanda.client.id}')
+        # return redirect(f'/clients/viewClient/{comanda.client.id}')
         
-        # return JsonResponse({
-        #     'success': True,
-        #     'message': f'{len(comanda_ids)} comandas processadas',
-        #     'ids': comanda_ids
-        # }, status=200)
+        return JsonResponse({
+            'success': True,
+            'message': f'{len(comanda_ids)} comandas processadas',
+            'ids': comanda_ids
+        }, status=200)
         
     except Exception as e:
         return JsonResponse({
