@@ -171,7 +171,7 @@ input, textarea, select {
     box-shadow: 0px 3px 10px #464646;
     position: fixed;
     top: 0;
-    width: 100%;
+    min-width: 100%;
     z-index: 100;
 }
 
@@ -320,13 +320,13 @@ input, textarea, select {
   display: none;
   justify-content: flex-start;
   align-items: center;
-  background-color: #171525;
+  background-color:rgba(86, 187, 255, 0.192);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   border-radius: 25px;;
   position: fixed;
 
   top: 50%;
-  right: 0%;
+  right: -10px;
 
   width: 55px;
   height: 55px;
