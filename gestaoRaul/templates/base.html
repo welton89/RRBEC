@@ -11,7 +11,6 @@
     <link rel="shortcut icon" href="{% static 'midia/favicon/favicon.ico' %}" />
     {% load pwa %}
     {% progressive_web_app_meta %}
-    <!-- <link rel="stylesheet" href="{% static 'pico.css' %}"> -->
      <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
@@ -30,7 +29,7 @@
                 <h1>
                      <img src="{% static 'midia/logo.png'  %}" width="60">
                 </h1>
-                <!-- <button id="icon-notify" style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" onclick="cookieNotificacao()" >🔊</button> -->
+                <button id="icon-notify" style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" onclick="cookieNotificacao()" >🔊</button>
             </div>
             <div class="nav-list">
                 <ul>
@@ -61,86 +60,61 @@
                 <a href="{% url 'logout' %}" style="width: 50px;"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
             </div>
 
-
-
-
             <div class="mobile-menu-icon">
-                <button onclick="menuShow()"><img class="icon" src="https://raw.githubusercontent.com/Larissakich/menu_responsivo/6e3b09504434628c1b01f65b7d8ccf6ace3225cb/menu%20responsivo/assets/img/menu_white_36dp.svg" alt=""></button>
+                <button onclick="menuShow()">
+                    <img 
+                    class="icon" 
+                    src="https://raw.githubusercontent.com/Larissakich/menu_responsivo/6e3b09504434628c1b01f65b7d8ccf6ace3225cb/menu%20responsivo/assets/img/menu_white_36dp.svg" 
+                    alt="">
+                </button>
             </div>
         </nav>
 
 
-
-
-
         <div class="header-mobile">
-            <div class="logo">
-                <button id="icon-notify" style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" onclick="cookieNotificacao()" >🔊</button>
 
-                <span>RRBEC</span>
-            </div>
             <button class="nav-toggle"><i for="menu-toggle" class="fas fa-bars"></i></button>
 
             <nav id="nav-links" class="nav-links">
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    position: absolute;
+                    top:20px;
+                    ">
+                    <div class="logo">
+                        <button 
+                            id="icon-notify" 
+                            style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" 
+                            onclick="cookieNotificacao()" >🔊
+                        </button>
+                    </div>
+
+                    <div id="user-info">{{user.first_name}} {{user.last_name}}</div>
+                    <a href="{% url 'logout' %}" style="width: 50px;padding: 3px;"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
+
+                </div>
+
                 <div class="nav-component">
                     {% if user|groupUser:"Gerente" %}
                     <a href="{% url 'home' %}" class="nav-link">DashBoard</a>
+                    <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
                     {% endif %}
                     <a href="{% url 'comandas' %}" class="nav-link">Comandas</a>
                     <a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a>
                     <a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a>
-                    <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
                     <a href="{% url 'clients' %}" class="nav-link"> Clientes</a>
-                    {% if user|groupUser:"Gerente" %}
+                    {% if user|groupUser:"Admin" %}
                     <a href="{% url 'admin:index' %}" class="nav-link">Admin</a> 
                     {% endif %}
-                    <!-- <div class="dropdown">
-                        <li class="">Cadastros<img class="img-drop" src="{% static 'midia/icons/down.svg' %}" style="width: 35px;"> </li>
-                            <div class="dropdown-content">
-                                <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
-                                <a href="{% url 'categories' %}" class="nav-link"> Categorias</a>
-                                <a href="{% url 'clients' %}" class="nav-link"> Clientes</a>
-                                <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>                       
-                            </div>
-                        </li>
-                    </div> -->
 
                 </div>
             </nav>
         </div>
-
-        <!-- <div class="mobile-menu">
-            <ul>
-                {% if user|groupUser:"Gerente" %}
-                <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Início</a></li>
-                {% endif %}
-                <li class="nav-item"><a href="{% url 'comandas' %}" class="nav-link">Comandas</a></li>
-                <li class="nav-item"><a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a></li>
-                <li class="nav-item"><a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a></li>
-
-
-                    <div class="dropdown">
-                        <li class="nav-item">Cadastros<img class="img-drop" src="{% static 'midia/icons/down.svg' %}" style="width: 35px;"> </li>
-                            <div class="dropdown-content">
-                            <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
-                            <a href="{% url 'categories' %}" class="nav-link"> Categorias</a>
-                            <a href="{% url 'clients' %}" class="nav-link"> Clientes</a>
-                            <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
-
-
-                            </div>
-                  </div>
-            </ul>
-            <div class="logout-button">
-                {{ user.first_name }} {{ user.last_name }}
-                <a href="{% url 'logout' %}"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
-            </div>
-        </div> -->
-
-
-
+       
     </header>
-    
     
 </div>
 <br>
@@ -158,28 +132,13 @@
 
 
 
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
-<!-- <div class="navigation">
-    <ul>
-        <li><a href="#"><span onclick="openFullscreen()" class="icon"><i class="fas fa-home"></i></span></a></li>
-        <li><a href="#"><span class="icon"><i class="fas fa-user"></i></span></a></li>
-        <li><a href="#"><span class="icon"><i class="fas fa-cog"></i></span></a></li>
-        <li><a href="#"><span class="icon"><i class="fas fa-envelope"></i></span></a></li>
-        <li><a href="#"><span class="icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
-    </ul>
-</div> -->
-
 <footer>
-
-
-
-
 
 
 </footer>
