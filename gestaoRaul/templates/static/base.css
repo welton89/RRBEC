@@ -58,7 +58,7 @@
 
 
 body {
-    margin: 70px 0px 0px 0px;
+    margin-top: 70px;
 }
 
 h1{
@@ -172,6 +172,9 @@ input, textarea, select {
     position: fixed;
     top: 0;
     min-width: 100%;
+    height: 60px;
+    align-items: center;
+    align-content: center;
     z-index: 100;
 }
 
@@ -179,6 +182,7 @@ input, textarea, select {
     display: flex;
     justify-content: space-between;
     padding: 0.1rem 1rem;
+    align-self: center;
     
 }
 
@@ -186,6 +190,7 @@ input, textarea, select {
     display: flex;
     margin-top: 5px;
     align-items: center;
+    height: 60px;
 }
 
 
@@ -217,8 +222,17 @@ input, textarea, select {
     grid-template-columns: repeat(2, 0.5fr);
     border: none;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 0px;
+    height: 60px;
+    width: 180px;
     gap: 10px;}
+
+#user-info {
+width: 120px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
 
 .logout-button button a {
     text-decoration: none;
@@ -412,6 +426,9 @@ input, textarea, select {
 
   .nav-bar {
     display:none;
+  }
+ header .p-header {
+    display: none;
   }
 
   body {

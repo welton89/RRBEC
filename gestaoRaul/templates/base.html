@@ -11,10 +11,7 @@
     <link rel="shortcut icon" href="{% static 'midia/favicon/favicon.ico' %}" />
     {% load pwa %}
     {% progressive_web_app_meta %}
-     <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="{% static 'base.css' %}">
     {% block 'head' %}
     
@@ -22,12 +19,13 @@
     <title>  {% block 'title' %}{% endblock  %} </title>
 </head>
 
-<div>
-    <header class="p-header">
+
+    <header>
+        <div class="p-header">
         <nav class="nav-bar">
             <div class="logo">
                 <h1>
-                     <img src="{% static 'midia/logo.png'  %}" width="60">
+                    <img src="{% static 'midia/logo.png'  %}" width="60">
                 </h1>
                 <button id="icon-notify" style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" onclick="cookieNotificacao()" >🔊</button>
             </div>
@@ -71,54 +69,54 @@
         </nav>
 
 
-        <div class="header-mobile">
+    </div>
+    <div class="header-mobile">
 
-            <button class="nav-toggle"><i for="menu-toggle" class="fas fa-bars"></i></button>
+        <button class="nav-toggle"><i for="menu-toggle" class="fas fa-bars"></i></button>
 
-            <nav id="nav-links" class="nav-links">
-                <div style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    width: 100%;
-                    position: absolute;
-                    top:20px;
-                    ">
-                    <div class="logo">
-                        <button 
-                            id="icon-notify" 
-                            style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" 
-                            onclick="cookieNotificacao()" >🔊
-                        </button>
-                    </div>
-
-                    <div id="user-info">{{user.first_name}} {{user.last_name}}</div>
-                    <a href="{% url 'logout' %}" style="width: 50px;padding: 3px;"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
-
+        <nav id="nav-links" class="nav-links">
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                position: absolute;
+                top:20px;
+                ">
+                <div class="logo">
+                    <button 
+                        id="icon-notify" 
+                        style="border: none; margin-left: 10px; border-radius: 20px; height: 40px;width: 40px; padding: 2px; align-self: center;" 
+                        onclick="cookieNotificacao()" >🔊
+                    </button>
                 </div>
 
-                <div class="nav-component">
-                    {% if user|groupUser:"Gerente" %}
-                    <a href="{% url 'home' %}" class="nav-link">DashBoard</a>
-                    <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
-                    {% endif %}
-                    <a href="{% url 'comandas' %}" class="nav-link">Comandas</a>
-                    <a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a>
-                    <a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a>
-                    <a href="{% url 'clients' %}" class="nav-link"> Clientes</a>
-                    {% if user|groupUser:"Admin" %}
-                    <a href="{% url 'admin:index' %}" class="nav-link">Admin</a> 
-                    {% endif %}
+                <div id="user-info">{{user.first_name}} {{user.last_name}}</div>
+                <a href="{% url 'logout' %}" style="width: 50px;padding: 3px;"><img src="{% static 'midia/icons/logout.svg'  %}" style="width: 40px;"></a>
 
-                </div>
-            </nav>
-        </div>
-       
+            </div>
+
+            <div class="nav-component">
+                {% if user|groupUser:"Gerente" %}
+                <a href="{% url 'home' %}" class="nav-link">DashBoard</a>
+                <a href="{% url 'products' %}" class="nav-link"> Produtos</a>
+                {% endif %}
+                <a href="{% url 'comandas' %}" class="nav-link">Comandas</a>
+                <a href="{% url 'pedidos' %}" class="nav-link">Cozinha</a>
+                <a href="{% url 'mapMesas' %}" class="nav-link">Mapa</a>
+                <a href="{% url 'clients' %}" class="nav-link"> Clientes</a>
+                {% if user|groupUser:"Admin" %}
+                <a href="{% url 'admin:index' %}" class="nav-link">Admin</a> 
+                {% endif %}
+
+            </div>
+        </nav>
+    </div>
     </header>
     
-</div>
+
 <br>
-<body>
+
     {% block 'body' %}
     {% endblock  %}
     <script src="{% static 'htmx_base.js' %}"></script>
@@ -127,7 +125,7 @@
     <div id="toast" class="toast">
         <p id="toast-message"></p>
       </div>
-</body>
+
 
 
 
