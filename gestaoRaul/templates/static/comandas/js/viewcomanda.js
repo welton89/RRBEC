@@ -115,28 +115,20 @@ function imprimirFichas() {
     }
   }
 function printOrder(id) {
-  var item = document.getElementById('id-for-print-'+id).innerText
-  var cliente = document.getElementById('name-comanda').innerText
-  var local = document.getElementById('mesa-comanda').innerText
-  var obs = document.getElementById(id+'-obsOrder').value
-  const agora = new Date();
-  var dateString = agora.getDate() + '/' + (agora.getMonth()+1) + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes();
-  console.log(item)
-  console.log(cliente)
-  console.log(local)
+  var order = document.getElementById(id+'-obsOrder').value
+  order = order.split('|');
     const body = `<style>
                     td, th {
-                                      
                     border-collapse: collapse; 
-                    padding-top: 20px;
-                    margin: 20px;
+                    padding-top: 10px;
+                    margin: 10px;
                     text-align: center;
                     font-size: 20px;}
                     </style>
-                   <tr><td>${item}</td></tr>
-                   <tr><td>${obs}</td></tr>
-                   <tr><td>${cliente}${local}</td></tr>
-                   <tr><td>${dateString}</td></tr>
+                   <tr><td>${order[0]}</td></tr>
+                   <tr><td>${order[1]}</td></tr>
+                   <tr><td>${order[3]} - ${order[4]}</td></tr>
+                   <tr><td>${order[5]}</td></tr>
                     `;
 
           var printWindow = window.open('', '_blank');
@@ -254,11 +246,11 @@ function troco(){
 
 
 function addOrder(){
-  obs = document.getElementById('obs')
-  
+  var obs = document.getElementById('obs')
   id = document.getElementById('id-temp').value
   var obsPrint = document.getElementById(id+'-obsOrder')
-  tooltipObs = document.getElementById('tooltip-id-'+id)
+  var order = obsPrint.value.split('|');
+  var newOrder = '';
 
   fetch(`/comandas/editOrders/${id}/${obs.value}`, {
     method: 'POST',
@@ -270,9 +262,12 @@ function addOrder(){
     .then(data => {
       if(data.status == 'ok'){
         showToast('✅Pedido atualizado com sucesso!😁','success')
-        tooltipObs.dataset.tooltip = data.obs
         obs.value = ''
-        obsPrint.value = data.obs
+        order[1] = data.obs;
+        for(var i = 0; i < order.length; i++){
+          newOrder += order[i] + '|';
+          }
+        obsPrint.value = newOrder;
         document.getElementById('modal-obs').style.display = 'none';
       
     }
@@ -338,3 +333,8 @@ function taxa(){
 }
 
 
+function inforOrders(id){
+  var order = document.getElementById(id+'-obsOrder').value.split('|');
+
+  feedback(order[2], "", order[1]+' - '+order[5]);
+}

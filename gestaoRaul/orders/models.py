@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.utils.formats import date_format
+ 
 from products.models import Product
 from comandas.models import Comanda, ProductComanda
 
@@ -16,4 +17,12 @@ class Order(models.Model):
     canceled = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"Pedido {self.id} - Produto: {self.id_product} - Comanda: {self.id_comanda.name}"
+        status = 'Em espera'
+        if self.preparing:
+            status = 'Preparando'
+        if self.finished:
+            status = 'Pronto'
+        if self.delivered:
+            status = 'Entregue'
+        
+        return f"{self.id_product}| {self.obs}|{status}|{self.id_comanda.name}|{self.id_comanda.mesa.name}|{date_format(self.queue, 'd/m/Y H:i')}"

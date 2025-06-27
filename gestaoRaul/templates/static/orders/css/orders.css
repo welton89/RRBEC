@@ -4,7 +4,14 @@
     color: black;
   }
 
+h2 {
+  font-size: 18px;
+  justify-self: center;
+  margin-bottom: 0px;
+}
+
 .container {
+  margin-top: -50px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 0px;
@@ -89,6 +96,10 @@
 
     padding: 0px;
 
+  }
+
+  #title {
+    display:none;
   }
 
 }

@@ -177,13 +177,15 @@ function openFullscreen() {
   }
 
 
-  function feedback(message, status, subMessage) {
+  function feedback(message, icon, subMessage) {
+    console.log(subMessage)
     var feedbackMsg = Swal.fire({
-            title: message,
-            text: subMessage || '',
-            icon: status,
-            background: 'rgba(8, 9, 10, 0.75)',
-            confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
-                });
+        color: 'white',
+        title: message,
+        text: subMessage || '',
+        icon: icon || 'info',
+        background: 'rgb(23, 38, 54)',
+        confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+            });
 return feedbackMsg;
 }

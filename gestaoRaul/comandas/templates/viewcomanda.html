@@ -94,23 +94,24 @@ Detalhes {{comanda.name}}
 
     <tr>
       <td id="id-for-print-{{item.id}}">
-        {{item.product.name}}
+         <spam style="cursor: pointer;" onclick="inforOrders({{item.id}})">
+        {{item.product.name}}</spam>
         {% if item.product.cuisine == True %}
         <input hidden id="{{item.id}}-obsOrder" type="order" value="{{item.id | obsOrder}}">
-        <span id="tooltip-id-{{item.id}}" data-tooltip="{{item.id | obsOrder}}" data-flow="top">
+       
 
           <img
-          onclick="openModalObs({{item.id}})"
-          src="{% static 'midia/icons/note.svg' %}"
-          style="width: 25px; height: 35px; cursor: pointer;">
-        </img>
-      </span>
+            onclick="openModalObs({{item.id}})"
+            src="{% static 'midia/icons/note.svg' %}"
+            style="width: 25px; height: 35px; cursor: pointer;">
+          </img>
+       
 
-      <img
-      onclick="printOrder({{item.id}})"
-      src="{% static 'midia/icons/print.svg' %}"
-      style="width: 35px; height: 35px; cursor: pointer;">
-    </img>
+        <img
+          onclick="printOrder({{item.id}})"
+          src="{% static 'midia/icons/print.svg' %}"
+          style="width: 35px; height: 35px; cursor: pointer;">
+        </img>
         {% endif %}
 
       </td>
@@ -129,7 +130,7 @@ Detalhes {{comanda.name}}
       </img>
       </td>
         {% endif %}
-      </tr>
+    </tr>
         {% endfor %}
         {% if config.taxa %}
         <tr>
@@ -155,7 +156,7 @@ Detalhes {{comanda.name}}
 
 
 
-    <tfoot>
+      <tfoot>
       <tr>
         {% if config.taxa %}
         <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>

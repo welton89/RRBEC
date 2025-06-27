@@ -411,7 +411,7 @@ white-space: nowrap;
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1028px) {
   .toast-add {
     width: 90%;
   }

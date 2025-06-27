@@ -11,17 +11,16 @@
 
 <tr>
   <td id="id-for-print-{{item.id}}">
-  {{item.product.name}}
+    <spam style="cursor: pointer;" onclick="inforOrders({{item.id}})">
+  {{item.product.name}}</spam>
   {% if item.product.cuisine == True %}
   <input hidden id="{{item.id}}-obsOrder" type="order" value="{{item.id | obsOrder}}">
-  <span id="tooltip-id-{{item.id}}" data-tooltip="{{item.id | obsOrder}}" data-flow="top">
 
     <img
     onclick="openModalObs({{item.id}})"
     src="{% static 'midia/icons/note.svg' %}"
     style="width: 25px; height: 35px; cursor: pointer;">
   </img>
-</span>
 
 <img
 onclick="printOrder({{item.id}})"
