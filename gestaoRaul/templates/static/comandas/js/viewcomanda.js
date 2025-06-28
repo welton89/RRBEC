@@ -186,16 +186,29 @@ function imprimirConta() {
 
 
 function closeConta(id){
-
-  const resultadoConfirmacao = confirm("Encerrar comanda?");
   const buttonAdd = document.getElementById('openModal')
   const buttonClose = document.getElementById('closeComanda')
   const buttonreOpenComanda = document.getElementById('reOpenComanda')
   const buttonPrintComanda = document.getElementById('printComanda')
   const buttonPayment = document.getElementById('pagarComanda')
-  if (resultadoConfirmacao){
 
-  fetch(`/comandas/closeComanda/${id}/`, {
+
+  Swal.fire({
+  title: "Encerrar essa comanda?",
+  text: "Depois de encerrar somente o gerente pode reabrir.",
+  icon: "warning",
+  showCancelButton: true,
+  background: 'rgb(23, 38, 54)',
+  color: 'white',
+  confirmButtonColor:  'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+  cancelButtonColor: "rgb(253, 69, 69)",
+  confirmButtonText: "Encerrar",
+  cancelButtonText: "Cancelar",
+}).then((result) => {
+  if (result.isConfirmed) {
+
+
+      fetch(`/comandas/closeComanda/${id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -209,15 +222,22 @@ function closeConta(id){
         buttonAdd.style.display = 'none'
         buttonreOpenComanda.style.display = 'flex'
         buttonPayment.style.display = 'flex'
-        showToast('✅Comanda encerrada!😁','success')
         imprimirConta()
     }
   })
   .catch(error => {
-    showToast('❌Ocorreu um erro!😢','error')
+        Swal.fire({
+          color: 'white',
+      title: "Algo deu errado!😢",
+      confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+      background: 'rgb(23, 38, 54)',
+      text: "Erro: " + error.message,
+      icon: "error",
+    });
   });
-}
 
+  }
+});
 }
 
 
