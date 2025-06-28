@@ -182,6 +182,8 @@ function openFullscreen() {
     var feedbackMsg = Swal.fire({
         color: 'white',
         title: message,
+        // toast: true,
+        // position: 'top',
         text: subMessage || '',
         icon: icon || 'info',
         background: 'rgb(23, 38, 54)',

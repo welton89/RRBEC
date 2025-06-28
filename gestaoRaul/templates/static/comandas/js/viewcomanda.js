@@ -6,7 +6,7 @@ function openModal() {
 if (textField) {
   setTimeout(() => {
     textField.focus();
-  }, 500); // 50ms de delay (ajuste conforme necessário)
+  }, 500);
 }
   textField.value = '';
 }
@@ -22,9 +22,6 @@ function openModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'block';
     var name = document.getElementById('name-comanda').innerText.replace('Nome: ','').replace(' | ', '')
     var mesa = document.getElementById('h-mesaId').value
-    console.log(name)
-    console.log(mesa)
-
     var fildName =  document.getElementById('nameComanda')
     fildName.value = name
     var fildMesa =  document.getElementById('select-mesa')
@@ -34,12 +31,56 @@ function openModalAlter() {
 function closeModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'none';
 }
-function openModalObs(id) {
-    document.getElementById('modal-obs').style.display = 'block';
-    idd = document.getElementById('id-temp').value = id;
-    obs = document.getElementById('obs').value;
-    textField = document.getElementById('obs')
-    textField.focus()
+async function openModalObs(id) {
+  var obsPrint = document.getElementById(id+'-obsOrder')
+  var order = obsPrint.value.split('|');
+  const inputOptions = new Promise((resolve) => {
+ 
+    resolve({
+      "Para viagem": "Para Viagem",
+      "Meia Porção": "Meia Porção",
+      "Com Leite": "Com Leite",
+      "Sem Cebola": "Sem Cebola",
+      "Com Ovo": "Com Ovo",
+    });
+ 
+});
+
+const { value: obs } = await Swal.fire({
+  title: "Observações rápidas",
+  input: "radio",
+  color: 'white',
+  confirmButtonText: "Enviar ou Digitar Outra",
+  showCancelButton: true,
+  cancelButtonText: "Cancelar",
+  inputOptions,
+  theme: "dark",
+  inputValidator: async (value) => {
+
+    if (!value) {
+        const { value: text } = await Swal.fire({
+        input: "textarea",
+        title: "Observação do Pedido",
+        inputValue:order[1],
+        theme: "dark",
+        background: 'rgb(23, 38, 54)',
+        confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+        color: 'white',
+        showCancelButton: true,
+        inputAttributes: {
+          "aria-label": "Type your message here"
+        }});
+        
+        if (text) {
+          addOrder(id, text)
+          }
+    }
+  }
+});
+if (obs) {
+  addOrder(id, obs)
+}
+
 
 }
 
@@ -66,19 +107,13 @@ function close_modal_conta_client() {
     document.getElementById('conta-cliente').style.display = 'none';
 }
 
-
 function close_modal_payment_parcial() {
     document.getElementById('payment-parcial').style.display = 'none';
 }
+
 function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
 }
-
-function closeModalObs() {
-    document.getElementById('modal-obs').style.display = 'none';
-}
-
-
 
 function imprimirFichas() {
     const element = document.getElementById("list-products-comanda");
@@ -139,7 +174,6 @@ function printOrder(id) {
               printWindow.close();
 
   }
-
 
 function imprimirConta() {
   reloadPage();
@@ -265,14 +299,12 @@ function troco(){
 }
 
 
-function addOrder(){
-  var obs = document.getElementById('obs')
-  id = document.getElementById('id-temp').value
+function addOrder(id, obs){
   var obsPrint = document.getElementById(id+'-obsOrder')
   var order = obsPrint.value.split('|');
   var newOrder = '';
 
-  fetch(`/comandas/editOrders/${id}/${obs.value}`, {
+  fetch(`/comandas/editOrders/${id}/${obs}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -281,22 +313,18 @@ function addOrder(){
     .then(response => response.json())
     .then(data => {
       if(data.status == 'ok'){
-        showToast('✅Pedido atualizado com sucesso!😁','success')
-        obs.value = ''
         order[1] = data.obs;
         for(var i = 0; i < order.length; i++){
           newOrder += order[i] + '|';
           }
         obsPrint.value = newOrder;
-        document.getElementById('modal-obs').style.display = 'none';
-      
+        feedback('Obsevação alterada com sucesso!😁','success');
     }
   })
   .catch(error => {
     console.log(error)
-    showToast('❌Ocorreu um erro!😢','error')
+    feedback('❌Ocorreu um erro!😢','error','Erro: ' + error.message);
   });
-
 }
 
 
