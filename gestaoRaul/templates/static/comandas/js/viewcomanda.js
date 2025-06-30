@@ -1,22 +1,51 @@
 
 
+async function openModal() {
+  var htmlModal = document.getElementById('addProduct').innerHTML
+  htmlModal = htmlModal.replace('search-product','search-product-modal')
+  htmlModal = htmlModal.replace('product-list','product-list-modal')
 
-function openModal() {
-  textField = document.getElementById('search-product')
-if (textField) {
+const { value: formValues } = await Swal.fire({
+  title: "Adicionar Produto",
+  html: htmlModal,
+  width: '100em',
+  theme: "dark",
+    didOpen: () => {
+    Swal.getPopup().classList.add('swal2-noautoclose');
+  },
+  showConfirmButton: false,
+  showCancelButton: true,
+  cancelButtonText: '&times;',
+  customClass:{
+    cancelButton:'posi'
+  },
+  focusConfirm: false,
+});
+
+
+
+}
+
+function searchProduct() {
   setTimeout(() => {
-    textField.focus();
-  }, 500);
-}
-  textField.value = '';
-}
+    time();
+  }, 100);
+  function time(){
+  var search_product = document.getElementById('search-product-modal').value.trim()
+  var productListElement = document.getElementById("product-list-modal");
+    var comanda_id = document.getElementById("id-comanda").value;
 
-
-function closeModal() {
-   var popover = document.getElementById('addProduct');
-   popover.hidePopover()
+  if(search_product.length == 0 ){search_product ='*';}
+  fetch(`/comandas/listProduct/${comanda_id}/${search_product}`, {
+    method: 'GET',}
+  ).then(function(response) {
+    return response.text();
+  }).then(function(text) {
+    productListElement.innerHTML = text;
+  
+    
+  })}
 }
-
 
 function openModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'block';
@@ -328,43 +357,80 @@ function addOrder(id, obs){
 }
 
 
-function showToastAdd(message, type ,duration = 3000) {
-  const toast = document.getElementById('toast-add');
 
-  if (type === 'success') {
-    toast.style.backgroundColor = '#28a745';
-  } else if (type === 'error') {
-    toast.style.backgroundColor = '#dc3545';
-  } else if (type === 'info') {
-    toast.style.backgroundColor = '#ffc107';
+async function addProductComanda(productId, comandaId, cuisine) {
+  try {
+    if (!productId || !comandaId) {
+      throw new Error('IDs de produto ou comanda inválidos');
+    }
+
+    const csrfToken =  document.querySelector('[name="csrfmiddlewaretoken"]').value
+    if (!csrfToken) {
+      throw new Error('Token de segurança não encontrado');
+    }
+
+    // if (cuisine === 'ggg') {
+    //   openModalObs();
+    //   return;
+    // }
+
+    // Mostra estado de carregamento
+    Swal.update({
+      title: '<span style="color: white;">Adicionando produto...</span>',
+    });
+
+    // Requisição POST
+    const response = await fetch(`/comandas/product=${productId}/comanda=${comandaId}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({
+        product_id: productId,
+        comanda_id: comandaId
+      })
+    });
+
+    // Trata resposta
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+    }
+
+    const result = await response.text();
+
+    // Atualiza a lista de produtos
+    const listElement = document.getElementById("list-products-comanda");
+    if (listElement) {
+      listElement.innerHTML = result;
+    }
+
+    // Feedback de sucesso
+    Swal.update({
+      title: '<span style="color: green;">Produto adicionado! 😁</span>',
+    });
+
+    // Reseta após 2.5 segundos
+    setTimeout(() => {
+      Swal.update({
+        title: '<span style="color: white;">Adicionar Produto</span>'
+      });
+    }, 2500);
+
+  } catch (error) {
+    console.error('Erro:', error);
+    
+    // Feedback de erro
+    Swal.update({
+      title: '<span style="color: red;">Falha ao adicionar!</span>',
+      html: `<div style="color: white; margin-top: 10px;">
+              ${error.message || 'Erro desconhecido'}
+            </div>`,
+      icon: 'error',
+
+    });
   }
-  const toastMessage = document.getElementById('toast-message-add');
-  toastMessage.textContent = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, duration);
-}
-function addProductComanda(productId,comandaId, cuisine) {
-  obs = document.getElementById('obs');
-  if(cuisine == 'ggg'){
-    var obs = openModalObs();
-  }else{
-  fetch(`/comandas/addProduct${productId}/${comandaId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'}
-    })
-  .then(function(response) {
-    return response.text();
-  }).then(function(text) {
-    var listProductsBalcaoElement = document.getElementById("list-products-comanda");
-    listProductsBalcaoElement.innerHTML = text;
-  })
-  showToastAdd('Produto adicionado com sucesso!😁','success');
-  }
-
 }
 
 function taxa(){

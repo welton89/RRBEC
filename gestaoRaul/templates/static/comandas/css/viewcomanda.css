@@ -53,6 +53,7 @@
   }
 
   .popover{
+    display: none;
     position: relative;
     width: 98%;
     height: 96%;

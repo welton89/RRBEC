@@ -178,7 +178,6 @@ function openFullscreen() {
 
 
   function feedback(message, icon, subMessage) {
-    console.log(subMessage)
     var feedbackMsg = Swal.fire({
         color: 'white',
         title: message,
@@ -189,5 +188,6 @@ function openFullscreen() {
         background: 'rgb(23, 38, 54)',
         confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
             });
-return feedbackMsg;
+
+
 }
