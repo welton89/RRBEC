@@ -103,7 +103,7 @@ Detalhes {{comanda.name}}
 
     {%  for item in consumo%}
 
-    <tr>
+    <tr id="item-{{item.id}}">
       <td id="id-for-print-{{item.id}}">
          <spam style="cursor: pointer;" onclick="inforOrders({{item.id}})">
         {{item.product.name}}</spam>
@@ -131,13 +131,12 @@ Detalhes {{comanda.name}}
       {%  if comanda.status != 'OPEN'%}
       {% else %}
       <td>
+        
         <img
+        
         src="{% static 'midia/icons/delete.svg' %}"
         style="width: 35px; height: 35px; cursor: pointer;"
-        hx-get="{% url 'removeProductComanda' item.id  %} " 
-        hx-trigger="click" 
-        hx-target="#list-products-comanda" 
-        hx-confirm="Tem certeza que deseja excluir o produto {{item.product.name}}?" >
+         >
       </img>
       </td>
         {% endif %}
@@ -180,30 +179,21 @@ Detalhes {{comanda.name}}
 <button class="btn-secondary" onclick="modal_payment_parcial()">Pagamento Parcial</button>
   </div>
 
-  
-
       
-      
-      <div id="addProduct"  class="popover">
-        <!-- <div id="productForm" > -->
+      <div hidden id="addProduct" >
           {% csrf_token %}
-
           <input type="text" oninput="searchProduct()" id="search-product" name="search-product" placeholder="Buscar Produto" ><br>
           <div id="product-list" class="grid-list-products">
-            
             {% for product in products %}
-
                 <div class="card-product" onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
                   {{product.name}} <br>
                   R$ {{product.price}}
                 </div >
                 {% endfor %}
               </div>
-            <!-- </div> -->
           </div>
           
 
-      
 <dialog id="payment-comanda" style="display: none;" >
   <article>
     <form action="{% url 'paymentComanda' comanda.id %}" method="post">

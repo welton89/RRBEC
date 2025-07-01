@@ -9,6 +9,7 @@ const { value: formValues } = await Swal.fire({
   title: "Adicionar Produto",
   html: htmlModal,
   width: '100em',
+  position:"top",
   theme: "dark",
     didOpen: () => {
     Swal.getPopup().classList.add('swal2-noautoclose');
@@ -452,3 +453,61 @@ function inforOrders(id){
 
   feedback(order[2], "", order[1]+' - '+order[5]);
 }
+
+
+
+async function removeProductComanda(itemId, productName) {
+  var table = document.getElementById('list-products-comanda');
+
+  Swal.fire({
+    theme: "dark",
+    title: `Remover ${productName} da comanda?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sim, remover!",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+  if (result.isConfirmed) {
+
+    const csrfToken =  document.querySelector('[name="csrfmiddlewaretoken"]').value
+    if (!csrfToken) {
+      throw new Error('Token de segurança não encontrado');
+    }
+
+     const response = await fetch(`/comandas/removeProductComanda/${itemId}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+     
+    });
+
+     if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      Swal.fire({
+        theme:"dark",
+        title: "😬 Ops!",
+        text: errorData.message || `Erro HTTP: ${response.status}`,
+        icon: "error"
+      });
+      throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+    }
+
+    
+    const result = await response.text();
+    table.innerHTML = result;
+
+    Swal.fire({
+      theme:"dark",
+      title: "Feito!",
+      text: productName+" foi removido da comanda",
+      icon: "success"
+    });
+  }
+});
+}
+
+

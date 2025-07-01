@@ -22,7 +22,7 @@ urlpatterns = [
 
 
 htmx_urlpatterns = [
-    path('removeProductComanda<int:productComanda_id>/', htmx_views.removeProductComanda, name='removeProductComanda'),
+    path('removeProductComanda/<int:productComanda_id>/', htmx_views.removeProductComanda, name='removeProductComanda'),
     path('reopenComanda<int:comanda_id>/', htmx_views.reopenComanda, name='reopenComanda'),
     path('paymentComanda<int:comanda_id>/', htmx_views.paymentComanda, name='paymentComanda'),
     path('paymentParcial<int:comanda_id>/', htmx_views.paymentParcial, name='paymentParcial'),

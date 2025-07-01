@@ -53,12 +53,22 @@ def removeProductComanda(request, productComanda_id):
                     'id':order.id,
                     'speak': f'Pedido cancelado!  {order.id_product.name}.'
                     }) 
-            asyncio.run(enviar_mensagem(msg))
+            # asyncio.run(enviar_mensagem(msg))
             # order.delete()
+            consumo = ProductComanda.objects.filter(comanda=comanda)
+            valores = somar(consumo,comanda)
         else:
             product_comanda.delete()
+            consumo = ProductComanda.objects.filter(comanda=comanda)
+            valores = somar(consumo,comanda)
 
-        return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
+        return render(request,
+            "htmx_components/comandas/htmx_list_products_in_comanda.html",
+            {'config':config,
+            'valores': valores,
+            'parcials':parcial,
+            'consumo': consumo, 
+            'comanda':comanda})
     else:
         pass
 
