@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'gestaoRaul.wsgi.application'
 #}
 
 
- DATABASES = {
+DATABASES = {
      'default': {
          'ENGINE': DB_ENGINE,
          'NAME': DB_NAME,
