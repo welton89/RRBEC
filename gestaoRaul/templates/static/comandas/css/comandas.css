@@ -41,6 +41,7 @@ p {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    min-width: 100%;
   }
 
   .card-comanda {

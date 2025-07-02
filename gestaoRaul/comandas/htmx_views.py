@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from comandas.models import Comanda, ProductComanda
 from orders.models import Order
 from products.models import Product
-from payments.models import Payments
+from payments.models import Payments, somar
 from typePay.models import TypePay
 from gestaoRaul.decorators import group_required
 from websocket_client.websocketClient import enviar_mensagem
@@ -28,80 +28,6 @@ from asgiref.sync import async_to_sync
 #     except Exception as e:
 #         print(f"Erro ao enviar mensagem via websocket: {e}")
 
-
-def somar(consumo:ProductComanda, comanda:Comanda):
-    parcial = Payments.objects.filter(comanda=comanda)
-    totalParcial = Decimal(0)
-    total:Decimal = Decimal(0)
-    for p in parcial:
-        totalParcial += p.value
-    for produto in consumo:
-        total += Decimal(produto.product.price)
-    valores = {
-        'total':total,
-        'parcial':totalParcial,
-        'taxa': round(total * Decimal(0.1), 2),
-        'totalSemTaxa':total - totalParcial,
-        'totalComTaxa': round((total - totalParcial)+(total * Decimal(0.1)),2)
-    }
-    return valores
-
-def listProduct(request, comanda_id):
-    product = request.GET.get("search-product")
-    allProducts = Product.objects.filter(name__icontains=product)
-    products = []
-    for p in allProducts:
-        if p.active == True:
-            products.append(p)
-    return render(request, "htmx_components/comandas/htmx_list_products.html", {"products": products,'comanda_id':comanda_id})
-
-@group_required(groupName='Garçom')
-def addProduct(request, product_id, comanda_id):
-    config = {
-        'taxa': False
-        }
-    obs = request.GET.get("obs")
-    product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
-    product_comanda.save()
-    product = Product.objects.get(id=product_id)
-    comanda = Comanda.objects.get(id=comanda_id)
-    parcial = Payments.objects.filter(comanda=comanda)
-    if product.cuisine == True:
-        order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
-        order.save()
-        msg = JsonResponse({
-            'type': 'broadcast',
-              'message': f"""
-                                <div class="m-card" id="m-card-{order.id}">
-                                <h4>{product.name}</h4>
-                                <h4 id="obs-{order.id}"> {order.obs}</h4>
-                                <h4>{comanda.name} - {comanda.mesa.name}</h4>
-                                <h4> {order.queue.strftime("%d/%m/%Y - %H:%M")}</h4>
-                                <h4> Atendente: {comanda.user.first_name}</h4>
-                                <form method="path" action="/pedidos/preparing/{order.id}/">
-                                <button class="btn-primary" type="submit">Preparar</button>
-                                </form>
-                                </div>
-                                """, 
-              'local':'cozinha',
-                'tipo':'add',
-                  'id':order.id,
-                  'speak': f'Novo pedido!  {product.name}, para {comanda.name}.'
-                  }) 
-        try:
-        # Chama a função async dentro da view normal
-            async_to_sync(enviar_mensagem)(mensagem)
-
-            # return JsonResponse({"status": "Mensagem enviada com sucesso"})
-
-        except Exception as e:
-            print("Erro add product websocket: ",e)
-            # return JsonResponse({"status": "Erro", "erro": str(e)}, status=500)
-        # asyncio.run(enviar_mensagem(msg))
-    consumo = ProductComanda.objects.filter(comanda=comanda_id)
-    valores = somar(consumo,comanda)
-    
-    return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores':valores,'parcials':parcial,'consumo': consumo,'comanda':comanda})
 
 
 
@@ -127,12 +53,22 @@ def removeProductComanda(request, productComanda_id):
                     'id':order.id,
                     'speak': f'Pedido cancelado!  {order.id_product.name}.'
                     }) 
-            asyncio.run(enviar_mensagem(msg))
+            # asyncio.run(enviar_mensagem(msg))
             # order.delete()
+            consumo = ProductComanda.objects.filter(comanda=comanda)
+            valores = somar(consumo,comanda)
         else:
             product_comanda.delete()
+            consumo = ProductComanda.objects.filter(comanda=comanda)
+            valores = somar(consumo,comanda)
 
-        return render(request, "htmx_components/comandas/htmx_list_products_in_comanda.html",{'config':config, 'valores': valores,'parcials':parcial,'consumo': consumo, 'comanda':comanda})
+        return render(request,
+            "htmx_components/comandas/htmx_list_products_in_comanda.html",
+            {'config':config,
+            'valores': valores,
+            'parcials':parcial,
+            'consumo': consumo, 
+            'comanda':comanda})
     else:
         pass
 

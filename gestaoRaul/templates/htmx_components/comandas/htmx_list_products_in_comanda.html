@@ -2,86 +2,83 @@
 {% load custom_filter_tag %}
 
 
-<tr>
-  <th style="text-align: left;"><b>Produto</b></th>
-  <th style="text-align: left;"><b>Preço</b></th>
-</tr>
+ <tr>
+        <th style="text-align: left;"><b>Produto</b></th>
+        <th style="text-align: left;"><b>Preço</b></th>
+      </tr>
 
-{%  for item in consumo%}
+    {%  for item in consumo%}
 
-<tr>
-  <td id="id-for-print-{{item.id}}">
-  {{item.product.name}}
-  {% if item.product.cuisine == True %}
-  <input hidden id="{{item.id}}-obsOrder" type="order" value="{{item.id | obsOrder}}">
-  <span id="tooltip-id-{{item.id}}" data-tooltip="{{item.id | obsOrder}}" data-flow="top">
+    <tr id="item-{{item.id}}">
+      <td id="id-for-print-{{item.id}}">
+         <spam style="cursor: pointer;" onclick="inforOrders({{item.id}})">
+        {{item.product.name}}</spam>
+        {% if item.product.cuisine == True %}
+        <input hidden id="{{item.id}}-obsOrder" type="order" value="{{item.id | obsOrder}}">
+       
 
-    <img
-    onclick="openModalObs({{item.id}})"
-    src="{% static 'midia/icons/note.svg' %}"
-    style="width: 25px; height: 35px; cursor: pointer;">
-  </img>
-</span>
+          <img
+            onclick="openModalObs({{item.id}})"
+            src="{% static 'midia/icons/note.svg' %}"
+            style="width: 25px; height: 35px; cursor: pointer;">
+          </img>
+       
 
-<img
-onclick="printOrder({{item.id}})"
-src="{% static 'midia/icons/print.svg' %}"
-style="width: 35px; height: 35px; cursor: pointer;">
-</img>
-  {% endif %}
+        <img
+          onclick="printOrder({{item.id}})"
+          src="{% static 'midia/icons/print.svg' %}"
+          style="width: 35px; height: 35px; cursor: pointer;">
+        </img>
+        {% endif %}
 
-</td>
-<td>R$ {{item.product.price}}</td>
+      </td>
+      <td>R$ {{item.product.price}}</td>
 
+      {%  if comanda.status != 'OPEN'%}
+      {% else %}
+      <td>
+        
+        <img
+        onclick="removeProductComanda({{item.id}}, '{{item.product.name}}')"
+        src="{% static 'midia/icons/delete.svg' %}"
+        style="width: 35px; height: 35px; cursor: pointer;"
+         >
+      </img>
+      </td>
+        {% endif %}
+    </tr>
+        {% endfor %}
+        {% if config.taxa %}
+        <tr>
+          <td>
+            Taxa de serviço 10%
+          </td>
+          <td>
+            R$ {{valores.taxa}}
+          </td>
+        </tr>
+        {% endif %}
 
-
-
-{%  if comanda.status != 'OPEN'%}
-{% else %}
-<td>
-  <img
-  src="{% static 'midia/icons/delete.svg' %}"
-  style="width: 35px; height: 35px; cursor: pointer;"
-  hx-get="{% url 'removeProductComanda' item.id  %} " 
-  hx-trigger="click" 
-  hx-target="#list-products-comanda" 
-  hx-confirm="Tem certeza que deseja excluir o produto {{item.product.name}}?" >
-</img>
-</td>
-  {% endif %}
-</tr>
-  {% endfor %}
-  {% if config.taxa %}
-  <tr>
-    <td>
-      Taxa de serviço 10%
-    </td>
-    <td>
-      R$ {{valores.taxa}}
-    </td>
-  </tr>
-  {% endif %}
-  
-  {% if parcials%}
-  <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
-  {% endif %}
-  {% for parcial in parcials %}
-  <tr>
-    <td>{{parcial.description}} ás {{parcial.datetime|date:"H:i"}}</td>
-    <td>R$ -{{parcial.value}}</td>
-  </tr>
-  {% endfor %}
+        {% if parcials%}
+        <td colspan="2" style="text-align: center;"><b>Pagamentos parciais</b></td>
+        {% endif %}
+        {% for parcial in parcials %}
+        <tr>
+          <td>{{parcial.description}} ás {{parcial.datetime|date:"H:i"}}</td>
+          <td>R$ -{{parcial.value}}</td>
+        </tr>
+        {% endfor %}
 
 
 
 
-<tfoot>
-  <tr>
-    {% if config.taxa %}
-    <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
-    {% else %}
-    <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalSemTaxa}}</b></td>
-    {% endif %}
-  </tr>
-</tfoot>
+      <tfoot>
+      <tr>
+        {% if config.taxa %}
+        <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalComTaxa}}</b></td>
+        {% else %}
+        <td colspan="2" style="text-align: center;"><b>Total R$ {{valores.totalSemTaxa}}</b></td>
+        {% endif %}
+      </tr>
+    </tfoot>
 

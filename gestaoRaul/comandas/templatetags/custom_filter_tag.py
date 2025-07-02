@@ -62,7 +62,7 @@ def obsOrder(id):
     try:
         productComanda_obj = ProductComanda.objects.get(pk=id)    
         order = Order.objects.get(productComanda=productComanda_obj)
-        return order.obs
+        return order
     except:
         return ''
     

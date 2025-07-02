@@ -13,6 +13,8 @@ urlpatterns = [
     path('notificacao/', views.notificacao, name='notificacao'),
     path('editOrders/<int:productComanda_id>/<str:obs>', views.editOrders, name='editOrders'),
     path('closeComanda/<int:comanda_id>/', views.closeComanda, name='closeComanda'),
+    path('listProduct/<int:comanda_id>/<str:product>/', views.listProduct, name='listProduct'),
+    path('product=<int:product_id>/comanda=<int:comanda_id>/', views.addProduct, name='addProduct'),
 
 
 
@@ -20,10 +22,7 @@ urlpatterns = [
 
 
 htmx_urlpatterns = [
-    # path('listProduct/', htmx_views.listProduct, name='listProduct'),
-    path('listProduct/<int:comanda_id>/', htmx_views.listProduct, name='listProduct'),
-    path('addProduct<int:product_id>/<int:comanda_id>/', htmx_views.addProduct, name='addProduct'),
-    path('removeProductComanda<int:productComanda_id>/', htmx_views.removeProductComanda, name='removeProductComanda'),
+    path('removeProductComanda/<int:productComanda_id>/', htmx_views.removeProductComanda, name='removeProductComanda'),
     path('reopenComanda<int:comanda_id>/', htmx_views.reopenComanda, name='reopenComanda'),
     path('paymentComanda<int:comanda_id>/', htmx_views.paymentComanda, name='paymentComanda'),
     path('paymentParcial<int:comanda_id>/', htmx_views.paymentParcial, name='paymentParcial'),

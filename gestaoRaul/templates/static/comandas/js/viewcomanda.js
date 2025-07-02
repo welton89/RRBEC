@@ -1,30 +1,52 @@
 
+async function openModal() {
+  var htmlModal = document.getElementById('addProduct').innerHTML
+  htmlModal = htmlModal.replace('search-product','search-product-modal')
+  htmlModal = htmlModal.replace('product-list','product-list-modal')
+
+Swal.fire({
+  title: "Adicionar Produto",
+  html: htmlModal,
+  position:"top",
+  theme: "dark",
+  
+  showConfirmButton: false,
+  showCancelButton: true,
+  cancelButtonText: '&times;',
+  customClass:{
+    cancelButton:'posi'
+  },
+});
 
 
-function openModal() {
-  textField = document.getElementById('search-product')
-if (textField) {
+
+}
+
+function searchProduct() {
   setTimeout(() => {
-    textField.focus();
-  }, 500); // 50ms de delay (ajuste conforme necessário)
-}
-  textField.value = '';
-}
+    time();
+  }, 100);
+  function time(){
+  var search_product = document.getElementById('search-product-modal').value.trim()
+  var productListElement = document.getElementById("product-list-modal");
+    var comanda_id = document.getElementById("id-comanda").value;
 
-
-function closeModal() {
-   var popover = document.getElementById('addProduct');
-   popover.hidePopover()
+  if(search_product.length == 0 ){search_product ='*';}
+  fetch(`/comandas/listProduct/${comanda_id}/${search_product}`, {
+    method: 'GET',}
+  ).then(function(response) {
+    return response.text();
+  }).then(function(text) {
+    productListElement.innerHTML = text;
+  
+    
+  })}
 }
-
 
 function openModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'block';
     var name = document.getElementById('name-comanda').innerText.replace('Nome: ','').replace(' | ', '')
     var mesa = document.getElementById('h-mesaId').value
-    console.log(name)
-    console.log(mesa)
-
     var fildName =  document.getElementById('nameComanda')
     fildName.value = name
     var fildMesa =  document.getElementById('select-mesa')
@@ -34,12 +56,56 @@ function openModalAlter() {
 function closeModalAlter() {
     document.getElementById('Modal-alter-comanda').style.display = 'none';
 }
-function openModalObs(id) {
-    document.getElementById('modal-obs').style.display = 'block';
-    idd = document.getElementById('id-temp').value = id;
-    obs = document.getElementById('obs').value;
-    textField = document.getElementById('obs')
-    textField.focus()
+async function openModalObs(id) {
+  var obsPrint = document.getElementById(id+'-obsOrder')
+  var order = obsPrint.value.split('|');
+  const inputOptions = new Promise((resolve) => {
+ 
+    resolve({
+      "Para viagem": "Para Viagem",
+      "Meia Porção": "Meia Porção",
+      "Com Leite": "Com Leite",
+      "Sem Cebola": "Sem Cebola",
+      "Com Ovo": "Com Ovo",
+    });
+ 
+});
+
+const { value: obs } = await Swal.fire({
+  title: "Observações rápidas",
+  input: "radio",
+  color: 'white',
+  confirmButtonText: "Enviar ou Digitar Outra",
+  showCancelButton: true,
+  cancelButtonText: "Cancelar",
+  inputOptions,
+  theme: "dark",
+  inputValidator: async (value) => {
+
+    if (!value) {
+        const { value: text } = await Swal.fire({
+        input: "textarea",
+        title: "Observação do Pedido",
+        inputValue:order[1],
+        theme: "dark",
+        background: 'rgb(23, 38, 54)',
+        confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+        color: 'white',
+        showCancelButton: true,
+        inputAttributes: {
+          "aria-label": "Type your message here"
+        }});
+        
+        if (text) {
+          addOrder(id, text)
+          }
+    }
+  }
+});
+if (obs) {
+  addOrder(id, obs)
+}
+
 
 }
 
@@ -66,19 +132,13 @@ function close_modal_conta_client() {
     document.getElementById('conta-cliente').style.display = 'none';
 }
 
-
 function close_modal_payment_parcial() {
     document.getElementById('payment-parcial').style.display = 'none';
 }
+
 function close_modal_payment_comanda() {
     document.getElementById('payment-comanda').style.display = 'none';
 }
-
-function closeModalObs() {
-    document.getElementById('modal-obs').style.display = 'none';
-}
-
-
 
 function imprimirFichas() {
     const element = document.getElementById("list-products-comanda");
@@ -115,28 +175,20 @@ function imprimirFichas() {
     }
   }
 function printOrder(id) {
-  var item = document.getElementById('id-for-print-'+id).innerText
-  var cliente = document.getElementById('name-comanda').innerText
-  var local = document.getElementById('mesa-comanda').innerText
-  var obs = document.getElementById(id+'-obsOrder').value
-  const agora = new Date();
-  var dateString = agora.getDate() + '/' + (agora.getMonth()+1) + '/' + agora.getFullYear() + ' - ' + agora.getHours() + ':' + agora.getMinutes();
-  console.log(item)
-  console.log(cliente)
-  console.log(local)
+  var order = document.getElementById(id+'-obsOrder').value
+  order = order.split('|');
     const body = `<style>
                     td, th {
-                                      
                     border-collapse: collapse; 
-                    padding-top: 20px;
-                    margin: 20px;
+                    padding-top: 10px;
+                    margin: 10px;
                     text-align: center;
                     font-size: 20px;}
                     </style>
-                   <tr><td>${item}</td></tr>
-                   <tr><td>${obs}</td></tr>
-                   <tr><td>${cliente}${local}</td></tr>
-                   <tr><td>${dateString}</td></tr>
+                   <tr><td>${order[0]}</td></tr>
+                   <tr><td>${order[1]}</td></tr>
+                   <tr><td>${order[3]} - ${order[4]}</td></tr>
+                   <tr><td>${order[5]}</td></tr>
                     `;
 
           var printWindow = window.open('', '_blank');
@@ -147,7 +199,6 @@ function printOrder(id) {
               printWindow.close();
 
   }
-
 
 function imprimirConta() {
   reloadPage();
@@ -194,16 +245,29 @@ function imprimirConta() {
 
 
 function closeConta(id){
-
-  const resultadoConfirmacao = confirm("Encerrar comanda?");
   const buttonAdd = document.getElementById('openModal')
   const buttonClose = document.getElementById('closeComanda')
   const buttonreOpenComanda = document.getElementById('reOpenComanda')
   const buttonPrintComanda = document.getElementById('printComanda')
   const buttonPayment = document.getElementById('pagarComanda')
-  if (resultadoConfirmacao){
 
-  fetch(`/comandas/closeComanda/${id}/`, {
+
+  Swal.fire({
+  title: "Encerrar essa comanda?",
+  text: "Depois de encerrar somente o gerente pode reabrir.",
+  icon: "warning",
+  showCancelButton: true,
+  background: 'rgb(23, 38, 54)',
+  color: 'white',
+  confirmButtonColor:  'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+  cancelButtonColor: "rgb(253, 69, 69)",
+  confirmButtonText: "Encerrar",
+  cancelButtonText: "Cancelar",
+}).then((result) => {
+  if (result.isConfirmed) {
+
+
+      fetch(`/comandas/closeComanda/${id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -217,15 +281,22 @@ function closeConta(id){
         buttonAdd.style.display = 'none'
         buttonreOpenComanda.style.display = 'flex'
         buttonPayment.style.display = 'flex'
-        showToast('✅Comanda encerrada!😁','success')
         imprimirConta()
     }
   })
   .catch(error => {
-    showToast('❌Ocorreu um erro!😢','error')
+        Swal.fire({
+          color: 'white',
+      title: "Algo deu errado!😢",
+      confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+      background: 'rgb(23, 38, 54)',
+      text: "Erro: " + error.message,
+      icon: "error",
+    });
   });
-}
 
+  }
+});
 }
 
 
@@ -253,14 +324,12 @@ function troco(){
 }
 
 
-function addOrder(){
-  obs = document.getElementById('obs')
-  
-  id = document.getElementById('id-temp').value
+function addOrder(id, obs){
   var obsPrint = document.getElementById(id+'-obsOrder')
-  tooltipObs = document.getElementById('tooltip-id-'+id)
+  var order = obsPrint.value.split('|');
+  var newOrder = '';
 
-  fetch(`/comandas/editOrders/${id}/${obs.value}`, {
+  fetch(`/comandas/editOrders/${id}/${obs}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -269,59 +338,104 @@ function addOrder(){
     .then(response => response.json())
     .then(data => {
       if(data.status == 'ok'){
-        showToast('✅Pedido atualizado com sucesso!😁','success')
-        tooltipObs.dataset.tooltip = data.obs
-        obs.value = ''
-        obsPrint.value = data.obs
-        document.getElementById('modal-obs').style.display = 'none';
-      
+        order[1] = data.obs;
+        for(var i = 0; i < order.length; i++){
+          newOrder += order[i] + '|';
+          }
+        obsPrint.value = newOrder;
+        feedback('Obsevação alterada com sucesso!😁','success');
     }
   })
   .catch(error => {
     console.log(error)
-    showToast('❌Ocorreu um erro!😢','error')
+    feedback('❌Ocorreu um erro!😢','error','Erro: ' + error.message);
   });
-
 }
 
 
-function showToastAdd(message, type ,duration = 3000) {
-  const toast = document.getElementById('toast-add');
 
-  if (type === 'success') {
-    toast.style.backgroundColor = '#28a745';
-  } else if (type === 'error') {
-    toast.style.backgroundColor = '#dc3545';
-  } else if (type === 'info') {
-    toast.style.backgroundColor = '#ffc107';
+async function addProductComanda(productId, comandaId, cuisine) {
+  try {
+    if (!productId || !comandaId) {
+      throw new Error('IDs de produto ou comanda inválidos');
+    }
+
+    const csrfToken =  document.querySelector('[name="csrfmiddlewaretoken"]').value
+    if (!csrfToken) {
+      throw new Error('Token de segurança não encontrado');
+    }
+
+    // if (cuisine === 'ggg') {
+    //   openModalObs();
+    //   return;
+    // }
+
+    // Mostra estado de carregamento
+    Swal.update({
+      title: '<span style="color: white;">Adicionando produto...</span>',
+    });
+
+    // Requisição POST
+    const response = await fetch(`/comandas/product=${productId}/comanda=${comandaId}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({
+        product_id: productId,
+        comanda_id: comandaId
+      })
+    });
+
+    // Trata resposta
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      Swal.update({
+      title: '<span style="color: red;">Falha ao adicionar!</span>',
+      html: `<div style="color: white; margin-top: 10px;">
+              ${error.message || 'Erro desconhecido'}
+            </div>`,
+      icon: 'error',
+
+    });
+      throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+      
+    }
+
+    const result = await response.text();
+
+    // Atualiza a lista de produtos
+    const listElement = document.getElementById("list-products-comanda");
+    if (listElement) {
+      listElement.innerHTML = result;
+    }
+
+
+    Swal.update({
+      title: '<span style="color: green;">✅ Produto adicionado!</span>',
+    });
+
+    
+    setTimeout(() => {
+      Swal.update({
+        title: '<span style="color: white;">Adicionar Produto</span>'
+      });
+    }, 2500);
+
+  } catch (error) {
+    console.error('Erro:', error);
+    
+    // Feedback de erro
+    Swal.update({
+      title: '<span style="color: red;">Falha ao adicionar!</span>',
+      html: `<div style="color: white; margin-top: 10px;">
+              ${error.message || 'Erro desconhecido'}
+            </div>`,
+      icon: 'error',
+
+    });
   }
-  const toastMessage = document.getElementById('toast-message-add');
-  toastMessage.textContent = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, duration);
-}
-function addProductComanda(productId,comandaId, cuisine) {
-  obs = document.getElementById('obs');
-  if(cuisine == 'ggg'){
-    var obs = openModalObs();
-  }else{
-  fetch(`/comandas/addProduct${productId}/${comandaId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'}
-    })
-  .then(function(response) {
-    return response.text();
-  }).then(function(text) {
-    var listProductsBalcaoElement = document.getElementById("list-products-comanda");
-    listProductsBalcaoElement.innerHTML = text;
-  })
-  showToastAdd('Produto adicionado com sucesso!😁','success');
-  }
-
 }
 
 function taxa(){
@@ -335,6 +449,69 @@ function taxa(){
   }else{
     total.innerHTML = totalSemTaxa
   }
+}
+
+
+function inforOrders(id){
+  var order = document.getElementById(id+'-obsOrder').value.split('|');
+
+  feedback(order[2], "", order[1]+' - '+order[5]);
+}
+
+
+
+async function removeProductComanda(itemId, productName) {
+  var table = document.getElementById('list-products-comanda');
+
+  Swal.fire({
+    theme: "dark",
+    title: `Remover ${productName} da comanda?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sim, remover!",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+  if (result.isConfirmed) {
+
+    const csrfToken =  document.querySelector('[name="csrfmiddlewaretoken"]').value
+    if (!csrfToken) {
+      throw new Error('Token de segurança não encontrado');
+    }
+
+     const response = await fetch(`/comandas/removeProductComanda/${itemId}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+     
+    });
+
+     if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      Swal.fire({
+        theme:"dark",
+        title: "😬 Ops!",
+        text: errorData.message || `Erro HTTP: ${response.status}`,
+        icon: "error"
+      });
+      throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+    }
+
+    
+    const result = await response.text();
+    table.innerHTML = result;
+
+    Swal.fire({
+      theme:"dark",
+      title: "Feito!",
+      text: productName+" foi removido da comanda",
+      icon: "success"
+    });
+  }
+});
 }
 
 

@@ -177,13 +177,34 @@ function openFullscreen() {
   }
 
 
-  function feedback(message, status, subMessage) {
+  function feedback(message, icon, subMessage) {
     var feedbackMsg = Swal.fire({
-            title: message,
-            text: subMessage || '',
-            icon: status,
-            background: 'rgba(8, 9, 10, 0.75)',
-            confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
-                });
-return feedbackMsg;
+        color: 'white',
+        title: message,
+        text: subMessage || '',
+        icon: icon || 'info',
+        background: 'rgb(23, 38, 54)',
+        confirmButtonColor: 'linear-gradient(145deg, #1E2A3B, #2C3E50)', 
+            });
+
+
 }
+function toast(){
+
+    const Toast = Swal.mixin({
+      toast: true,
+      theme:"dark",
+      position: "top",
+      showConfirmButton: false,
+      background: 'rgb(30, 42, 58)',
+      color: 'white',
+      showCloseButton: true,
+      timer: 2500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    return Toast;
+    }
