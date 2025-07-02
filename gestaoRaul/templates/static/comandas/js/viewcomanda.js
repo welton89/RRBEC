@@ -1,26 +1,21 @@
 
-
 async function openModal() {
   var htmlModal = document.getElementById('addProduct').innerHTML
   htmlModal = htmlModal.replace('search-product','search-product-modal')
   htmlModal = htmlModal.replace('product-list','product-list-modal')
 
-const { value: formValues } = await Swal.fire({
+Swal.fire({
   title: "Adicionar Produto",
   html: htmlModal,
-  width: '100em',
   position:"top",
   theme: "dark",
-    didOpen: () => {
-    Swal.getPopup().classList.add('swal2-noautoclose');
-  },
+  
   showConfirmButton: false,
   showCancelButton: true,
   cancelButtonText: '&times;',
   customClass:{
     cancelButton:'posi'
   },
-  focusConfirm: false,
 });
 
 
@@ -396,7 +391,16 @@ async function addProductComanda(productId, comandaId, cuisine) {
     // Trata resposta
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      Swal.update({
+      title: '<span style="color: red;">Falha ao adicionar!</span>',
+      html: `<div style="color: white; margin-top: 10px;">
+              ${error.message || 'Erro desconhecido'}
+            </div>`,
+      icon: 'error',
+
+    });
       throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+      
     }
 
     const result = await response.text();
@@ -407,12 +411,12 @@ async function addProductComanda(productId, comandaId, cuisine) {
       listElement.innerHTML = result;
     }
 
-    // Feedback de sucesso
+
     Swal.update({
-      title: '<span style="color: green;">Produto adicionado! 😁</span>',
+      title: '<span style="color: green;">✅ Produto adicionado!</span>',
     });
 
-    // Reseta após 2.5 segundos
+    
     setTimeout(() => {
       Swal.update({
         title: '<span style="color: white;">Adicionar Produto</span>'

@@ -181,8 +181,6 @@ function openFullscreen() {
     var feedbackMsg = Swal.fire({
         color: 'white',
         title: message,
-        // toast: true,
-        // position: 'top',
         text: subMessage || '',
         icon: icon || 'info',
         background: 'rgb(23, 38, 54)',
@@ -191,3 +189,22 @@ function openFullscreen() {
 
 
 }
+function toast(){
+
+    const Toast = Swal.mixin({
+      toast: true,
+      theme:"dark",
+      position: "top",
+      showConfirmButton: false,
+      background: 'rgb(30, 42, 58)',
+      color: 'white',
+      showCloseButton: true,
+      timer: 2500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    return Toast;
+    }
