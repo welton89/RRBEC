@@ -15,4 +15,4 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.id} - {self.name} - {self.price} - {self.category} - {self.cuisine} - {self.active} "

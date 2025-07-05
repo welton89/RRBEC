@@ -10,6 +10,10 @@ from gestaoRaul.decorators import group_required
 def products(request):
     protucts = Product.objects.all()
     categories = Categories.objects.all()
+    # teste = Product.objects.get(id=389)
+    # teste.image = "https://ehgomes.com.br/wp-content/uploads/2023/08/Vectorizer.AI-A-Ferramenta-que-Transforma-Imagens-em-Vetores.webp"
+    # teste.save()
+    # print((teste.image))
     return render(request, 'products.html', {'products': protucts, 'categories': categories})
 
 @group_required(groupName='Garçom')
@@ -51,6 +55,7 @@ def editProduct(request, productId):
     product.description = request.POST.get('description')
     product.price = request.POST.get('price')
     product.quantity = request.POST.get('qtd')
+    product.image = request.POST.get('image')
     product.cuisine = True if request.POST.get('cuisine') else False
     product.category = Categories.objects.get(id = int(request.POST.get('select-categorie')))
     product.save()

@@ -5,6 +5,9 @@ function openModal() {
     var productPrice = document.getElementById('productPrice');
     var productDescription = document.getElementById('productDescription');
     var productqtd = document.getElementById('productqtd');
+    var urlImage = document.getElementById('url-image');
+    var imageProduct = document.getElementById('image-product');
+
     var productCuisine = document.getElementById('cuisine');
 
     var categorie = document.getElementById('select-categorie');
@@ -18,6 +21,7 @@ function openModal() {
     productPrice.value = '';
     productDescription.value ='';
     productqtd.value = '';
+    urlImage.value = '';
     productCuisine.checked = false
     categorie.value = 1;
 }
@@ -38,6 +42,10 @@ function editProduct(id) {
     var productPrice = document.getElementById('productPrice');
     var productDescription = document.getElementById('productDescription');
     var productqtd = document.getElementById('productqtd');
+    var urlImage = document.getElementById('url-image');
+    var imageProduct = document.getElementById('modal-product');
+
+
     var productCuisine = document.getElementById('cuisine');
     var categorie = document.getElementById('select-categorie');
 
@@ -49,6 +57,8 @@ function editProduct(id) {
     productPrice.value = preco;
     productDescription.value = document.getElementById('description-'+id).value;
     productqtd.value = document.getElementById('quantity-'+id).innerHTML;
+    urlImage.value = document.getElementById('image-'+id).innerHTML;
+    imageProduct.style.backgroundImage = urlImage.value != '' ?`url('${urlImage.value}'`  : `url('https://placehold.co/600x800/efc7b8/49291c?text=${productName.value}')`;
     productCuisine.checked = document.getElementById('cuisine-'+id).value == 'True' ? true : false;
     categorie.value = document.getElementById('h-category-'+id).value;
 
