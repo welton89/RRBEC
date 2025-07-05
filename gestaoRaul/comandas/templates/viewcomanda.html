@@ -203,9 +203,12 @@ Detalhes {{comanda.name}}
           <input type="text" oninput="searchProduct()" id="search-product" name="search-product" placeholder="Buscar Produto" ><br>
           <div id="product-list" class="grid-list-products">
             {% for product in products %}
-                <div class="card-product" onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
-                  {{product.name}} <br>
-                  R$ {{product.price}}
+                <div 
+                style="background-image:  url('{{product.image}}');"
+                 class="card-product"
+                  onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
+                 <p class="card-product-p"> {{product.name}}</p>
+                 <p class="card-product-p"> R$ {{product.price}}</p>
                 </div >
                 {% endfor %}
               </div>
