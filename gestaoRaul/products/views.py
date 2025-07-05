@@ -8,18 +8,14 @@ from gestaoRaul.decorators import group_required
 
 @group_required(groupName='Garçom')
 def products(request):
-    protucts = Product.objects.all()
+    protucts = Product.objects.all().order_by('-active', 'category') 
     categories = Categories.objects.all()
-    # teste = Product.objects.get(id=389)
-    # teste.image = "https://ehgomes.com.br/wp-content/uploads/2023/08/Vectorizer.AI-A-Ferramenta-que-Transforma-Imagens-em-Vetores.webp"
-    # teste.save()
-    # print((teste.image))
     return render(request, 'products.html', {'products': protucts, 'categories': categories})
 
 @group_required(groupName='Garçom')
 def searchProduct(request):
     product = request.GET.get("search-product")
-    products = Product.objects.filter(name__icontains=product)
+    products = Product.objects.filter(name__icontains=product).order_by('-active', 'category') 
     return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
 
 
@@ -42,7 +38,7 @@ def onOffProduct(request):
     product = Product.objects.get(id=product_id)
     product.active = not product.active
     product.save()
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-active', 'category') 
     return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
 
 
