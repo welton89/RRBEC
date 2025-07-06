@@ -8,5 +8,7 @@ urlpatterns = [
     path('onOffproduct', views.onOffProduct, name='onOffproduct'),
     path('searchProduct', views.searchProduct, name='searchProduct'),
     path('editProduct/<int:productId>/', views.editProduct, name='editProduct'),
+    path('createJson', views.createJson, name='createJson'),
+
 
 ]

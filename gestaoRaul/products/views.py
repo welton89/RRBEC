@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
+import json
+from django.db.models import Q
 
 from categories.models import Categories
 from products.models import Product
@@ -60,3 +63,26 @@ def editProduct(request, productId):
         product = ''
     products = Product.objects.filter(name__icontains=product)
     return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
+
+def createJson(request):
+    products = Product.objects.filter(active=True).exclude(
+        category__name__in=['insumos', 'Cervejas', 'pratos']
+        )
+    product_list = []
+    for product in products:
+        product_data = {
+            "id": product.id,
+            "name": product.name,
+            "description": product.description or "",
+            "price": float(product.price),
+            "category": product.category.name if product.category else "",
+            "image": str(product.image) if product.image else f"https://placehold.co/400x250/efc7b8/49291c?text={product.name.replace(' ', '+')}"
+        }
+        product_list.append(product_data)
+
+    # Retorna como JSON em texto simples
+    return HttpResponse(
+        json.dumps(product_list, indent=4, ensure_ascii=False),
+         content_type="application/json; charset=utf-8"
+    )
+
