@@ -32,24 +32,12 @@ def viewComanda(request):
     comanda_id = int(id)
     comanda = Comanda.objects.get(id=comanda_id)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
-    # consumo[0].product.
     parcial = Payments.objects.filter(comanda=comanda_id)
     mesas = Mesa.objects.all()
     clients = Client.objects.filter(active=True)
-
-    produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
-    quantidade=Count('product'),
-    nome=F('product__name') ).order_by('-quantidade'))
-
-    products = Product.objects.all()
-    products_ordenados = []
-    for produto in produtos_mais_vendidos:
-        for p in products:
-            if p.name == produto['nome'] and p.active == True:
-                products_ordenados.append(p)
+    products_ordenados = ProductComanda.maisVendidos()
     valores = somar(consumo,comanda)
-    
-    return render(request, 'viewcomanda.html', {'config':config, 'valores':valores,'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'products': products_ordenados,'mesas':mesas})
+    return render(request, 'viewcomanda.html', {'config':config, 'valores':valores,'parcials':parcial,'clients':clients,'comanda': comanda, 'consumo': consumo, 'products': products_ordenados[:15],'mesas':mesas})
 
 
 @group_required(groupName='Garçom')
@@ -202,9 +190,12 @@ def addProduct(request, product_id, comanda_id):
 
 
 def listProduct(request, comanda_id, product):
-    allProducts = Product.objects.filter(name__icontains=product)
+    if product == '*':
+        allProducts = ProductComanda.maisVendidos()
+    else:
+        allProducts = Product.objects.filter(name__icontains=product)
     products = []
     for p in allProducts:
         if p.active == True:
             products.append(p)
-    return render(request, "htmx_components/comandas/htmx_list_products.html", {"products": products,'comanda_id':comanda_id})
+    return render(request, "htmx_components/comandas/htmx_list_products.html", {"products": products[:15],'comanda_id':comanda_id})

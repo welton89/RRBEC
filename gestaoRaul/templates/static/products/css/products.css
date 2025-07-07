@@ -31,9 +31,9 @@
   }
 
   .modal-product{
-        /* position: relative; */
+        position: relative;
     width: 100%;
-    /* height: 400px;  */
+    /* height: 750;  */
     background-image: url('https://placehold.co/600x800/efc7b8/49291c?text=Sem_Imagem'); /* URL da imagem */
     background-size: cover; 
     background-position: center;

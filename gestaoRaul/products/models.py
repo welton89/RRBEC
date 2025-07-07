@@ -2,6 +2,7 @@ from django.db import models
 
 from categories.models import Categories
 
+
 # Create your models here.
 class Product(models.Model):
     id = models.AutoField(primary_key=True)

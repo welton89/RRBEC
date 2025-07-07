@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Count, F
 
 
 
@@ -7,7 +8,6 @@ from clients.models import Client
 from products.models import Product
 from mesas.models import Mesa
 from typePay.models import TypePay
-# from payments.models import Payments
 
 class Comanda(models.Model):
     id = models.AutoField(primary_key=True)
@@ -32,3 +32,15 @@ class ProductComanda(models.Model):
         return self.comanda.name + " - " + self.product.name
 
 
+    def maisVendidos():
+        produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
+        quantidade=Count('product'),
+        nome=F('product__name') ).order_by('-quantidade'))
+
+        products = Product.objects.all()
+        products_ordenados = []
+        for produto in produtos_mais_vendidos:
+            for p in products:
+                if p.name == produto['nome'] and p.active == True:
+                    products_ordenados.append(p)
+        return products_ordenados[:15]

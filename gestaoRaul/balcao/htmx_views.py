@@ -16,23 +16,13 @@ from gestaoRaul.decorators import group_required
 def listProductBalcao(request, comanda_id, search_product):
     comanda_id = request.GET.get("id-comanda-balcao")
     if search_product == '*':
-        produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
-        quantidade=Count('product'),
-        nome=F('product__name') ).order_by('-quantidade'))
-        products = Product.objects.all()
-        products_ordenados = []
-
-        for produto in produtos_mais_vendidos:
-            for p in products:
-                if p.active == True and p.name == produto['nome']:
-                        products_ordenados.append(p)
-          
+        products_ordenados = ProductComanda.maisVendidos()         
 
         return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products_ordenados,'comanda_id':comanda_id})
     else:
         product = search_product
         products = Product.objects.filter(name__icontains=product, active=True)
-        return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products,'comanda_id':comanda_id})
+        return render(request, "htmx_components/htmx_list_products_balcao.html", {"products": products[:15],'comanda_id':comanda_id})
 
 
 @group_required(groupName='Garçom')
