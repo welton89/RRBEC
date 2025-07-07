@@ -108,17 +108,16 @@ WSGI_APPLICATION = 'gestaoRaul.wsgi.application'
 
 
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': DB_ENGINE,
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
-    }
-}
+     'default': {
+         'ENGINE': DB_ENGINE,
+         'NAME': DB_NAME,
+         'USER': DB_USER,
+         'PASSWORD': DB_PASSWORD,
+         'HOST': DB_HOST,
+         'PORT': DB_PORT,
+     }
+ }
 
 
 # Password validation
