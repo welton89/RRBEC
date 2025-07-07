@@ -2,6 +2,7 @@ from django.db import models
 
 from categories.models import Categories
 
+
 # Create your models here.
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
@@ -15,4 +16,4 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.id} - {self.name} - {self.price} - {self.category} - {self.cuisine} - {self.active} "

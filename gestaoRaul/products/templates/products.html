@@ -19,6 +19,7 @@ Produtos
           <button class="btn-primary"
            onclick="openModal()" id="openModal">Novo Produto</button>
           <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list">
+        <a href="https://raulrockbar.blogspot.com/p/cardapio.html" target="_blank">Cardápio Digital</a>
         </div>
 
         <table id="product-list">
@@ -36,6 +37,8 @@ Produtos
         <td id="name-{{product.id}}" >{{product.name}}</td>
         <td id="price-{{product.id}}" >R$ {{product.price}}</td>
         <td class="hide-on-mobile" id="quantity-{{product.id}}" >{{product.quantity}}</td>
+        <td hidden class="hide-on-mobile" id="image-{{product.id}}" >{{product.image}}</td>
+
         <td class="hide-on-mobile" id="category-{{product.id}}" >{{product.category.name}}</td>
         <td >
           <div class="grid-buttons">
@@ -86,15 +89,20 @@ Produtos
   </body>
   
     <dialog  id='Modal-create-product'  >
-      <article >
-        <form action="{% url 'create_product' %}" id="productForm" method="post" >
+      <article id="modal-product" class="modal-product">
+        <form style="z-index: 1000; position: relative;" action="{% url 'create_product' %}" id="productForm" method="post" >
 
           {% csrf_token %}
             <h2>Cadastro de Produto</h2>
+            <!-- <div style="height: 200px;border-radius: 15px;">
+            <img  id="image-product" src="" alt="">
+            </div> -->
             <input  type="text" id="productId" name="productId"  hidden >
             <input  type="text" id="productName" name="name" required placeholder="Nome">
              <input type="number" step="0.01" id="productPrice" name="price" required placeholder="Preço">
              <input type="number" step="1" id="productqtd" name="qtd"  placeholder="Quantidade">
+              <input  type="text" id="url-image" name="image" required placeholder="URL da imagem">
+
               <div>
              <input type="checkbox" id="cuisine" name="cuisine" placeholder="Cozinha">Cozinha
             </div>

@@ -146,6 +146,7 @@ input, textarea, select {
 
 
 .card-product {
+   position: relative;
   height: 130px;
   width: 150px;
   padding: 10px;
@@ -153,16 +154,44 @@ input, textarea, select {
   align-content: center;
   text-align: center;
   line-height: 1.5;
-  background: var(--main-gradient);
-  box-shadow: 3px 3px 10px rgba(2, 2, 2, 0.678);
+  /* background: var(--main-gradient); */
+  /* box-shadow: 3px 3px 10px rgba(2, 2, 2, 0.678); */
   border-radius: 5px;
   transition: transform 0.4s, box-shadow 0.4s;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
   }
+
+.card-product::before {
+  content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+     background-color: rgba(0, 0, 0, 0.595); 
+}
+
+.card-product-p {
+  position: relative;
+  z-index: 0;
+  color: #ffffff;
+  font-size: 14px;
+}
 
 .card-product:hover {
   transform: scale(1.05);
   transition: transform 0.4s, box-shadow 0.4s;
   box-shadow: 0px 0px 10px rgba(86, 187, 255, 0.815);
+}
+
+
+@media screen and (max-width: 1028px) {
+  .card-product {
+   background-size: cover !important;
+  }
+    
 }
 
 .p-header {

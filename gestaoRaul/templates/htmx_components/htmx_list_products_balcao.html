@@ -5,6 +5,7 @@
 {% if forloop.counter0 == 0 %}
 
                 <article 
+                   style="background-image:  url('{{product.image}}');"
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 class="card-product"
@@ -12,20 +13,22 @@
                 >
                 <p hidden id="{{forloop.counter0}}" >{{product.id}}</p>
                 <p hidden id="comanda{{forloop.counter0}}" >{{comanda.id}}</p>
-                {{product.name}} <br> <p id="{{product.id}}"></p>
-                R$ {{product.price}}
+               <p class="card-product-p"> {{product.name}}</p> 
+               <p id="{{product.id}}"></p>
+               <p class="card-product-p"> R$ {{product.price}}</p>
                 </article >
 
         {% else %}
 
                 <article 
+                   style="background-image:  url('{{product.image}}');"
                 name="productBox"
                 id="productId-{{ product.id }}" 
                 class="card-product" 
                 onclick="addProductClick({{product.id}})"
                 >
-                {{product.name}} <br>
-                R$ {{product.price}}
+                  <p class="card-product-p"> {{product.name}}</p>
+                 <p class="card-product-p"> R$ {{product.price}}</p>
                 </article >
 
         {% endif %}
@@ -37,6 +40,12 @@
 
 
 
-
+        <div 
+                style="background-image:  url('{{product.image}}');"
+                 class="card-product"
+                  onclick="addProductComanda({{product.id}}, {{comanda.id}}, '{{product.cuisine}}')" >
+                 <p class="card-product-p"> {{product.name}}</p>
+                 <p class="card-product-p"> R$ {{product.price}}</p>
+                </div >
 
 
