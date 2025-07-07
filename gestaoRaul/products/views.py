@@ -66,7 +66,15 @@ def editProduct(request, productId):
 
 def createJson(request):
     products = Product.objects.filter(active=True).exclude(
-        category__name__in=['insumos', 'Cervejas', 'pratos']
+        category__name__in=['Insumos', 
+        'Adicional', 
+        'Bomboniere',
+        'Lojinha',
+        'Utensilios',
+        'Litros',
+        'Ingressos',
+        'Cigarros',
+        'Outros']
         )
     product_list = []
     for product in products:

@@ -141,6 +141,7 @@ def closeComanda(request, comanda_id):
 
 @group_required(groupName='Garçom')
 def addProduct(request, product_id, comanda_id):
+    print('chamouuuuuuuuuuu')
     config = {
         'taxa': False
         }

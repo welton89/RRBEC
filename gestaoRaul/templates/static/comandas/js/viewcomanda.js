@@ -30,7 +30,6 @@ function searchProduct() {
   var search_product = document.getElementById('search-product-modal').value.trim()
   var productListElement = document.getElementById("product-list-modal");
     var comanda_id = document.getElementById("id-comanda").value;
-
   if(search_product.length == 0 ){search_product ='*';}
   fetch(`/comandas/listProduct/${comanda_id}/${search_product}`, {
     method: 'GET',}
