@@ -141,13 +141,13 @@ def closeComanda(request, comanda_id):
 
 @group_required(groupName='Garçom')
 def addProduct(request, product_id, comanda_id):
-    print('chamouuuuuuuuuuu')
     config = {
         'taxa': False
         }
     obs = request.GET.get("obs")
     product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
     product_comanda.save()
+    Product.subStock(Product.objects.get(id=product_id), 1)
     product = Product.objects.get(id=product_id)
     comanda = Comanda.objects.get(id=comanda_id)
     parcial = Payments.objects.filter(comanda=comanda)

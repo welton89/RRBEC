@@ -1,5 +1,5 @@
 
-async function openModal() {
+async function modalAddProduct() {
   var htmlModal = document.getElementById('addProduct').innerHTML
   htmlModal = htmlModal.replace('search-product','search-product-modal')
   htmlModal = htmlModal.replace('product-list','product-list-modal')
@@ -364,15 +364,7 @@ async function addProductComanda(productId, comandaId, cuisine) {
       throw new Error('Token de segurança não encontrado');
     }
 
-    // if (cuisine === 'ggg') {
-    //   openModalObs();
-    //   return;
-    // }
 
-    // Mostra estado de carregamento
-    Swal.update({
-      title: '<span style="color: white;">Adicionando produto...</span>',
-    });
 
     // Requisição POST
     const response = await fetch(`/comandas/product=${productId}/comanda=${comandaId}/`, {
@@ -403,6 +395,7 @@ async function addProductComanda(productId, comandaId, cuisine) {
     }
 
     const result = await response.text();
+    console.log(response);
 
     // Atualiza a lista de produtos
     const listElement = document.getElementById("list-products-comanda");
@@ -410,17 +403,11 @@ async function addProductComanda(productId, comandaId, cuisine) {
       listElement.innerHTML = result;
     }
 
+    // if (cuisine === 'True') {
+    //   openModalObs();
+    //   return;
+    // }
 
-    Swal.update({
-      title: '<span style="color: green;">✅ Produto adicionado!</span>',
-    });
-
-    
-    setTimeout(() => {
-      Swal.update({
-        title: '<span style="color: white;">Adicionar Produto</span>'
-      });
-    }, 2500);
 
   } catch (error) {
     console.error('Erro:', error);

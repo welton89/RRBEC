@@ -16,4 +16,12 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
-        return f"{self.id} - {self.name} - {self.price} - {self.category} - {self.cuisine} - {self.active} "
+        return f"{self.name}"
+
+    def subStock(self, qtd):
+        self.quantity -= qtd
+        self.save()
+
+    def addStock(self, qtd):
+        self.quantity += qtd
+        self.save()

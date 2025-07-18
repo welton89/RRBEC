@@ -45,6 +45,8 @@ def removeProductComanda(request, productComanda_id):
         if product_comanda.product.cuisine == True:
             order = Order.objects.get(productComanda=product_comanda)
             product_comanda.delete()
+            Product.addStock(Product.objects.get(id=product_comanda.product.id), 1)
+
             msg = JsonResponse({
                 'type': 'broadcast',
                 'message': 'Atenção! Pedido cancelado', 
@@ -59,6 +61,7 @@ def removeProductComanda(request, productComanda_id):
             valores = somar(consumo,comanda)
         else:
             product_comanda.delete()
+            Product.addStock(Product.objects.get(id=product_comanda.product.id), 1)
             consumo = ProductComanda.objects.filter(comanda=comanda)
             valores = somar(consumo,comanda)
 

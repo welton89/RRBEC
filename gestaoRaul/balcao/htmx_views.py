@@ -30,6 +30,8 @@ def addProductBalcao(request, product_id, comanda_id, qtd):
     for i in range(qtd):
         product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
         product_comanda.save()
+    Product.subStock(Product.objects.get(id=product_id), qtd)
+
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     total = 0
     for produto in consumo:
@@ -42,6 +44,7 @@ def addProductBalcaoTeclado(request, product_id, comanda_id, qtd):
     for i in range(qtd):
         product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
         product_comanda.save()
+    Product.subStock(Product.objects.get(id=product_id), qtd)
     consumo = ProductComanda.objects.filter(comanda=comanda_id)
     total = 0
     for produto in consumo:
@@ -53,6 +56,8 @@ def removeProductBalcao(request, productComanda_id):
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
     consumo = ProductComanda.objects.filter(comanda=product_comanda.comanda)
     product_comanda.delete()
+    Product.addStock(Product.objects.get(id=product_comanda.product.id), 1)
+
     total = 0
     for produto in consumo:
         total += produto.product.price

@@ -50,7 +50,7 @@ Detalhes {{comanda.name}}
   <input hidden id="id-temp" type="number">
   <div class="grid-container" >
     <div style="display: flex;padding: 5px;gap:8px">
-      <button class="btn-primary" id="openModal" onclick="openModal()" 
+      <button class="btn-primary" id="openModal" onclick="modalAddProduct()" 
       {%  if comanda.status != 'OPEN'%}
        disabled
        {% endif %}
