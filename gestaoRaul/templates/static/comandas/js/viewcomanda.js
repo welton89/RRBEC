@@ -396,6 +396,7 @@ async function addProductComanda(productId, comandaId, cuisine) {
 
     const result = await response.text();
     console.log(response);
+    showToast('Produto adicionado com sucesso!', 'success');
 
     // Atualiza a lista de produtos
     const listElement = document.getElementById("list-products-comanda");
