@@ -1,64 +1,160 @@
 {% load static %}
 
 
-<tr>
-    <th style="text-align: left;">Produto</th>
-    <th style="text-align: left;width: 20%;">Preço</th>
-    <th class="hide-on-mobile" style="text-align: left;">Quantidade</th>
-    <th class="hide-on-mobile" style="text-align: left;">Categoria</th>
-    <th style="text-align: left;width: 20%;">Ações</th>
-  </tr>
+<thead> <tr>
+      <th style="text-align: left;" data-col-type="text">Produto</th>
+      <th style="text-align: left;width: 20%;" data-col-type="number">Preço</th>
+       <th class="hide-on-mobile" style="text-align: left;" data-col-type="number">Quantidade</th>
+      <th class="hide-on-mobile" style="text-align: left;" data-col-type="text">Categoria</th> 
+      <th style="text-align: left;width: 20%;">Ações</th> </tr>
+  </thead>
+  <tbody> {% for product in products %}
+    <tr>
+      <td id="name-{{product.id}}" >{{product.name}}</td>
+      <td id="price-{{product.id}}" >R$ {{product.price}}</td>
 
-{% for product in products %}
+      {% if product.quantity > 20 %}
+      <td class="hide-on-mobile" id="quantity-{{product.id}}" >{{product.quantity}}</td>
+      {% else %}
+      <td class="hide-on-mobile" id="quantity-{{product.id}}" style="background-color: brown;" >{{product.quantity}}</td>
+      {% endif %}
+      <td hidden class="hide-on-mobile" id="image-{{product.id}}" >{{product.image}}</td>
+      <td class="hide-on-mobile" id="category-{{product.id}}" >{{product.category.name}}</td>
+      <td>
+        <div class="grid-buttons">
+          <img
+            src="{% static 'midia/icons/edit.svg' %}"
+            style="width: 35px; height: 35px; cursor: pointer;"
+            onclick="editProduct({{product.id}})"
+          >
+          </img>
 
-<tr>
-<td id="name-{{product.id}}" >{{product.name}}</td>
-<td id="price-{{product.id}}" >R$ {{product.price}}</td>
-<td  class="hide-on-mobile" id="quantity-{{product.id}}" >{{product.quantity}}</td>
-<td  class="hide-on-mobile" id="category-{{product.id}}" >{{product.category.name}}</td>
-<td hidden class="hide-on-mobile" id="image-{{product.id}}" >{{product.image}}</td>
+          <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
+          <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
+          <input type="hidden" id="cuisine-{{product.id}}" value="{{ product.cuisine }}">
 
-<td>
-  <div class="grid-buttons">
-    <img 
-    src="{% static 'midia/icons/edit.svg' %}" 
-    style=" width: 35px; height: 35px; cursor: pointer;" 
-    onclick="editProduct({{product.id}})" >
-  </img>  <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
-  <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
-  <input type="hidden" id="cuisine-{{product.id}}" value="{{ product.cuisine }}">
+          <form hx-post="{% url 'onOffproduct' %}" hx-trigger="click" hx-target="#product-list">
+            {% csrf_token %}
+            <input type="hidden" name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
-
-  <form hx-post="{% url 'onOffproduct' %}" hx-trigger="click"  hx-target="#product-list">
-    {% csrf_token %}
-    <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
-
-  {% if product.active == True %}
-  <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;border: 0px;">
-    <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
-      <img 
-      src="{% static 'midia/icons/toggle-on.svg' %}" 
-      style=" width: 35px; height: 35px; cursor: pointer;" >
-    </img>
-  </span>
-  </button>
-  {% else %}
-  <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;border: 0px;" >
-    <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
-    <img 
-      src="{% static 'midia/icons/toggle-off.svg' %}" 
-      style=" width: 35px; height: 35px; cursor: pointer;" >
-    </img>
-    <span>
-  </button>
-  {% endif %}
-
-</form>
-</div>
-</td>
-</tr>
-
-
-{% endfor %} 
-
+            {% if product.active == True %}
+            <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;border: 0px;">
+              <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
+                <img
+                  src="{% static 'midia/icons/toggle-on.svg' %}"
+                  style="width: 35px; height: 35px; cursor: pointer;"
+                >
+                </img>
+              </span>
+            </button>
+            {% else %}
+            <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;border: 0px;" >
+              <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
+                <img
+                  src="{% static 'midia/icons/toggle-off.svg' %}"
+                  style="width: 35px; height: 35px; cursor: pointer;"
+                >
+                </img>
+                <span>
+            </button>
+            {% endif %}
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
+
+<script>
+  function listerSortTeable(){
+    
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+  const table = document.getElementById('product-list');
+  const headers = table.querySelectorAll('th');
+  const tbody = table.querySelector('tbody'); // Seleciona o corpo da tabela
+
+  let currentSortColumn = -1; // Armazena o índice da coluna atualmente ordenada
+  let sortDirection = 'asc'; // 'asc' para ascendente, 'desc' para descendente
+
+  // Adiciona um ouvinte de evento de clique a cada cabeçalho de coluna
+  headers.forEach((header, index) => {
+    if (header.textContent.trim() !== 'Ações') {
+      header.addEventListener('click', () => {
+        // Se a mesma coluna for clicada, inverte a direção da ordenação
+        if (currentSortColumn === index) {
+          sortDirection = (sortDirection === 'asc') ? 'desc' : 'asc';
+        } else {
+          // Se uma nova coluna for clicada, define como a coluna atual
+          // e inicia a ordenação ascendente
+          currentSortColumn = index;
+          sortDirection = 'asc';
+        }
+
+        // Remove as classes de ordenação de todos os cabeçalhos
+        headers.forEach(h => {
+          h.classList.remove('sorted-asc', 'sorted-desc');
+        });
+
+        // Adiciona a classe de ordenação ao cabeçalho clicado para visualização
+        header.classList.add(`sorted-${sortDirection}`);
+
+        // Chama a função de ordenação
+        sortColumn(index, sortDirection, header.dataset.colType);
+      });
+    }
+  })
+
+  function sortColumn(columnIndex, direction, columnType) {
+    // Converte os NodeList de linhas em um Array para poder usar sort()
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((rowA, rowB) => {
+      // Obtém o texto da célula na coluna clicada para ambas as linhas
+      let valueA = rowA.children[columnIndex].textContent.trim();
+      let valueB = rowB.children[columnIndex].textContent.trim();
+
+      // Trata valores específicos para colunas como "Preço" que têm "R$"
+      if (columnIndex === 1) { // Índice da coluna "Preço"
+        valueA = valueA.replace('R$', '').trim();
+        valueB = valueB.replace('R$', '').trim();
+      }
+
+      // Converte para número se o tipo da coluna for "number"
+      // ou se for a coluna de "Preço" após remover "R$"
+      if (columnType === 'number' || columnIndex === 1) {
+        valueA = parseFloat(valueA);
+        valueB = parseFloat(valueB);
+        // Garante que NaN (Not a Number) sejam tratados para evitar problemas de ordenação
+        valueA = isNaN(valueA) ? -Infinity : valueA;
+        valueB = isNaN(valueB) ? -Infinity : valueB;
+      } else {
+        // Para texto, use localeCompare para ordenação correta com caracteres acentuados
+        // e torna minúsculo para ordenação case-insensitive
+        valueA = valueA.toLowerCase();
+        valueB = valueB.toLowerCase();
+      }
+
+      let comparison = 0;
+      if (valueA > valueB) {
+        comparison = 1;
+      } else if (valueA < valueB) {
+        comparison = -1;
+      }
+
+      // Aplica a direção da ordenação
+      return (direction === 'asc') ? comparison : -comparison;
+    });
+
+    // Remove todas as linhas existentes e adiciona as linhas ordenadas de volta ao tbody
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+    rows.forEach(row => tbody.appendChild(row));
+  }
+// });
+}
+  listerSortTeable()
+</script>
