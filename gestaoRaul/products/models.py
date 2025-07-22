@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from categories.models import Categories
-# from comandas.models import Comanda
 
 
 
@@ -46,14 +45,6 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name}"
-
-    def subStock(self, qtd):
-        self.quantity -= qtd
-        self.save()
-
-    def addStock(self, qtd):
-        self.quantity += qtd
-        self.save()
 
 
 

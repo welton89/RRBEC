@@ -5,7 +5,7 @@ from django.db.models import Count, F
 
 
 from clients.models import Client
-from products.models import Product
+from products.models import Product, ProductComponent
 from mesas.models import Mesa
 from typePay.models import TypePay
 
@@ -76,6 +76,76 @@ class StockMovement(models.Model):
             f"Movimentação de {self.quantity} de {self.product.name} "
             f"({self.movement_type.name}) em {self.movement_date.strftime('%d/%m/%Y %H:%M')}"
         )
+
+
+    def subTransactionStock(product:Product,
+        movement_type:StockMovementType,
+        comanda:Comanda,
+        obs:str,
+        user:User=None,
+        qtd:int=1):
+
+        components = ProductComponent.objects.filter(composite_product=product)
+        if components.exists():
+            for component in components:
+                movi = StockMovement.objects.create(
+                    product=component.component_product ,
+                    related_comanda=comanda,
+                    user=user,
+                    movement_type=movement_type, 
+                    quantity=-component.quantity_required,
+                    observation=obs
+                    )
+                movi.save()
+                component.component_product.quantity -= component.quantity_required
+                component.component_product.save()
+
+        movi = StockMovement.objects.create(
+                    product=product ,
+                    related_comanda=comanda,
+                    user=user,
+                    movement_type=movement_type, 
+                    quantity=-qtd,
+                    observation=obs
+                    )
+        movi.save()
+        product.quantity -= qtd
+        product.save()
+
+
+    def sumTransactionStock(product:Product,
+        movement_type:StockMovementType,
+        comanda:Comanda,
+        obs:str,
+        user:User=None,
+        qtd:int=1):
+
+        components = ProductComponent.objects.filter(composite_product=product)
+        if components.exists():
+            for component in components:
+                movi = StockMovement.objects.create(
+                    product=component.component_product ,
+                    related_comanda=comanda,
+                    user=user,
+                    movement_type=movement_type, 
+                    quantity=component.quantity_required,
+                    observation=obs
+                    )
+                movi.save()
+                component.component_product.quantity += component.quantity_required
+                component.component_product.save()
+
+        movi = StockMovement.objects.create(
+                    product=product ,
+                    related_comanda=comanda,
+                    user=user,
+                    movement_type=movement_type, 
+                    quantity=qtd,
+                    observation=obs
+                    )
+        movi.save()
+        product.quantity += qtd
+        product.save()
 
     class Meta:
         ordering = ['-movement_date']
