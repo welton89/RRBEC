@@ -18,73 +18,75 @@ Produtos
         <div class="grid-top">
           <button class="btn-primary"
            onclick="openModal()" id="openModal">Novo Produto</button>
-          <input type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list">
+          <input onclick="listerSortTeable()" type="text" id="search-product" name="search-product" placeholder="Buscar Produto" hx-get="{% url 'searchProduct' %}" hx-trigger="keyup" hx-target="#product-list">
         <a href="https://raulrockbar.blogspot.com/p/cardapio.html" target="_blank">Cardápio Digital</a>
         </div>
 
-        <table id="product-list">
-          <tr>
-            <th style="text-align: left;">Produto</th>
-            <th style="text-align: left;width: 20%;">Preço</th>
-            <th class="hide-on-mobile" style="text-align: left;">Quantidade</th>
-            <th class="hide-on-mobile" style="text-align: left;">Categoria</th>
-            <th style="text-align: left;width: 20%;">Ações</th>
-          </tr>
-  
-      {% for product in products %}
+      <table id="product-list">
+  <thead> <tr>
+      <th style="text-align: left;" data-col-type="text">Produto</th>
+      <th style="text-align: left;width: 20%;" data-col-type="number">Preço</th>
+       <th class="hide-on-mobile" style="text-align: left;" data-col-type="number">Quantidade</th>
+      <th class="hide-on-mobile" style="text-align: left;" data-col-type="text">Categoria</th> 
+      <th style="text-align: left;width: 20%;">Ações</th> </tr>
+  </thead>
+  <tbody> {% for product in products %}
+    <tr>
+      <td id="name-{{product.id}}" >{{product.name}}</td>
+      <td id="price-{{product.id}}" >R$ {{product.price}}</td>
 
-      <tr>
-        <td id="name-{{product.id}}" >{{product.name}}</td>
-        <td id="price-{{product.id}}" >R$ {{product.price}}</td>
-        <td class="hide-on-mobile" id="quantity-{{product.id}}" >{{product.quantity}}</td>
-        <td hidden class="hide-on-mobile" id="image-{{product.id}}" >{{product.image}}</td>
-
-        <td class="hide-on-mobile" id="category-{{product.id}}" >{{product.category.name}}</td>
-        <td >
-          <div class="grid-buttons">
-          <img 
-          src="{% static 'midia/icons/edit.svg' %}" 
-          style=" width: 35px; height: 35px; cursor: pointer;" 
-          onclick="editProduct({{product.id}})" >
-        </img>
+      {% if product.quantity > 20 %}
+      <td class="hide-on-mobile" id="quantity-{{product.id}}" >{{product.quantity}}</td>
+      {% else %}
+      <td class="hide-on-mobile" id="quantity-{{product.id}}" style="background-color: brown;" >{{product.quantity}}</td>
+      {% endif %}
+      <td hidden class="hide-on-mobile" id="image-{{product.id}}" >{{product.image}}</td>
+      <td class="hide-on-mobile" id="category-{{product.id}}" >{{product.category.name}}</td>
+      <td>
+        <div class="grid-buttons">
+          <img
+            src="{% static 'midia/icons/edit.svg' %}"
+            style="width: 35px; height: 35px; cursor: pointer;"
+            onclick="editProduct({{product.id}})"
+          >
+          </img>
 
           <input type="hidden" id="h-category-{{product.id}}" value="{{ product.category.id }}">
           <input type="hidden" id="description-{{product.id}}" value="{{ product.description }}">
           <input type="hidden" id="cuisine-{{product.id}}" value="{{ product.cuisine }}">
 
-          <form hx-post="{% url 'onOffproduct' %}" hx-trigger="click"  hx-target="#product-list">
+          <form hx-post="{% url 'onOffproduct' %}" hx-trigger="click" hx-target="#product-list">
             {% csrf_token %}
-            <input type="hidden"  name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
+            <input type="hidden" name="id-product" id="id-{{product.id}}" value="{{ product.id }}">
 
-          {% if product.active == True %}
-          <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;border: 0px;">
-            <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
-              <img 
-              src="{% static 'midia/icons/toggle-on.svg' %}" 
-              style=" width: 35px; height: 35px; cursor: pointer;" >
-            </img>
-          </span>
-          </button>
-          {% else %}
-          <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;border: 0px;" >
-            <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
-            <img 
-              src="{% static 'midia/icons/toggle-off.svg' %}" 
-              style=" width: 35px; height: 35px; cursor: pointer;" >
-            </img>
-            <span>
-          </button>
-
-          {% endif %}
-
-        </form>
-      </div>
-        </td>
-      </tr>
-  
-      {% endfor %} 
-
-    </table>
+            {% if product.active == True %}
+            <button style="background-color: rgba(255, 0, 0, 0); padding: 0px;border: 0px;">
+              <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
+                <img
+                  src="{% static 'midia/icons/toggle-on.svg' %}"
+                  style="width: 35px; height: 35px; cursor: pointer;"
+                >
+                </img>
+              </span>
+            </button>
+            {% else %}
+            <button style="background-color: rgba(0, 128, 0, 0); padding: 0px;border: 0px;" >
+              <span data-tooltip="Ativar ou Desativar Produto" data-flow="top">
+                <img
+                  src="{% static 'midia/icons/toggle-off.svg' %}"
+                  style="width: 35px; height: 35px; cursor: pointer;"
+                >
+                </img>
+                <span>
+            </button>
+            {% endif %}
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
     </div>
   </body>
   

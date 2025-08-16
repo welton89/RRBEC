@@ -50,6 +50,39 @@
      background-color: rgba(0, 0, 0, 0.6); 
   }
 
+  th {
+      background-color: #170e4f;
+      cursor: pointer;
+      position: relative;
+    }
+
+  th.sorted-asc::after {
+      content: " ▲";
+      font-size: 0.8em;
+      vertical-align: super;
+    }
+    th.sorted-desc::after {
+      content: " ▼";
+      font-size: 0.8em;
+      vertical-align: super;
+    }
+
+    #product-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#product-list th,
+#product-list td {
+  padding: 8px;
+  text-align: left;
+}
+
+#product-list th {
+  position: sticky; 
+  top: 60px;          
+  z-index: 10;     
+}
 
   @media (max-width: 768px) {
     .hide-on-mobile {
@@ -62,4 +95,9 @@
     max-width: 100px;
     width: 80px;
   }
+  #product-list th {
+  position: sticky; 
+  top: 0px;          
+  z-index: 10;     
+}
   }

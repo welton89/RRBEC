@@ -330,9 +330,9 @@ white-space: nowrap;
 
 .toast {
   position: fixed;
-  top: 40px;
+  top: 4px;
   width: 30%;
-  left: 50%;
+  left: 30%;
   justify-items: center;
   align-items: center;
   transform: translateX(-50%);
@@ -344,7 +344,7 @@ white-space: nowrap;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-  z-index: 999 ;
+  z-index: 999999999999 !important;
 }
 
 .toast p {
@@ -462,4 +462,11 @@ white-space: nowrap;
   body {
     margin: 8px 0px 0px 0px;
   }
+
+  .toast {
+  position: fixed;
+  top: 5px;
+  width: 70%;
+  left: 40%;
+}
 }

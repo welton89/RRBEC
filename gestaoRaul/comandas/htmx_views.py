@@ -2,8 +2,10 @@ from datetime import date
 from decimal import Decimal
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
-from comandas.models import Comanda, ProductComanda
+
+from comandas.models import Comanda, ProductComanda, StockMovementType, StockMovement
 from orders.models import Order
 from products.models import Product
 from payments.models import Payments, somar
@@ -37,14 +39,28 @@ def removeProductComanda(request, productComanda_id):
         'taxa': False
         }
     product_comanda = ProductComanda.objects.get(id=productComanda_id)
-    comanda = Comanda.objects.get(id= product_comanda.comanda.id)
+    comanda = product_comanda.comanda
+    product = product_comanda.product
+    user = User.objects.get(id=request.user.id)
+    typeMovement = StockMovementType.objects.get(name="Estorno")
+
     if comanda.status == 'OPEN':
         parcial = Payments.objects.filter(comanda=comanda)
         consumo = ProductComanda.objects.filter(comanda=comanda)
         valores = somar(consumo,comanda)
         if product_comanda.product.cuisine == True:
             order = Order.objects.get(productComanda=product_comanda)
+
+            StockMovement.sumTransactionStock(
+                    product=product,
+                    movement_type=typeMovement,
+                    comanda=comanda,
+                    user=user,
+                    qtd=1,
+                    obs= "Excluido da comanda"
+                )
             product_comanda.delete()
+
             msg = JsonResponse({
                 'type': 'broadcast',
                 'message': 'Atenção! Pedido cancelado', 
@@ -58,6 +74,14 @@ def removeProductComanda(request, productComanda_id):
             consumo = ProductComanda.objects.filter(comanda=comanda)
             valores = somar(consumo,comanda)
         else:
+            StockMovement.sumTransactionStock(
+                    product=product,
+                    movement_type=typeMovement,
+                    comanda=comanda,
+                    user=user,
+                    qtd=1,
+                    obs= "Excluido da comanda"
+                )
             product_comanda.delete()
             consumo = ProductComanda.objects.filter(comanda=comanda)
             valores = somar(consumo,comanda)

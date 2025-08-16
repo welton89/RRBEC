@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
-from django.db.models import Q
+from django.db.models import Q, Count, F
+
 
 from categories.models import Categories
+from comandas.models import ProductComanda
 from products.models import Product
 from gestaoRaul.decorators import group_required
 
@@ -65,6 +67,10 @@ def editProduct(request, productId):
     return render(request, "htmx_components/products/htmx_search_products.html", {"products": products})
 
 def createJson(request):
+    produtos_mais_vendidos = list(ProductComanda.objects.values('product').annotate(
+    quantidade=Count('product'),
+    nome=F('product__name') ).order_by('-quantidade'))
+
     products = Product.objects.filter(active=True).exclude(
         category__name__in=['Insumos', 
         'Adicional', 
@@ -76,8 +82,21 @@ def createJson(request):
         'Cigarros',
         'Outros']
         )
+
+
+
+
+    products_ordenados = []
+    for produto in produtos_mais_vendidos:
+        for p in products:
+            if p.name == produto['nome']:
+                products_ordenados.append(p)
+
+
+
+
     product_list = []
-    for product in products:
+    for product in products_ordenados:
         product_data = {
             "id": product.id,
             "name": product.name,

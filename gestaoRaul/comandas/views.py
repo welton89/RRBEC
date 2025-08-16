@@ -3,15 +3,16 @@ from django.urls import reverse
 from django.utils import timezone
 
 from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib.auth.models import User
 
 from django.shortcuts import render, redirect
 from django.db.models import Count, F
 
-from comandas.models import Comanda, ProductComanda
+from comandas.models import Comanda, ProductComanda, StockMovement, StockMovementType
 from clients.models import Client
 from payments.models import Payments, somar
 from orders.models import Order
-from products.models import Product
+from products.models import Product, ProductComponent
 from mesas.models import Mesa
 from gestaoRaul.decorators import group_required
 
@@ -141,15 +142,27 @@ def closeComanda(request, comanda_id):
 
 @group_required(groupName='Garçom')
 def addProduct(request, product_id, comanda_id):
-    print('chamouuuuuuuuuuu')
     config = {
         'taxa': False
         }
     obs = request.GET.get("obs")
     product_comanda = ProductComanda(comanda_id=comanda_id, product_id=product_id)
     product_comanda.save()
+
     product = Product.objects.get(id=product_id)
     comanda = Comanda.objects.get(id=comanda_id)
+    user = User.objects.get(id=request.user.id)
+    typeMovement = StockMovementType.objects.get(name="Venda - Comanda")
+
+    StockMovement.subTransactionStock(
+        product=product,
+        movement_type=typeMovement,
+        comanda=comanda,
+        user=user,
+        qtd=1,
+        obs= "Adicionado na comanda"
+    )
+
     parcial = Payments.objects.filter(comanda=comanda)
     if product.cuisine == True:
         order = Order(id_comanda=comanda, id_product=product, productComanda=product_comanda, obs='')
