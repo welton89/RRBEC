@@ -30,6 +30,5 @@ urlpatterns = [
     path('balcao/', include('balcao.urls')),
     path('pedidos/', include('orders.urls')),
     path('', include('pwa.urls')),
-
-
+    path('api/v1/', include('gestaoRaul.api_urls')),
 ]

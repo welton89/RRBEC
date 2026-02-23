@@ -89,14 +89,12 @@ def payDebt(request):
                 typePayment = TypePay.objects.get(id=1)
                 consumo = ProductComanda.objects.filter(comanda=comanda_id)
                 value = somar(consumo,comanda)
-                print(value["totalSemTaxa"])
                 description = 'PAGAMENTO DE FIADO'
                 pagamento = Payments(value=value["totalSemTaxa"], comanda=comanda, type_pay=typePayment,description=description,client=comanda.client)
                 pagamento.save()
             except Comanda.DoesNotExist:
                 return JsonResponse({'error': f'Comanda com ID {comanda_id} não encontrada'}, status=404)
         
-        # return redirect(f'/clients/viewClient/{comanda.client.id}')
         
         return JsonResponse({
             'success': True,
