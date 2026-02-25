@@ -129,7 +129,6 @@ def editOrders(request, productComanda_id, obs):
                   'id':order.id,
                   'speak': f'Pedido alterado!  {order.id_product.name}, é {obs}.'
                   }) 
-    # asyncio.run(enviar_mensagem(msg))
     return JsonResponse({'status': 'ok', 'obs':order.obs})
 
 
