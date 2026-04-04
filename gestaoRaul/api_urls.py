@@ -11,7 +11,8 @@ from payments.api_views import PaymentsViewSet
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from login.api_views import MyTokenObtainPairView
+from login.api_views import MyTokenObtainPairView, UserViewSet
+from sync.api_views import ChangeLogViewSet
 
 router = DefaultRouter()
 router.register(r'orders', OrderViewSet, basename='order')
@@ -23,6 +24,8 @@ router.register(r'items-comanda', ProductComandaViewSet, basename='items-comanda
 router.register(r'categories', CategoriesViewSet, basename='category')
 router.register(r'payment-types', TypePayViewSet, basename='payment-type')
 router.register(r'payments', PaymentsViewSet, basename='payment')
+router.register(r'users', UserViewSet, basename='user')
+router.register(r'sync', ChangeLogViewSet, basename='sync')
 
 urlpatterns = [
     path('', include(router.urls)),

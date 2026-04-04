@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'balcao',
     'orders',
     'login',
+    'sync',
     'django_extensions',
     'pwa',
     'rest_framework',
