@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  django_app:
+    image: python:3.12-slim
+    container_name: rrbec_api
+    ports:
+      - "8069:8000"
+    restart: unless-stopped
+
+    environment:
+      - DEBUG=False
+      - ALLOWED_HOSTS=*
+
+    volumes:
+      - ./data:/app/data
+      - ./media:/app/media
+
+    working_dir: /app
+    command: >
+      sh -c "git clone --branch api https://github.com/welton89/RRBEC.git . &&
+             pip install -r requirements.txt &&
+             python gestaoRaul/manage.py migrate --noinput &&
+             gunicorn gestaoRaul.wsgi:application --bind 0.0.0.0:8000"
