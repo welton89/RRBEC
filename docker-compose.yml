@@ -11,6 +11,7 @@ services:
     environment:
       - DEBUG=True
       - ALLOWED_HOSTS=*
+      - CSRF_TRUSTED_ORIGINS=https://raulrockbar.com.br,https://api.raulrockbar.com.br
 
     volumes:
       - /DATA/AppData/rrbec-api-django:/app
