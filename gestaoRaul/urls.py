@@ -14,21 +14,27 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls')),
-    path('login/', include('login.urls')),
-    path('products/', include('products.urls')),
-    path('mesas/', include('mesas.urls')),
-    path('typePay/', include('typePay.urls')),
-    path('clients/', include('clients.urls')),
-    path('comandas/', include('comandas.urls')),
-    path('categories/', include('categories.urls')),
-    path('balcao/', include('balcao.urls')),
-    path('pedidos/', include('orders.urls')),
-    path('', include('pwa.urls')),
-    path('api/v1/', include('gestaoRaul.api_urls')),
+    path("admin/", admin.site.urls),
+    path("", include("home.urls")),
+    path("login/", include("login.urls")),
+    path("products/", include("products.urls")),
+    path("mesas/", include("mesas.urls")),
+    path("typePay/", include("typePay.urls")),
+    path("clients/", include("clients.urls")),
+    path("comandas/", include("comandas.urls")),
+    path("categories/", include("categories.urls")),
+    path("balcao/", include("balcao.urls")),
+    path("pedidos/", include("orders.urls")),
+    path("", include("pwa.urls")),
+    path("api/v1/", include("gestaoRaul.api_urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
