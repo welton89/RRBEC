@@ -10,7 +10,7 @@ services:
 
     environment:
       - DEBUG=True
-      - ALLOWED_HOSTS=*
+      - ALLOWED_HOSTS=raulrockbar.com.br,api.raulrockbar.com.br
       - CSRF_TRUSTED_ORIGINS=https://raulrockbar.com.br,https://api.raulrockbar.com.br
 
     volumes:
